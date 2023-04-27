@@ -1,0 +1,5 @@
+@include('laraveleindwerk.resources.views.components._backend_head')
+@include('laraveleindwerk.resources.views.components._backend_header')
+@include('laraveleindwerk.resources.views.components._backend_sidebar')
+@yield('content')
+@include('laraveleindwerk.resources.views.components._backend_footer')

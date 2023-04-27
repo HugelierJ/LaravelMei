@@ -1,0 +1,206 @@
+/** fonts & font sizes **/
+@font-face {
+    font-family: pp-l;
+    src: url("../fonts/Poppins-Light.ttf");
+}
+.ff-pl{
+    font-family: pp-l, sans-serif;
+}
+@font-face {
+    font-family: pp-m;
+    src: url("../fonts/Poppins-Medium.ttf");
+}
+.ff-pm{
+    font-family: pp-m, sans-serif;
+}
+@font-face {
+    font-family: pp-r;
+    src: url("../fonts/Poppins-Regular.ttf");
+}
+.ff-pr{
+    font-family: pp-r, sans-serif;
+}
+@font-face {
+    font-family: pp-sb;
+    src: url("../fonts/Poppins-SemiBold.ttf");
+}
+.ff-psb{
+    font-family: pp-sb, sans-serif;
+}
+/* Colors */
+.font-primary{
+    color: dodgerblue;
+}
+.back-primary{
+    background: #F6D4BA;
+}
+.font-secondary{
+    color: #000;
+}
+.back-secondary{
+    background: #ff6f00;
+}
+.back-third{
+    background: #f79f5b;
+}
+/** eigen css **/
+
+/* Start css Index*/
+.no-style{
+    list-style: none;
+}
+.no-deco{
+    text-decoration: none;
+}
+.vh-custom{
+    height: calc(100vh - 116px);
+}
+::placeholder{
+    font-family: pp-r, sans-serif;
+    font-size: 1rem;
+}
+.nav-item a:hover{
+    border: none;
+    background: #f79f5b;
+    color: black;
+    border-radius: 10px;
+}
+.bg-gone{
+    background: transparent;
+    border: none;
+}
+.shadowclass{
+    box-shadow: gray 0 0 10px 2px;
+    border-radius: 20px;
+}
+#categories{
+    box-shadow: #433A3F 0 7px 50px 0;
+}
+.icon-box{
+    border: 1px solid black;
+    color: black;
+
+}
+.icon-box:hover{
+    border: 1px solid #f79f5b;
+    color: #f79f5b;
+}
+.btn-custom{
+    background: #f79f5b;
+    border: 1px solid white;
+}
+.btn-custom:hover{
+    background: #ff6f00;
+    color: black;
+    border: 1px solid white;
+}
+.bg-header{
+    background: url("../images/header_foto.jpg")no-repeat center center;
+}
+.bg-wave{
+    background: url("../images/Wave1.png")no-repeat center bottom;
+
+}
+#footer a{
+    border-bottom: 3px solid transparent;
+}
+#footer a:hover{
+    color: #ff6f00;
+    border-bottom: 3px solid #f79f5b;
+}
+.slider1{
+    background: url("../images/slider_image.jpg")no-repeat center center;
+}
+.carousel-control-prev-icon{
+    color: black;
+}
+/* Start button for Top off page */
+#myBtn {
+    display: none; /* Hidden by default */
+    position: fixed; /* Fixed/sticky position */
+    bottom: 20px; /* Place the button at the bottom of the page */
+    right: 30px; /* Place the button 30px from the right */
+    z-index: 99; /* Make sure it does not overlap */
+    border: none; /* Remove borders */
+    outline: none; /* Remove outline */
+    background-color: black; /* Set a background color */
+    color: white; /* Text color */
+    cursor: pointer; /* Add a mouse pointer on hover */
+    padding: 16px; /* Some padding */
+    border-radius: 50%; /* Rounded corners */
+    font-size: 1rem;
+    font-weight: bold;
+}
+#myBtn:hover {
+    background-color: #555; /* Add a dark-grey background on hover */
+}
+/* End button for Top off page */
+/* End css Index */
+/* Start css About */
+.about-header{
+    background: url("../images/about_header.jpg")no-repeat center center;
+    background-size: cover;
+}
+.brand-style{
+    height: 15vh;
+    width: 15vw;
+}
+.noUi-connect {
+    background: black;
+}
+.noUi-value {
+    position: absolute;
+    white-space: nowrap;
+    text-align: center;
+    color: black;
+    font-family: pp-m, sans-serif;
+    font-size: 0.6rem;
+}
+.btn{
+    --bs-btn-padding-x: 0.25rem;
+}
+.w-80{
+    width: 90%;
+}
+/* End css About*/
+
+/* start css detail*/
+.w-md-50{
+    width: 50%;
+}
+.w-10{
+    width: 10%;
+}
+/* end css detail*/
+/* start css cart page */
+.w-70{
+    width: 70%;
+}
+.w-15{
+    width: 15%;
+}
+.img-container{
+    height: 100px;
+    width: 100px;
+}
+.fs-6{
+    font-size: 1rem;
+}
+.cstm-btn{
+    color: white;
+    background: #f79f5b;
+    padding: 0.5rem 1rem;
+    margin: 0;
+    border: 0;
+    border-radius: 8px;
+}
+.cstm-btn:hover{
+    color: white;
+    background: #ff6f00;
+    padding: 0.5rem 1rem;
+    margin: 0;
+    border: 0;
+    border-radius: 8px;
+    cursor: pointer;
+}
+/* end css cart page */
