@@ -29,6 +29,19 @@
                 <p class="text-danger fs-6">{{ $message }}</p>
                 @enderror
             </div>
+            <div class="form-group mb-3 d-flex flex-column">
+                <label>Colors</label>
+                <div class="btn-group-vertical">
+                    @foreach($colors as $color)
+                        <label>
+                            <input type="radio" name="color_id" value="{{ $color->id }}" autocomplete="off"> {{ $color->name }}
+                        </label>
+                    @endforeach
+                </div>
+                @error('brand_id')
+                <p class="text-danger fs-6">{{ $message }}</p>
+                @enderror
+            </div>
             <div class="form-group mb3">
                 <label>Keywords</label>
                 @foreach($keywords as $keyword)
@@ -56,8 +69,20 @@
         </div>
 
         <div class="form-group mb-3">
-            <textarea name="body" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+            <textarea name="body" class="form-control" placeholder="Product description" id="floatingTextarea2" style="height: 100px"></textarea>
             @error('body')
+            <p class="text-danger fs-6">{{$message}}</p>
+            @enderror
+        </div>
+        <div class="form-group mb-3">
+            <input type="number" step="0.01" name="price" class="form-control" placeholder="Put the price in:" id="price"></input>
+            @error('price')
+            <p class="text-danger fs-6">{{$message}}</p>
+            @enderror
+        </div>
+        <div class="form-group mb-3">
+            <input type="number" name="stock" class="form-control" placeholder="Put the Stock in:" id="stock"></input>
+            @error('stock')
             <p class="text-danger fs-6">{{$message}}</p>
             @enderror
         </div>

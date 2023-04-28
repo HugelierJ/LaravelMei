@@ -38,14 +38,4 @@ class LoginController extends Controller
     {
         $this->middleware("guest")->except("logout");
     }
-    public function login(Request $request)
-    {
-        $credentials = $request->only('email', 'password');
-
-        if (Auth::attempt($credentials)) {
-            return redirect()->intended('/dashboard');
-        } else {
-            return redirect()->back()->withErrors(['message' => 'Invalid email or password']);
-        }
-    }
 }

@@ -9,20 +9,25 @@ class Photo extends Model
 {
     use HasFactory;
     protected $fillable = ["file"];
-    protected $uploads='/assets/';
+    protected $uploads = "/assets/";
     //accessor
 
     //getFileAttribute: samenstelling
-    public function getFileAttribute($photo){
-        return $this->uploads .$photo;
+    public function getFileAttribute($photo)
+    {
+        return $this->uploads . $photo;
     }
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
     public function post()
     {
         return $this->hasOne(Post::class);
     }
-
+    public function product()
+    {
+        return $this->hasOne(Product::class);
+    }
 }

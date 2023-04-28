@@ -27,7 +27,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-                /** FRONTEND ROUTES **/
+/** FRONTEND ROUTES **/
 //Frontend Index
 Route::get("/", [HomeController::class, "index"])->name("frontend.index");
 //Frontend About
@@ -65,7 +65,7 @@ Route::get("/category/{category:slug}", [
 ])->name("category.category");
 Route::get("/itunes", [ItunesController::class, "index"])->name("itunes.index");
 
-/**backend**/
+/**Backend**/
 
 Route::group(
     ["prefix" => "admin", "middleware" => ["auth", "verified"]],
@@ -73,27 +73,27 @@ Route::group(
         Route::get("/", [BackendController::class, "index"])->name("home");
 
         //    Post routes
-//        Route::resource("posts", AdminPostsController::class, [
-//            "except" => ["show"],
-//        ]);
-//        Route::get("posts/{post:slug}", [
-//            AdminPostsController::class,
-//            "show",
-//        ])->name("posts.show");
-//        Route::get("authors/{author:name}", [
-//            AdminPostsController::class,
-//            "indexByAuthor",
-//        ])->name("authors");
-//        Route::post("posts/restore/{post}", [
-//            AdminPostsController::class,
-//            "postRestore",
-//        ])->name("admin.postrestore");
+        Route::resource("posts", AdminPostsController::class, [
+            "except" => ["show"],
+        ]);
+        Route::get("posts/{post:slug}", [
+            AdminPostsController::class,
+            "show",
+        ])->name("posts.show");
+        Route::get("authors/{author:name}", [
+            AdminPostsController::class,
+            "indexByAuthor",
+        ])->name("authors");
+        Route::post("posts/restore/{post}", [
+            AdminPostsController::class,
+            "postRestore",
+        ])->name("admin.postrestore");
 
         // Category routes
         Route::resource("categories", AdminCategoriesController::class);
 
         // Comment routes
-//        Route::resource("comments", CommentController::class);
+        Route::resource("comments", CommentController::class);
 
         //Product Routes
         Route::resource("products", ProductsController::class);
@@ -101,20 +101,21 @@ Route::group(
             ProductsController::class,
             "productsPerBrand",
         ])->name("admin.productsPerBrand");
-
+        //Brand Routes
         Route::resource("brands", BrandsController::class);
+        //ProductCategory Routes
         Route::resource("productcategories", ProductCategoryController::class);
-
+        //Backend Admin Routes
         Route::group(["middleware" => "admin"], function () {
             Route::resource("users", AdminUsersController::class);
             Route::post("users/restore/{user}", [
                 AdminUsersController::class,
                 "userRestore",
             ])->name("admin.userrestore");
-//            Route::get("usersblade", [
-//                AdminUsersController::class,
-//                "index2",
-//            ])->name("users.index2");
+            Route::get("usersblade", [
+                AdminUsersController::class,
+                "index2",
+            ])->name("users.index2");
         });
     }
 );

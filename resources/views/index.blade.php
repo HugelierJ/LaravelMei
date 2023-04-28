@@ -10,9 +10,9 @@
     <!-- Start Carousel -->
     <div class="row d-none d-md-block">
         <div class="col-lg-10 offset-lg-1 d-flex align-items-center justify-content-center py-5">
-            <div class="carousel slide" data-bs-ride="true" id="carouselExampleIndicators">
+            <div class="carousel slide" data-bs-ride="carousel" id="carouselExampleIndicators">
                 <div class="carousel-inner back-primary">
-                    <div class="carousel-item active" data-bs-interval="7500">
+                    <div class="carousel-item active" data-bs-interval="4000">
                         <div class="row justify-content-center">
                             <div class="col-lg-10 offset-lg-1 d-flex align-items-center justify-content-between">
                                 <div class="w-50 h-auto">
@@ -30,7 +30,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="carousel-item" data-bs-interval="7500">
+                    <div class="carousel-item" data-bs-interval="4000">
                         <div class="row justify-content-center">
                             <div class="col-lg-10 offset-lg-1 d-flex align-items-center justify-content-between">
                                 <div class="w-50 h-auto">
@@ -48,7 +48,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="carousel-item" data-bs-interval="7500">
+                    <div class="carousel-item" data-bs-interval="4000">
                         <div class="row justify-content-center">
                             <div class="col-lg-10 offset-lg-1 d-flex align-items-center justify-content-between">
                                 <div class="w-50 h-auto">

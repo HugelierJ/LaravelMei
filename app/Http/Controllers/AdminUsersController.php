@@ -28,20 +28,22 @@ class AdminUsersController extends Controller
     public function index()
     {
         //
-        $fillableFields = ['name','is_active','email'];
-        $users = User::with(['roles', 'photo'])
-            ->orderByDesc('id')
+        $fillableFields = ["first_name", "is_active", "email"];
+        $users = User::with(["roles", "photo"])
+            ->orderByDesc("id")
             ->withTrashed()
             ->paginate(20);
 
-        return view("admin.users.index", compact('users','fillableFields'));
+        return view("admin.users.index", compact("users", "fillableFields"));
         //of
         //return view('admin.users.index',compact('users'));
     }
     public function index2()
     {
         //
-        $users = User::orderByDesc('id')->withTrashed()->paginate(20);
+        $users = User::orderByDesc("id")
+            ->withTrashed()
+            ->paginate(20);
         return view("admin.users.index2", ["users" => $users]);
         //of
         //return view('admin.users.index',compact('users'));
@@ -55,8 +57,8 @@ class AdminUsersController extends Controller
     public function create()
     {
         //
-        $roles = Role::pluck('name','id')->all();
-        return view('admin.users.create',compact('roles'));
+        $roles = Role::pluck("name", "id")->all();
+        return view("admin.users.create", compact("roles"));
     }
 
     /**
@@ -83,14 +85,16 @@ class AdminUsersController extends Controller
 
         $user->save();
         /*wegschrijven van meerder rollen in de tussentabel*/
-        $user->roles()->sync($request->roles,false) ;
+        $user->roles()->sync($request->roles, false);
         //return redirect('admin/users');
-        return redirect()->route('users.index')->with([
-            'alert' => [
-                'message' => 'User added',
-                'type' => 'success'
-            ]
-        ]);
+        return redirect()
+            ->route("users.index")
+            ->with([
+                "alert" => [
+                    "message" => "User added",
+                    "type" => "success",
+                ],
+            ]);
         //return back()->withInput();
     }
 
@@ -114,14 +118,14 @@ class AdminUsersController extends Controller
     public function edit($id)
     {
         //
-//        $user = User::find($id); //find zal altijd worden uitgevoerd. Gevaar: de id MOET bestaan.
-//        if(!$user){
-//            throw new ModelNotFoundException();
-//        }
+        //        $user = User::find($id); //find zal altijd worden uitgevoerd. Gevaar: de id MOET bestaan.
+        //        if(!$user){
+        //            throw new ModelNotFoundException();
+        //        }
 
         $user = User::findOrFail($id);
-        $roles = Role::pluck('name','id')->all();
-        return view('admin.users.edit',compact('user', 'roles'));
+        $roles = Role::pluck("name", "id")->all();
+        return view("admin.users.edit", compact("user", "roles"));
     }
 
     /**
@@ -133,39 +137,40 @@ class AdminUsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-            request()->validate([
-            'name'=> ['required','max:255','min:5'],
-            'email'=>['required','email'],
-            'roles' => ['required', Rule::exists('roles', 'id')],
-            'is_active'=>'required',
+        request()->validate([
+            "name" => ["required", "max:255", "min:5"],
+            "email" => ["required", "email"],
+            "roles" => ["required", Rule::exists("roles", "id")],
+            "is_active" => "required",
         ]);
         $user = User::findOrFail($id);
-        if(trim($request->password) == ''){
-            $input = $request->except('password');
+        if (trim($request->password) == "") {
+            $input = $request->except("password");
         } else {
             $input = $request->all();
-            $input['password'] = Hash::make($request['password']);
+            $input["password"] = Hash::make($request["password"]);
         }
         // oude foto verwijderen
         //we kijken eerst of er een foto bestaat
-        if ($request->hasFile('photo_id')) {
+        if ($request->hasFile("photo_id")) {
             $oldPhoto = $user->photo; // de huidige foto van de gebruiker
-            $path = request()->file('photo_id')->store('users');
+            $path = request()
+                ->file("photo_id")
+                ->store("users");
             if ($oldPhoto) {
                 unlink(public_path($oldPhoto->file));
-               // $oldPhoto->delete();
-                $oldPhoto->update(['file'=>$path]);
-                $input['photo_id'] = $oldPhoto->id;
-            }else{
-                $photo = Photo::create(['file' => $path]);
-                $input['photo_id'] = $photo->id;
+                // $oldPhoto->delete();
+                $oldPhoto->update(["file" => $path]);
+                $input["photo_id"] = $oldPhoto->id;
+            } else {
+                $photo = Photo::create(["file" => $path]);
+                $input["photo_id"] = $photo->id;
             }
-       }
+        }
         $user->update($input);
         $user->roles()->sync($request->roles, true);
-        return redirect('/admin/users')->with('status', 'User updated!');
+        return redirect("/admin/users")->with("status", "User updated!");
     }
-
 
     /**
      * Remove the specified resource from img.
@@ -179,18 +184,28 @@ class AdminUsersController extends Controller
         $user = User::findOrFail($id);
         UsersSoftDelete::dispatch($user);
         $user->delete();
-        return redirect()->route('users.index');
+        return redirect()->route("users.index");
     }
-    public function userRestore($id){
-        User::onlyTrashed()->where('id', $id)->restore();
+    public function userRestore($id)
+    {
+        User::onlyTrashed()
+            ->where("id", $id)
+            ->restore();
         // herstel ook alle posts van de gebruiker
-        $user = User::withTrashed()->where('id', $id)->first();
-        $user->posts()->onlyTrashed()->restore();
-        return redirect()->route('users.index')->with([
-            'alert' => [
-                'message' => 'User deleted',
-                'type' => 'danger'
-            ]
-        ]);;
+        $user = User::withTrashed()
+            ->where("id", $id)
+            ->first();
+        $user
+            ->posts()
+            ->onlyTrashed()
+            ->restore();
+        return redirect()
+            ->route("users.index")
+            ->with([
+                "alert" => [
+                    "message" => "User deleted",
+                    "type" => "danger",
+                ],
+            ]);
     }
 }

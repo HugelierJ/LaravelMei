@@ -23,8 +23,20 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-        $this->call([RoleSeeder::class, PhotoSeeder::class, UsersTableSeeder::class,UsersRolesTableSeeder::class,CategorySeeder::class,KeywordsTableSeeder::class, BrandSeeder::class, ProductSeeder::class, ProductCategorySeeder::class, Product_ProductCategorySeeder::class]);
-        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+        DB::statement("SET FOREIGN_KEY_CHECKS=0;");
+        $this->call([
+            RoleSeeder::class,
+            PhotoSeeder::class,
+            UsersTableSeeder::class,
+            UsersRolesTableSeeder::class,
+            ColorSeeder::class,
+            CategorySeeder::class,
+            KeywordsTableSeeder::class,
+            BrandSeeder::class,
+            ProductSeeder::class,
+            ProductCategorySeeder::class,
+            Product_ProductCategorySeeder::class,
+        ]);
+        DB::statement("SET FOREIGN_KEY_CHECKS=1;");
     }
 }

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory;
-    protected $fillable = ["photo_id", "name", "body","price"];
+    protected $fillable = ["photo_id", "name", "body", "price", "stock"];
 
     public function keywords()
     {
@@ -17,6 +17,10 @@ class Product extends Model
     public function photo()
     {
         return $this->belongsTo(Photo::class);
+    }
+    public function color()
+    {
+        return $this->belongsTo(Color::class);
     }
     public function brand()
     {

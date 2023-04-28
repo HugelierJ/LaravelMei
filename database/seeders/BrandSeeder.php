@@ -16,11 +16,18 @@ class BrandSeeder extends Seeder
     public function run()
     {
         //
-        $brands = ['Poema','Nike','Adidas',"Vans","Reebok","Converse"];
+        $brands = [
+            "Alden",
+            "Edward Green",
+            "Florsheim",
+            "Gucci",
+            "Cole Haan",
+            "Ferragamo",
+        ];
         foreach ($brands as $brand) {
             Brand::create([
-                'name' => $brand,
-                'description'=> fake()->paragraph(3,true)
+                "name" => $brand,
+                "description" => fake()->paragraph(2, true),
             ]);
         }
     }

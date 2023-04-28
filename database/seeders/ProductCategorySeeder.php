@@ -17,11 +17,11 @@ class ProductCategorySeeder extends Seeder
     public function run()
     {
         //
-        $productcategories = ['Sneakers','Lage Schoenen','Klassieke Schoenen'];
+        $productcategories = ["Classic", "Low ankle", "High ankle"];
         foreach ($productcategories as $productcategory) {
             ProductCategory::create([
-                'name' => $productcategory,
-                'description'=> Str::words(20)
+                "name" => $productcategory,
+                "description" => Str::words(20),
             ]);
         }
     }

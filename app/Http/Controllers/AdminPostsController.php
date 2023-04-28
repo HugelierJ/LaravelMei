@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Keyword;
 use App\Models\Photo;
@@ -21,13 +22,18 @@ class AdminPostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::with(['categories', 'user', 'photo'])
-            ->filter(request('search'), request('fields'))->withTrashed()
-            ->paginate(20)->appends(['search' => request('search'), 'fields' => request('fields')]);
+        $posts = Post::with(["categories", "user", "photo"])
+            ->filter(request("search"), request("fields"))
+            ->withTrashed()
+            ->paginate(20)
+            ->appends([
+                "search" => request("search"),
+                "fields" => request("fields"),
+            ]);
 
-        return view('admin.posts.index', [
-            'posts' => $posts,
-            'fillableFields' => Post::getFillableFields(),
+        return view("admin.posts.index", [
+            "posts" => $posts,
+            "fillableFields" => Post::getFillableFields(),
         ]);
     }
     /**
@@ -40,7 +46,7 @@ class AdminPostsController extends Controller
         //
         $keywords = Keyword::all();
         $categories = Category::all();
-        return view('admin.posts.create', compact('categories','keywords'));
+        return view("admin.posts.create", compact("categories", "keywords"));
     }
 
     /**
@@ -53,22 +59,25 @@ class AdminPostsController extends Controller
     {
         //
 
-        request()->validate([
-            'title'=> ['required','between:5,255'],
-          //  'categories' => ['required', Rule::exists('categories', 'id')],
-            'body'=>'required',
-        ],
-        [
-            'title.required'=> 'Title is required',
-            'title.between' => 'Title between 5 and 255 characters required',
-            'body.required'=>'Message is required',
-         //   'categories.required'=>'Please check minimum one category'
-        ]);
+        request()->validate(
+            [
+                "title" => ["required", "between:5,255"],
+                //  'categories' => ['required', Rule::exists('categories', 'id')],
+                "body" => "required",
+            ],
+            [
+                "title.required" => "Title is required",
+                "title.between" =>
+                    "Title between 5 and 255 characters required",
+                "body.required" => "Message is required",
+                //   'categories.required'=>'Please check minimum one category'
+            ]
+        );
         $post = new Post();
-       // dd($post);
+        // dd($post);
         $post->user_id = Auth::user()->id;
         $post->title = $request->title;
-        $post->slug = Str::slug($request->title,'-');
+        $post->slug = Str::slug($request->title, "-");
         $post->body = $request->body;
 
         if ($file = $request->file("photo_id")) {
@@ -78,22 +87,24 @@ class AdminPostsController extends Controller
 
             $photo = Photo::create(["file" => $path]);
             //update photo_id (FK in users table)
-             $post->photo_id = $photo->id;
+            $post->photo_id = $photo->id;
         }
 
         $post->save();
         /*wegschrijven van meerder rollen in de tussentabel*/
-        $post->categories()->sync($request->categories,false) ;
-        foreach($request->keywords as $keyword){
+        $post->categories()->sync($request->categories, false);
+        foreach ($request->keywords as $keyword) {
             $keywordfind = Keyword::findOrFail($keyword);
             $post->keywords()->save($keywordfind);
         }
-        return redirect()->route('posts.index')->with([
-            'alert' => [
-                'message' => 'Post added',
-                'type' => 'success'
-            ]
-        ]);
+        return redirect()
+            ->route("posts.index")
+            ->with([
+                "alert" => [
+                    "message" => "Post added",
+                    "type" => "success",
+                ],
+            ]);
         //return back()->withInput();
     }
 
@@ -107,7 +118,7 @@ class AdminPostsController extends Controller
     {
         $post = Post::findOrFail($id);
         $slug = $post->slugify($post->title);
-       return view('admin.posts.show', compact('post','slug'));
+        return view("admin.posts.show", compact("post", "slug"));
     }
 
     /**
@@ -121,7 +132,7 @@ class AdminPostsController extends Controller
         //
         $post = Post::findOrFail($id);
         $categories = Category::all();
-        return view('admin.posts.edit',compact('categories','post'));
+        return view("admin.posts.edit", compact("categories", "post"));
     }
 
     /**
@@ -134,44 +145,48 @@ class AdminPostsController extends Controller
     public function update(Request $request, $id)
     {
         //
-        request()->validate([
-            'title'=> ['required','between:5,255'],
-            'categories' => ['required', Rule::exists('categories', 'id')],
-            'body'=>'required',
-        ],
+        request()->validate(
             [
-                'title.required'=> 'Title is required',
-                'title.between' => 'Title between 5 and 255 characters required',
-                'body.required'=>'Message is required',
-                'categories.required'=>'Please check minimum one category'
-            ]);
+                "title" => ["required", "between:5,255"],
+                "categories" => ["required", Rule::exists("categories", "id")],
+                "body" => "required",
+            ],
+            [
+                "title.required" => "Title is required",
+                "title.between" =>
+                    "Title between 5 and 255 characters required",
+                "body.required" => "Message is required",
+                "categories.required" => "Please check minimum one category",
+            ]
+        );
         $post = Post::findOrFail($id);
         $input = $request->all();
-        $input['slug'] =  Str::slug($request->title,'-');
-         // oude foto verwijderen
+        $input["slug"] = Str::slug($request->title, "-");
+        // oude foto verwijderen
         //we kijken eerst of er een foto bestaat
-        if ($request->hasFile('photo_id')) {
+        if ($request->hasFile("photo_id")) {
             $oldPhoto = $post->photo; // de huidige foto van de gebruiker
-            $path = request()->file('photo_id')->store('users');
+            $path = request()
+                ->file("photo_id")
+                ->store("users");
             if ($oldPhoto) {
                 unlink(public_path($oldPhoto->file));
                 // $oldPhoto->delete();
-                $oldPhoto->update(['file'=>$path]);
-                $input['photo_id'] = $oldPhoto->id;
-            }else{
-                $photo = Photo::create(['file' => $path]);
-                $input['photo_id'] = $photo->id;
+                $oldPhoto->update(["file" => $path]);
+                $input["photo_id"] = $oldPhoto->id;
+            } else {
+                $photo = Photo::create(["file" => $path]);
+                $input["photo_id"] = $photo->id;
             }
         }
         $post->update($input);
         $post->categories()->sync($request->categories, true);
-        return redirect('/admin/posts')->with([
-            'alert' => [
-                'message' => 'Post updated',
-                'type' => 'success'
-            ]
+        return redirect("/admin/posts")->with([
+            "alert" => [
+                "message" => "Post updated",
+                "type" => "success",
+            ],
         ]);
-
     }
 
     /**
@@ -182,31 +197,33 @@ class AdminPostsController extends Controller
      */
     public function destroy($id)
     {
-
         try {
             $post = Post::findOrFail($id);
         } catch (ModelNotFoundException $e) {
-            return response()->json(['message' => 'Post not found.'], 404);
+            return response()->json(["message" => "Post not found."], 404);
         }
 
         $post->delete();
-        return redirect()->route('posts.index')->with('status', 'Post deleted!');
+        return redirect()
+            ->route("posts.index")
+            ->with("status", "Post deleted!");
     }
 
-    public function indexByAuthor(User $author){
+    public function indexByAuthor(User $author)
+    {
         $posts = $author->posts()->paginate(20);
-        return view('admin.posts.index', ['posts'=>$posts]);
+        return view("admin.posts.index", ["posts" => $posts]);
     }
-    public function postRestore($id){
-        Post::onlyTrashed()->where('id', $id)->restore();
-        return redirect('/admin/posts')->with('status', 'Post restored!');
+    public function postRestore($id)
+    {
+        Post::onlyTrashed()
+            ->where("id", $id)
+            ->restore();
+        return redirect("/admin/posts")->with("status", "Post restored!");
     }
     public function post(Post $post)
     {
-          $post->load([
-            'comments.user',
-            'comments.children.user'
-        ]);
-        return view('post', compact('post'));
+        $post->load(["comments.user", "comments.children.user"]);
+        return view("post", compact("post"));
     }
 }

@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -13,14 +12,27 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create("products", function (Blueprint $table) {
             $table->id();
-            $table->foreignId('photo_id')->unsigned()->constrained()->cascadeOnDelete();
-            $table->foreignId('brand_id')->unsigned()->constrained()->cascadeOnDelete();
-            $table->string('name');
-            $table->text('body');
-            $table->decimal('price',5,2,true);
-//            $table->integer('stock')->unsigned();
+            $table
+                ->foreignId("photo_id")
+                ->unsigned()
+                ->constrained()
+                ->cascadeOnDelete();
+            $table
+                ->foreignId("brand_id")
+                ->unsigned()
+                ->constrained()
+                ->cascadeOnDelete();
+            $table
+                ->foreignId("color_id")
+                ->unsigned()
+                ->constrained()
+                ->cascadeOnDelete();
+            $table->string("name");
+            $table->text("body");
+            $table->decimal("price", 5, 2, true);
+            $table->integer("stock")->unsigned();
             $table->timestamps();
         });
     }
@@ -32,6 +44,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists("products");
     }
 };

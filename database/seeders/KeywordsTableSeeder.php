@@ -15,10 +15,17 @@ class KeywordsTableSeeder extends Seeder
      */
     public function run()
     {
-        $keywords = ['classic','retro','modern'];
+        $keywords = [
+            "Classic Shoes Men",
+            "Men's Oxfords",
+            "Leather Shoes",
+            "Classic Shoes Women",
+            "Women's Heels",
+            "Women's Dress Shoes",
+        ];
         foreach ($keywords as $keyword) {
             Keyword::create([
-                'name' => $keyword,
+                "name" => $keyword,
             ]);
         }
     }

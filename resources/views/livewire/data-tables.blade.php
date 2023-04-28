@@ -12,13 +12,15 @@
             <th>Id</th>
             <th>Photo_id</th>
             <th>
-                <button wire:click="sortBy('name')" class="d-flex align-items-center border-0 bg-transparent p-0" style="color:#858796; font-weight: bold;">
-                    <p class="m-0">Name</p>
+                <button wire:click="sortBy('first_name')" class="d-flex align-items-center border-0 bg-transparent p-0" style="color:#858796; font-weight: bold;">
+                    <p class="m-0">First Name</p>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="ml-1 bi bi-arrow-down-up" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z"/>
                     </svg>
                 </button>
             </th>
+            <th>Last Name</th>
+            <th>Username</th>
             <th>E-mail</th>
             <th>Roles</th>
             <th>Active</th>
@@ -43,7 +45,9 @@
                              src="{{$user->photo ? asset($user->photo->file) : 'http://via.placeholder.com/62x62'}}" alt="{{$user->name}}">
                     </a>
                 </td>
-                <td><a href="{{route('users.edit',$user->id)}}">{{$user->name}}</a></td>
+                <td><a href="{{route('users.edit',$user->id)}}">{{$user->first_name}}</a></td>
+                <td><a href="{{route('users.edit',$user->id)}}">{{$user->last_name}}</a></td>
+                <td><a href="{{route('users.edit',$user->id)}}">{{$user->username}}</a></td>
                 <td>{{$user->email}}</td>
                 <td>
                     @foreach($user->roles as $role)
