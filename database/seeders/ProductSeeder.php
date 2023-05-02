@@ -29,7 +29,7 @@ class ProductSeeder extends Seeder
             $product->photo_id = $photos->random()->id;
             $product->brand_id = $brands->random()->id;
             $product->color_id = $colors->random()->id;
-            $product->price = fake()->randomFloat(3, 2, true);
+            $product->price = fake()->randomFloat(5, 2, true);
             $product->stock = fake()->numberBetween(1, 150);
             $product->save();
         }

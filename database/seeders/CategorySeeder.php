@@ -17,13 +17,13 @@ class CategorySeeder extends Seeder
     public function run()
     {
         //
-       // Category::factory()->count(10)->create();
-        $categories = ['Men Shoes', 'Women Shoes', 'Boy Shoes', 'Girl Shoes'];
+        // Category::factory()->count(10)->create();
+        $categories = ["Men Shoes", "Women Shoes"];
         foreach ($categories as $category) {
-            $slug = Str::slug($category, '-');
+            $slug = Str::slug($category, "-");
             Category::create([
-                'name' => $category,
-                'slug'=> $slug,
+                "name" => $category,
+                "slug" => $slug,
             ]);
         }
     }

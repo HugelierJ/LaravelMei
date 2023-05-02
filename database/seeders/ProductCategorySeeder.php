@@ -17,7 +17,14 @@ class ProductCategorySeeder extends Seeder
     public function run()
     {
         //
-        $productcategories = ["Classic", "Low ankle", "High ankle"];
+        $productcategories = [
+            "Classic Shoes",
+            "Men's Dress Shoes",
+            "Men's Oxfords",
+            "Women's Dress Shoes",
+            "Women's Heels",
+            "Women's Pumps",
+        ];
         foreach ($productcategories as $productcategory) {
             ProductCategory::create([
                 "name" => $productcategory,

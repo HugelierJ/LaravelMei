@@ -36,6 +36,8 @@ class DatabaseSeeder extends Seeder
             ProductSeeder::class,
             ProductCategorySeeder::class,
             Product_ProductCategorySeeder::class,
+            CartSeeder::class,
+            CartItemSeeder::class,
         ]);
         DB::statement("SET FOREIGN_KEY_CHECKS=1;");
     }
