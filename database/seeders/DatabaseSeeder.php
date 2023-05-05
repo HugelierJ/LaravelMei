@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
             PhotoSeeder::class,
             UsersTableSeeder::class,
             UsersRolesTableSeeder::class,
+            AddressSeeder::class,
             ColorSeeder::class,
             CategorySeeder::class,
             KeywordsTableSeeder::class,
