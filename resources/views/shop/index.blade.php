@@ -53,11 +53,9 @@
                                     </p>
                                     <select class="form-control w-80 mb-3" id="brandValueFilter" name="brand">
                                         <option class="ms-3 ff-pr" disabled selected>Choose a brand...</option>
-                                        <option class="ms-3 ff-pr" value="1">Andrea Ventura</option>
-                                        <option class="ms-3 ff-pr" value="2">Doucals</option>
-                                        <option class="ms-3 ff-pr" value="3">Geox</option>
-                                        <option class="ms-3 ff-pr" value="4">Santoni</option>
-                                        <option class="ms-3 ff-pr" value="5">Hogan</option>
+                                        @foreach($brands as $brand)
+                                            <option class="ms-3 ff-pr" value="{{ $loop->iteration }}">{{ $brand }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="py-3">
@@ -115,11 +113,9 @@
                             </p>
                             <select class="form-control w-80 mx-auto mb-3" id="brandValue" name="brand">
                                 <option class="ms-3 ff-pr" disabled selected>Choose a brand...</option>
-                                <option class="ms-3 ff-pr" value="1">Andrea Ventura</option>
-                                <option class="ms-3 ff-pr" value="2">Doucals</option>
-                                <option class="ms-3 ff-pr" value="3">Geox</option>
-                                <option class="ms-3 ff-pr" value="4">Santoni</option>
-                                <option class="ms-3 ff-pr" value="5">Hogan</option>
+                                @foreach($brands as $brand)
+                                    <option class="ms-3 ff-pr" value="{{ $loop->iteration }}">{{ $brand->name }}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="py-3">
@@ -138,154 +134,32 @@
                 <!-- Start Product Cards -->
                 <div class="col-lg-8">
                     <div class="row row-cols-1 justify-content-center row-cols-md-2 row-cols-lg-4 row-cols-xxl-5 gap-4">
-                        <div class="col p-0 card my-3" style="width: 18rem;">
-                            <a href="detail.html"><img alt="..." class="card-img-top"
-                                                       src="https://via.placeholder.com/200x250.png"></a>
-                            <div class="card-body">
-                                <a href=""><i class="bi bi-star text-warning"></i></a>
-                                <a href=""><i class="bi bi-star text-warning"></i></a>
-                                <a href=""><i class="bi bi-star text-warning"></i></a>
-                                <a href=""><i class="bi bi-star text-warning"></i></a>
-                                <a href=""><i class="bi bi-star text-warning"></i></a>
-                                <h5 class="card-title pt-2 ff-pm ">Name of product</h5>
-                                <p class="card-text ff-pr ">Lorem ipsum dolor sit amet, consectetur adipisicing elit. In,
-                                    ipsum!</p>
-                                <div class="d-flex justify-content-between align-items-baseline">
-                                    <a class="btn btn-custom ff-pr " href="#">Go somewhere</a>
-                                    <p class="ff-psb ">Price: 999&euro;</p>
+                        @foreach ($products as $product)
+                            <div class="col p-0 card my-3" style="width: 18rem;">
+                                <a href="detail.html"><img alt="{{ $product->name }}" class="card-img-top"
+                                                           src="{{ $product->photo ? $product->photo->file : "https://via.placeholder.com/200x250.png" }}"></a>
+                                <div class="card-body">
+                                    <div>
+                                        <a href=""><i class="bi bi-star text-warning"></i></a>
+                                        <a href=""><i class="bi bi-star text-warning"></i></a>
+                                        <a href=""><i class="bi bi-star text-warning"></i></a>
+                                        <a href=""><i class="bi bi-star text-warning"></i></a>
+                                        <a href=""><i class="bi bi-star text-warning"></i></a>
+                                        <h5 class="card-title pt-2 ff-pm ">{{ $product->name }}</h5>
+                                        <p class="card-text ff-pr ">{{ Str::limit($product->body,100) }}</p>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-baseline">
+                                        <a class="btn btn-custom ff-pr " href="#">See more</a>
+                                        <p class="ff-psb ">&euro; {{ $product->price }}</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col p-0 card my-3" style="width: 18rem;">
-                            <a href="detail.html"><img alt="..." class="card-img-top"
-                                                       src="https://via.placeholder.com/200x250.png"></a>
-                            <div class="card-body">
-                                <a href=""><i class="bi bi-star text-warning"></i></a>
-                                <a href=""><i class="bi bi-star text-warning"></i></a>
-                                <a href=""><i class="bi bi-star text-warning"></i></a>
-                                <a href=""><i class="bi bi-star text-warning"></i></a>
-                                <a href=""><i class="bi bi-star text-warning"></i></a>
-                                <h5 class="card-title pt-2 ff-pm ">Name of product</h5>
-                                <p class="card-text ff-pr ">Lorem ipsum dolor sit amet, consectetur adipisicing elit. In,
-                                    ipsum!</p>
-                                <div class="d-flex justify-content-between align-items-baseline">
-                                    <a class="btn btn-custom ff-pr " href="#">Go somewhere</a>
-                                    <p class="ff-psb ">Price: 999&euro;</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col p-0 card my-3" style="width: 18rem;">
-                            <a href="detail.html"><img alt="..." class="card-img-top"
-                                                       src="https://via.placeholder.com/200x250.png"></a>
-                            <div class="card-body">
-                                <a href=""><i class="bi bi-star text-warning"></i></a>
-                                <a href=""><i class="bi bi-star text-warning"></i></a>
-                                <a href=""><i class="bi bi-star text-warning"></i></a>
-                                <a href=""><i class="bi bi-star text-warning"></i></a>
-                                <a href=""><i class="bi bi-star text-warning"></i></a>
-                                <h5 class="card-title pt-2 ff-pm ">Name of product</h5>
-                                <p class="card-text ff-pr ">Lorem ipsum dolor sit amet, consectetur adipisicing elit. In,
-                                    ipsum!</p>
-                                <div class="d-flex justify-content-between align-items-baseline">
-                                    <a class="btn btn-custom ff-pr " href="#">Go somewhere</a>
-                                    <p class="ff-psb ">Price: 999&euro;</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col p-0 card my-3" style="width: 18rem;">
-                            <a href="detail.html"><img alt="..." class="card-img-top"
-                                                       src="https://via.placeholder.com/200x250.png"></a>
-                            <div class="card-body">
-                                <a href=""><i class="bi bi-star text-warning"></i></a>
-                                <a href=""><i class="bi bi-star text-warning"></i></a>
-                                <a href=""><i class="bi bi-star text-warning"></i></a>
-                                <a href=""><i class="bi bi-star text-warning"></i></a>
-                                <a href=""><i class="bi bi-star text-warning"></i></a>
-                                <h5 class="card-title pt-2 ff-pm ">Name of product</h5>
-                                <p class="card-text ff-pr ">Lorem ipsum dolor sit amet, consectetur adipisicing elit. In,
-                                    ipsum!</p>
-                                <div class="d-flex justify-content-between align-items-baseline">
-                                    <a class="btn btn-custom ff-pr " href="#">Go somewhere</a>
-                                    <p class="ff-psb ">Price: 999&euro;</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col p-0 card my-3" style="width: 18rem;">
-                            <a href="detail.html"><img alt="..." class="card-img-top"
-                                                       src="https://via.placeholder.com/200x250.png"></a>
-                            <div class="card-body">
-                                <a href=""><i class="bi bi-star text-warning"></i></a>
-                                <a href=""><i class="bi bi-star text-warning"></i></a>
-                                <a href=""><i class="bi bi-star text-warning"></i></a>
-                                <a href=""><i class="bi bi-star text-warning"></i></a>
-                                <a href=""><i class="bi bi-star text-warning"></i></a>
-                                <h5 class="card-title pt-2 ff-pm ">Name of product</h5>
-                                <p class="card-text ff-pr ">Lorem ipsum dolor sit amet, consectetur adipisicing elit. In,
-                                    ipsum!</p>
-                                <div class="d-flex justify-content-between align-items-baseline">
-                                    <a class="btn btn-custom ff-pr " href="#">Go somewhere</a>
-                                    <p class="ff-psb ">Price: 999&euro;</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col p-0 card my-3" style="width: 18rem;">
-                            <a href="detail.html"><img alt="..." class="card-img-top"
-                                                       src="https://via.placeholder.com/200x250.png"></a>
-                            <div class="card-body">
-                                <a href=""><i class="bi bi-star text-warning"></i></a>
-                                <a href=""><i class="bi bi-star text-warning"></i></a>
-                                <a href=""><i class="bi bi-star text-warning"></i></a>
-                                <a href=""><i class="bi bi-star text-warning"></i></a>
-                                <a href=""><i class="bi bi-star text-warning"></i></a>
-                                <h5 class="card-title pt-2 ff-pm ">Name of product</h5>
-                                <p class="card-text ff-pr ">Lorem ipsum dolor sit amet, consectetur adipisicing elit. In,
-                                    ipsum!</p>
-                                <div class="d-flex justify-content-between align-items-baseline">
-                                    <a class="btn btn-custom ff-pr " href="#">Go somewhere</a>
-                                    <p class="ff-psb ">Price: 999&euro;</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col p-0 card my-3" style="width: 18rem;">
-                            <a href="detail.html"><img alt="..." class="card-img-top"
-                                                       src="https://via.placeholder.com/200x250.png"></a>
-                            <div class="card-body">
-                                <a href=""><i class="bi bi-star text-warning"></i></a>
-                                <a href=""><i class="bi bi-star text-warning"></i></a>
-                                <a href=""><i class="bi bi-star text-warning"></i></a>
-                                <a href=""><i class="bi bi-star text-warning"></i></a>
-                                <a href=""><i class="bi bi-star text-warning"></i></a>
-                                <h5 class="card-title pt-2 ff-pm ">Name of product</h5>
-                                <p class="card-text ff-pr ">Lorem ipsum dolor sit amet, consectetur adipisicing elit. In,
-                                    ipsum!</p>
-                                <div class="d-flex justify-content-between align-items-baseline">
-                                    <a class="btn btn-custom ff-pr " href="#">Go somewhere</a>
-                                    <p class="ff-psb ">Price: 999&euro;</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col p-0 card my-3" style="width: 18rem;">
-                            <a href="detail.html"><img alt="..." class="card-img-top"
-                                                       src="https://via.placeholder.com/200x250.png"></a>
-                            <div class="card-body">
-                                <a href=""><i class="bi bi-star text-warning"></i></a>
-                                <a href=""><i class="bi bi-star text-warning"></i></a>
-                                <a href=""><i class="bi bi-star text-warning"></i></a>
-                                <a href=""><i class="bi bi-star text-warning"></i></a>
-                                <a href=""><i class="bi bi-star text-warning"></i></a>
-                                <h5 class="card-title pt-2 ff-pm ">Name of product</h5>
-                                <p class="card-text ff-pr ">Lorem ipsum dolor sit amet, consectetur adipisicing elit. In,
-                                    ipsum!</p>
-                                <div class="d-flex justify-content-between align-items-baseline">
-                                    <a class="btn btn-custom ff-pr " href="#">Go somewhere</a>
-                                    <p class="ff-psb ">Price: 999&euro;</p>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
                 <!-- End Product Cards-->
             </div>
+            {{ $products->links() }}
         </section>
         <!--  end section filter/shop  -->
     </main>

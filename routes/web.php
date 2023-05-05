@@ -28,22 +28,28 @@ use Illuminate\Support\Facades\Route;
 |
 */
 /** FRONTEND ROUTES **/
+
 //Frontend Index
 Route::get("/", [HomeController::class, "index"])->name("frontend.index");
+
 //Frontend About
 Route::get("/about", [HomeController::class, "about"])->name("about-us.index");
+
 //Frontend Contactformulier
 Route::get("/contact", [HomeController::class, "contact"])->name(
     "about-us.contact"
 );
 //Frontend Shop index
 Route::get("/shop", [HomeController::class, "shop"])->name("shop.index");
+
 //Frontend Shop Cart
 Route::get("/cart", [HomeController::class, "cart"])->name("shop.cart");
+
 //Frontend Shop Checkout
 Route::get("/checkout", [HomeController::class, "checkout"])->name(
     "shop.checkout"
 );
+
 //Frontend Shop DetailPage
 Route::get("/detail", [HomeController::class, "detailPage"])->name(
     "shop.detail"

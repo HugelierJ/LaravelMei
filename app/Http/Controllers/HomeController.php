@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -16,7 +18,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-       // $this->middleware("auth");
+        // $this->middleware("auth");
     }
 
     /**
@@ -24,12 +26,12 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-//    public function index()
-//    {
-//       $posts = Post::with(['photo', 'categories'])->latest('created_at')->get();
-//        $postfeatured = Post::latest('created_at')->first();
-//        return view("index", compact('posts','postfeatured'));
-//    }
+    //    public function index()
+    //    {
+    //       $posts = Post::with(['photo', 'categories'])->latest('created_at')->get();
+    //        $postfeatured = Post::latest('created_at')->first();
+    //        return view("index", compact('posts','postfeatured'));
+    //    }
     public function index()
     {
         return view("index");
@@ -44,7 +46,14 @@ class HomeController extends Controller
     }
     public function shop()
     {
-        return view("shop.index");
+        $brands = Brand::all();
+        $products = Product::with([
+            "keywords",
+            "photo",
+            "brand",
+            "productcategories",
+        ])->paginate(10);
+        return view("shop.index", compact("products", "brands"));
     }
     public function cart()
     {
