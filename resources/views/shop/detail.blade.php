@@ -26,36 +26,44 @@
             </div>
             <div class="col-lg-10 offset-lg-1 d-md-flex justify-content-evenly py-5">
                 <div>
-                    <img alt="men shoes" class="img-fluid" src="./images/men_footwear.jpg">
+                    <img alt="men shoes" class="img-fluid" src="{{ $product->photo ? $product->photo->file : "https://via.placeholder.com/75" }}">
                 </div>
                 <div class="w-md-50 pt-4 pt-md-0 ps-4">
-                    <h3 class="pb-2 ff-pm fs-3">Name of product</h3>
-                    <p class="pb-2 ff-pm fs-5">description example: Lorem ipsum dolor sit amet, consectetur adipisicing
-                        elit. Adipisci cupiditate, dicta dolor earum ex nihil perspiciatis, provident quae repudiandae
-                        sapiente sequi suscipit? Aliquam doloribus eaque eos iusto quis, ratione sed voluptates? Autem
-                        consectetur eum laboriosam minus nobis obcaecati odio odit pariatur, quam quisquam repudiandae,
-                        sapiente soluta temporibus unde vero voluptate!</p>
-                    <select class="form-control mb-3 ff-pm fs-5 w-md-50" id="shoeSize" name="shoeSize">
-                        <option class="ms-3 ff-pr" disabled selected>Shoe Size</option>
-                        <option class="ms-3 ff-pr" value="1">40</option>
-                        <option class="ms-3 ff-pr" value="2">41</option>
-                        <option class="ms-3 ff-pr" value="3">42</option>
-                        <option class="ms-3 ff-pr" value="4">43</option>
-                        <option class="ms-3 ff-pr" value="5">44</option>
-                        <option class="ms-3 ff-pr" value="5">45</option>
-                        <option class="ms-3 ff-pr" value="5">46</option>
-                    </select>
-                    <div>
-                        <p class="pb-2 ff-pm fs-5 mt-5">50 &euro;</p>
-                    </div>
-                    <div class="input-group mb-3 w-md-50">
-                        <span class="cstm-btn"><i class="bi bi-dash"></i></span>
-                        <input class="form-control" type="number" value="1" min="1">
-                        <span class="cstm-btn"><i class="bi bi-plus"></i></span>
-                    </div>
-                    <div>
-                        <button class="btn btn-success ff-pm fs-5 mt-2">&plus; add to cart</button>
-                    </div>
+                    <h3 class="pb-2 ff-pm fs-3">{{ $product->name }}</h3>
+                    <p class="pb-2 ff-pm fs-5">{{ $product->body }}</p>
+                    <form id="addCart" method="post" action="{{ route("shop.add", $product) }}">
+                        @csrf
+                        @method("POST")
+                        <select class="form-control mb-3 ff-pm fs-5 w-md-50" required id="shoeSize" name="shoeSize">
+                            <option class="ms-3 ff-pr" disabled selected>Shoe Size</option>
+                            <option class="ms-3 ff-pr" value="36">36</option>
+                            <option class="ms-3 ff-pr" value="37">37</option>
+                            <option class="ms-3 ff-pr" value="38">38</option>
+                            <option class="ms-3 ff-pr" value="39">39</option>
+                            <option class="ms-3 ff-pr" value="40">40</option>
+                            <option class="ms-3 ff-pr" value="41">41</option>
+                            <option class="ms-3 ff-pr" value="42">42</option>
+                            <option class="ms-3 ff-pr" value="43">43</option>
+                            <option class="ms-3 ff-pr" value="44">44</option>
+                            <option class="ms-3 ff-pr" value="45">45</option>
+                        </select>
+                        @if(!$product->stock == 0)
+                            <div>
+                                <p class="pb-2 ff-pm fs-5 mt-5">&euro; <span id="price">{{ $product->price }}</span> / {{ $product->name }}</p>
+                                <p class="pb-2 ff-pm fs-5 mt-5">Total Price &euro; <span id="total-price">{{ $product->price }}</span></p>
+                            </div>
+                            <div class="input-group mb-3 w-md-50">
+                                <button type="button" id="decrement" class="cstm-btn"><i class="bi bi-dash"></i></button>
+                                <input name="quantity" id="quantity" class="form-control" type="number" value="1" min="1" max="{{$product->stock}}">
+                                <button type="button" id="increment" class="cstm-btn"><i class="bi bi-plus"></i></button>
+                            </div>
+                            <div>
+                                <button type="submit" class="btn btn-success ff-pm fs-5 mt-2">&plus; add to cart</button>
+                                @else
+                                    <p class="text-danger ff-pm fs-5 mt-2">Sorry! we're temporary out of stock</p>
+                                @endif
+                            </div>
+                    </form>
                 </div>
             </div>
         </section>

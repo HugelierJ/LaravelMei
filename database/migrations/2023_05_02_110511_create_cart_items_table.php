@@ -24,6 +24,7 @@ return new class extends Migration {
                 ->constrained()
                 ->cascadeOnDelete();
             $table->integer("quantity");
+            $table->string("shoesize")->nullable();
             $table->decimal("price", 8, 2);
             $table->timestamps();
         });

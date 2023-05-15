@@ -30,6 +30,7 @@ return new class extends Migration {
                 ->constrained()
                 ->cascadeOnDelete();
             $table->string("name");
+            $table->string("slug");
             $table->text("body");
             $table->decimal("price", 5, 2, true);
             $table->integer("stock")->unsigned();

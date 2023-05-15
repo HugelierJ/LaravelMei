@@ -79,7 +79,7 @@
 <script src="{{ asset('/js/nouislider.js') }}"></script>
 <script src="{{ asset('/js/wNumb.js') }}"></script>
 <script src="{{ asset('/js/index.js') }}"></script>
-
+@livewireScripts
 </body>
 
 </html>

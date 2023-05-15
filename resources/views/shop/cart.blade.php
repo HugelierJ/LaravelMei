@@ -41,51 +41,10 @@
         </section>
         <section id="cart-details" class="row d-none d-md-block">
             <div class="col-12 col-md-10 offset-md-1 col-lg-6 offset-lg-3 mb-4 back-primary rounded-3">
-                <div class="d-md-flex justify-content-between align-items-center py-2">
-                    <div class="ff-pm fs-5 w-70 d-flex align-items-center ps-2">
-                        <img src="./images/men_footwear.jpg" class="img-container" alt="">
-                        <div>
-                            <p class="ps-2 fs-6 m-0">Classic shoes Santoni(size: 43)</p>
-                            <p class="ps-2 fs-6 m-0">Price: &euro; 80</p>
-                        </div>
-                    </div>
-                    <div class="ff-pm fs-5 w-10">
-                        <select class="form-select w-auto">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                        </select>
-                    </div>
-                    <div class="ff-pm fs-5 w-10 d-flex justify-content-end">
-                        <p class="fs-6 m-0">&euro; 80</p>
-                    </div>
-                    <div class="ff-pm fs-5">
-                        <button class="btn btn-danger"><i class="bi bi-x-lg"></i></button>
-                    </div>
-                </div>
+                @foreach( $seeCartItems as $cartitem)
+                    <livewire:shoppingcart :total="$cartitem->price" :quantity="$cartitem->quantity" :cartitem="$cartitem"/>
+                @endforeach
                 <hr class="text-white">
-                <div class="d-flex justify-content-between align-items-center py-2">
-                    <div class="ff-pm fs-5 w-70 d-flex align-items-center ps-2">
-                        <img src="./images/women_footwear.jpg" class="img-container" alt="">
-                        <div>
-                            <p class="ps-2 fs-6 m-0">Classic shoes andrea-venturi(size: 38)</p>
-                            <p class="ps-2 fs-6 m-0">Price: &euro; 90</p>
-                        </div>
-                    </div>
-                    <div class="ff-pm fs-5 w-10">
-                        <select class="form-select w-auto">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                        </select>
-                    </div>
-                    <div class="ff-pm fs-5 w-10 d-flex justify-content-end">
-                        <p class="fs-6 m-0">&euro; 90</p>
-                    </div>
-                    <div class="ff-pm fs-5">
-                        <button class="btn btn-danger"><i class="bi bi-x-lg"></i></button>
-                    </div>
-                </div>
             </div>
         </section>
         <section id="cart-detailsMobile" class="row mt-3 d-md-none">

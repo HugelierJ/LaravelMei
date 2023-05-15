@@ -29,6 +29,7 @@ class CartItemSeeder extends Seeder
                     "product_id" => $productId,
                     "quantity" => rand(1, 5),
                     "price" => fake()->randomFloat(2, 1, 800),
+                    "shoesize" => fake()->numberBetween(35, 45),
                     "created_at" => now(),
                     "updated_at" => now(),
                 ]);

@@ -83,6 +83,7 @@ class ProductsController extends Controller
         );
         $product = new Product();
         $product->name = $request->name;
+        $product->slug = $product->name;
         $product->brand_id = $request->brand_id;
         $product->body = $request->body;
         $product->price = $request->price;
@@ -241,5 +242,10 @@ class ProductsController extends Controller
             ->with(["keywords", "photo", "brand", "productcategories"])
             ->paginate(10);
         return view("admin.products.index", compact("products", "brands"));
+    }
+
+    public function detail(Product $product)
+    {
+        return view("shop.detail", compact("product"));
     }
 }

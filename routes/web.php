@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminPostsController;
 use App\Http\Controllers\AdminUsersController;
 use App\Http\Controllers\BackendController;
 use App\Http\Controllers\BrandsController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
@@ -44,6 +45,13 @@ Route::get("/shop", [HomeController::class, "shop"])->name("shop.index");
 
 //Frontend Shop Cart
 Route::get("/cart", [HomeController::class, "cart"])->name("shop.cart");
+Route::post("/product/{product}", [CartController::class, "addToCart"])->name(
+    "shop.add"
+);
+route::get("/removeItem/{cartitem}", [
+    CartController::class,
+    "removeFromCart",
+])->name("shop.remove");
 
 //Frontend Shop Checkout
 Route::get("/checkout", [HomeController::class, "checkout"])->name(
@@ -53,6 +61,9 @@ Route::get("/checkout", [HomeController::class, "checkout"])->name(
 //Frontend Shop DetailPage
 Route::get("/detail", [HomeController::class, "detailPage"])->name(
     "shop.detail"
+);
+Route::get("/shop/{product:slug}", [ProductsController::class, "detail"])->name(
+    "products.detail"
 );
 
 /* Old Routes */

@@ -12,5 +12,6 @@
     <link href="{{ asset('/css/nouislider.css') }}" rel="stylesheet">
     <link href="{{ asset('/css/style.css') }}" rel="stylesheet">
     <title>Swingman Shoes</title>
+    @livewireStyles
 </head>
 <body class="container-fluid">

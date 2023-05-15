@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Brand;
+use App\Models\CartItem;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -52,12 +54,16 @@ class HomeController extends Controller
             "photo",
             "brand",
             "productcategories",
-        ])->paginate(10);
+        ])->paginate(8);
         return view("shop.index", compact("products", "brands"));
     }
     public function cart()
     {
-        return view("shop.cart");
+        $seeCartItems = CartItem::with("product")
+            ->where("cart_id", Auth::user()->cart->id)
+            ->get();
+
+        return view("shop.cart", compact("seeCartItems"));
     }
     public function checkout()
     {

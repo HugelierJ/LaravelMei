@@ -8,7 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory;
-    protected $fillable = ["photo_id", "name", "body", "price", "stock"];
+    protected $fillable = [
+        "photo_id",
+        "name",
+        "slug",
+        "body",
+        "price",
+        "stock",
+    ];
 
     public function keywords()
     {
