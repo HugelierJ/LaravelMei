@@ -59,7 +59,7 @@ class HomeController extends Controller
     }
     public function cart()
     {
-        $seeCartItems = CartItem::with("product")
+        $seeCartItems = CartItem::with("product", "product.photo")
             ->where("cart_id", Auth::user()->cart->id)
             ->get();
 

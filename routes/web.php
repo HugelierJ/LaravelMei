@@ -48,7 +48,7 @@ Route::get("/cart", [HomeController::class, "cart"])->name("shop.cart");
 Route::post("/product/{product}", [CartController::class, "addToCart"])->name(
     "shop.add"
 );
-route::get("/removeItem/{cartitem}", [
+Route::delete("/removeItem/{cartitem}", [
     CartController::class,
     "removeFromCart",
 ])->name("shop.remove");

@@ -19,7 +19,11 @@ class Shoppingcart extends Component
     {
         if ($this->quantity <= 0) {
             $this->quantity = 1;
+        } elseif ($this->quantity > $this->cartitem->product->stock) {
+            $this->quantity = $this->cartitem->product->stock;
         }
         $this->total = $this->quantity * $price;
+        $this->cartitem->quantity = $this->quantity;
+        $this->cartitem->save();
     }
 }
