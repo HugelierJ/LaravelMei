@@ -24,13 +24,16 @@
                             <a class="nav-link fs-4 rounded ff-pr" href="{{ route('about-us.contact') }}">Contact</a>
                         </li>
                     </ul>
-                    <form class="d-none d-lg-block" role="search">
-                        <div class="d-flex">
-                            <input aria-label="Search" class="form-control me-2" placeholder="Search"
-                                   type="search">
-                            <button class="btn fs-4 icon-box me-2" type="submit"><i class="bi bi-search"></i></button>
+                    <form action="{{ route('products.filter') }}" method="GET">
+                        @csrf
+                        @method("GET")
+                        <div class="d-flex me-3">
+                            <input class="form-control me-2" type="text" name="search" placeholder="Search by product name">
+                            <button class="cstm-btn" type="submit">Search</button>
                         </div>
+
                     </form>
+
                     {{--                        @if(Auth::User())--}}
                     {{--                            <div class="btn fs-5 icon-box d-flex align-items-baseline justify-content-between">--}}
                     {{--                                    <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-bounding-box" viewBox="0 0 16 16">--}}

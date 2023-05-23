@@ -6,9 +6,10 @@ use Livewire\Component;
 
 class Shoppingcart extends Component
 {
+    public $seeCartItems;
     public $cartitem;
     public $quantity;
-    public $total;
+    public $total = 0;
 
     public function render()
     {
@@ -23,7 +24,7 @@ class Shoppingcart extends Component
             $this->quantity = $this->cartitem->product->stock;
         }
         $this->total = $this->quantity * $price;
-        $this->cartitem->quantity = $this->quantity;
-        $this->cartitem->save();
+        //        $this->cartitem->quantity = $this->quantity;
+        //        $this->cartitem->save();
     }
 }

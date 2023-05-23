@@ -43,6 +43,12 @@ Route::get("/contact", [HomeController::class, "contact"])->name(
 //Frontend Shop index
 Route::get("/shop", [HomeController::class, "shop"])->name("shop.index");
 
+//Frontend Shop Filter
+Route::get("/products/filter", [
+    ProductsController::class,
+    "filterByName",
+])->name("products.filter");
+
 //Frontend Shop Cart
 Route::get("/cart", [HomeController::class, "cart"])->name("shop.cart");
 Route::post("/product/{product}", [CartController::class, "addToCart"])->name(

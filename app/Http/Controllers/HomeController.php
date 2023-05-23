@@ -54,7 +54,7 @@ class HomeController extends Controller
             "photo",
             "brand",
             "productcategories",
-        ])->paginate(8);
+        ])->paginate(10);
         return view("shop.index", compact("products", "brands"));
     }
     public function cart()

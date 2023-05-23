@@ -248,4 +248,40 @@ class ProductsController extends Controller
     {
         return view("shop.detail", compact("product"));
     }
+
+    public function filterByName(Request $request)
+    {
+        $searchTerm = $request->input("search");
+
+        $products = Product::with("photo")
+            ->where(function ($query) use ($searchTerm) {
+                $query
+                    ->where("name", "like", "%{$searchTerm}%")
+                    ->orWhereHas("brand", function ($query) use ($searchTerm) {
+                        $query->where("name", "like", "%{$searchTerm}%");
+                    })
+                    ->orWhereHas("category", function ($query) use (
+                        $searchTerm
+                    ) {
+                        $query->where("name", "like", "%{$searchTerm}%");
+                    })
+                    ->orWhereHas("productCategories", function ($query) use (
+                        $searchTerm
+                    ) {
+                        $query->whereHas("category", function ($query) use (
+                            $searchTerm
+                        ) {
+                            $query->where(
+                                "name",
+                                "like",
+                                "%" . $searchTerm . "%"
+                            );
+                        });
+                    });
+            })
+            ->get();
+
+        // Return the filtered products or perform any other actions
+        return view("shop.index", compact("products"));
+    }
 }

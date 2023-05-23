@@ -25,7 +25,7 @@
             </div>
         </section>
         <section id="cart-header" class="row d-none d-md-block">
-            <div class="col-12 col-md-10 offset-md-1 col-lg-6 offset-lg-3 mt-5 mb-1 back-primary rounded-3">
+            <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 mt-5 mb-1 back-primary rounded-3">
                 <div class="d-flex justify-content-between py-4">
                     <div class="ff-pm fs-5 w-70 d-flex align-items-center">
                         <p class="ps-2 m-0">Product Info</p>
@@ -39,79 +39,12 @@
                 </div>
             </div>
         </section>
-        <section id="cart-details" class="row d-none d-md-block">
-            <div class="col-12 col-md-10 offset-md-1 col-lg-6 offset-lg-3 mb-4 back-primary rounded-3">
+        <section id="cart-details" class="row">
+            <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 mb-4 back-primary rounded-3">
                 @foreach( $seeCartItems as $cartitem)
                     <livewire:shoppingcart :total="$cartitem->price" :quantity="$cartitem->quantity" :cartitem="$cartitem"/>
                 @endforeach
                 <hr class="text-white">
-            </div>
-        </section>
-        <section id="cart-detailsMobile" class="row mt-3 d-md-none">
-            <div class="col-10 offset-1 col-lg-6 offset-lg-3 mb-4 back-primary rounded-3">
-                <div class="py-2">
-                    <div class="ff-pm fs-5 w-70 d-flex align-items-center ps-2">
-                        <img src="./images/men_footwear.jpg" class="img-container" alt="">
-                        <div>
-                            <p class="ps-2 fs-6 m-0">Classic shoes Santoni(size: 43)</p>
-                            <p class="ps-2 fs-6 m-0">Price: &euro; 80</p>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="ff-pm fs-5">
-                        <div class="d-flex align-items-center">
-                            <p class="ff-pm fs-6 m-0 me-auto">
-                                Amount:
-                            </p>
-                            <select class="form-select w-auto">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="ff-pm fs-5 mt-2">
-                        <div class="d-flex align-items-center">
-                            <p class="ff-pm fs-6 m-0 me-auto">Price: </p>
-                            <p class="ff-pm pe-3 fs-6 m-0">&euro; 80</p>
-                        </div>
-                    </div>
-                    <div class="text-center mt-2">
-                        <button class="btn btn-danger">Remove Item</button>
-                    </div>
-                </div>
-                <hr class="text-white">
-                <div class="py-2">
-                    <div class="ff-pm fs-5 w-70 d-flex align-items-center ps-2">
-                        <img src="./images/women_footwear.jpg" class="img-container" alt="">
-                        <div>
-                            <p class="ps-2 fs-6 m-0">Classic shoes Andrea-Venturi(size: 38)</p>
-                            <p class="ps-2 fs-6 m-0">Price: &euro; 90</p>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="ff-pm fs-5">
-                        <div class="d-flex align-items-center">
-                            <p class="ff-pm fs-6 m-0 me-auto">
-                                Amount:
-                            </p>
-                            <select class="form-select w-auto">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="ff-pm fs-5 mt-2">
-                        <div class="d-flex align-items-center">
-                            <p class="ff-pm fs-6 m-0 me-auto">Price: </p>
-                            <p class="ff-pm pe-3 fs-6 m-0">&euro; 90</p>
-                        </div>
-                    </div>
-                    <div class="text-center mt-2">
-                        <button class="btn btn-danger">Remove Item</button>
-                    </div>
-                </div>
             </div>
         </section>
         <section id="cart-checkout" class="row">
@@ -132,11 +65,8 @@
                 <div class="text-center mb-2">
                     <button class="btn btn-custom border-0 ff-pm fs-6"><a href="checkout.html" class="no-deco text-dark">Go To Checkout</a></button>
                 </div>
-
             </div>
         </section>
-
-
         <!--  Extra space if enough time  -->
     </main>
 @endsection
