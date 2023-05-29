@@ -6,6 +6,8 @@ use Livewire\Component;
 
 class Shoppingcart extends Component
 {
+    //    protected $listeners = ["updateQuantity" => "updateNow"];
+
     public $seeCartItems;
     public $cartitem;
     public $quantity;
@@ -15,6 +17,10 @@ class Shoppingcart extends Component
     {
         return view("livewire.shoppingcart");
     }
+    //    public function updateNow()
+    //    {
+    //        $this->cartitem->save();
+    //    }
 
     public function calculate($price)
     {
@@ -24,7 +30,7 @@ class Shoppingcart extends Component
             $this->quantity = $this->cartitem->product->stock;
         }
         $this->total = $this->quantity * $price;
-        //        $this->cartitem->quantity = $this->quantity;
-        //        $this->cartitem->save();
+        $this->cartitem->quantity = $this->quantity;
+        $this->cartitem->save();
     }
 }

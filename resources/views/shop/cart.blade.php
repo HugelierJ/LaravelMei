@@ -49,22 +49,7 @@
         </section>
         <section id="cart-checkout" class="row">
             <div class="col-10 offset-1 col-lg-2 offset-lg-5 mb-3 pt-2 back-primary rounded-3">
-                <div class="d-flex justify-content-between">
-                    <p class="ff-pm fs-6">Item(s) Total:</p>
-                    <p class="ff-pm fs-6">&euro; 170</p>
-                </div>
-                <div class="d-flex justify-content-between">
-                    <p class="ff-pm fs-6">Delivery Charge:</p>
-                    <p class="ff-pm fs-6">Free</p>
-                </div>
-                <hr>
-                <div class="d-flex justify-content-between">
-                    <p class="ff-pm fs-6">Total Price</p>
-                    <p class="ff-pm fs-6">&euro; 170</p>
-                </div>
-                <div class="text-center mb-2">
-                    <button class="btn btn-custom border-0 ff-pm fs-6"><a href="checkout.html" class="no-deco text-dark">Go To Checkout</a></button>
-                </div>
+                <livewire:cart-total />
             </div>
         </section>
         <!--  Extra space if enough time  -->

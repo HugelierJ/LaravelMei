@@ -252,6 +252,7 @@ class ProductsController extends Controller
     public function filterByName(Request $request)
     {
         $searchTerm = $request->input("search");
+        $brands = Brand::all();
 
         $products = Product::with("photo")
             ->where(function ($query) use ($searchTerm) {
@@ -260,28 +261,20 @@ class ProductsController extends Controller
                     ->orWhereHas("brand", function ($query) use ($searchTerm) {
                         $query->where("name", "like", "%{$searchTerm}%");
                     })
-                    ->orWhereHas("category", function ($query) use (
-                        $searchTerm
-                    ) {
-                        $query->where("name", "like", "%{$searchTerm}%");
-                    })
+                    //                    ->orWhereHas("category", function ($query) use (
+                    //                        $searchTerm
+                    //                    ) {
+                    //                        $query->where("name", "like", "%{$searchTerm}%");
+                    //                    })
                     ->orWhereHas("productCategories", function ($query) use (
                         $searchTerm
                     ) {
-                        $query->whereHas("category", function ($query) use (
-                            $searchTerm
-                        ) {
-                            $query->where(
-                                "name",
-                                "like",
-                                "%" . $searchTerm . "%"
-                            );
-                        });
+                        $query->where("name", "like", "%" . $searchTerm . "%");
                     });
             })
-            ->get();
+            ->paginate(10);
 
         // Return the filtered products or perform any other actions
-        return view("shop.index", compact("products"));
+        return view("shop.index", compact("products", "brands"));
     }
 }
