@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Post;
 use App\Models\Product;
 use App\Models\User;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -59,9 +60,7 @@ class HomeController extends Controller
     }
     public function cart()
     {
-        $seeCartItems = CartItem::with("product", "product.photo")
-            ->where("cart_id", Auth::user()->cart->id)
-            ->get();
+        $seeCartItems = Cart::content();
 
         return view("shop.cart", compact("seeCartItems"));
     }

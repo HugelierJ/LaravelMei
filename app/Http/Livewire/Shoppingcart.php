@@ -2,35 +2,28 @@
 
 namespace App\Http\Livewire;
 
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Livewire\Component;
 
 class Shoppingcart extends Component
 {
-    //    protected $listeners = ["updateQuantity" => "updateNow"];
-
-    public $seeCartItems;
-    public $cartitem;
-    public $quantity;
-    public $total = 0;
+    protected $listeners = ["updateCartTotal" => "updateTotal"];
+    public $cartitems;
+    public $cartTotal;
+    public $total;
 
     public function render()
     {
-        return view("livewire.shoppingcart");
-    }
-    //    public function updateNow()
-    //    {
-    //        $this->cartitem->save();
-    //    }
+        $this->cartitems = Cart::content();
+        $this->total = Cart::subtotal();
 
-    public function calculate($price)
+        return view("livewire.shoppingcart", [
+            "cartitems" => $this->cartitems,
+            "total" => $this->total,
+        ]);
+    }
+    public function updateTotal()
     {
-        if ($this->quantity <= 0) {
-            $this->quantity = 1;
-        } elseif ($this->quantity > $this->cartitem->product->stock) {
-            $this->quantity = $this->cartitem->product->stock;
-        }
-        $this->total = $this->quantity * $price;
-        $this->cartitem->quantity = $this->quantity;
-        $this->cartitem->save();
+        $this->cartTotal = Cart::count();
     }
 }
