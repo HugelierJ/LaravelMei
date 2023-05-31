@@ -12,6 +12,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ItunesController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\ShopControlller;
 use App\Models\Post;
 use App\Models\ProductCategory;
 use App\Models\User;
@@ -62,6 +63,16 @@ Route::delete("/removeItem/{cartitem}", [
 //Frontend Shop Checkout
 Route::get("/checkout", [HomeController::class, "checkout"])->name(
     "shop.checkout"
+);
+// STRIPE ROUTES
+Route::post("/checkout-stripe", [ShopControlller::class, "checkout"])->name(
+    "stripe.checkout"
+);
+Route::get("/checkout-success", [ShopControlller::class, "success"])->name(
+    "stripe.success"
+);
+Route::get("/checkout-cancel", [ShopControlller::class, "cancel"])->name(
+    "stripe.cancel"
 );
 
 //Frontend Shop DetailPage

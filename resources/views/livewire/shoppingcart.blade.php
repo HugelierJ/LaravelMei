@@ -47,7 +47,12 @@
                     <p class="ff-pm fs-6">&euro; {{ $total }}</p>
                 </div>
                 <div class="text-center mb-2">
-                    <button class="btn btn-custom border-0 ff-pm fs-6"><a href="checkout.html" class="no-deco text-dark">Go To Checkout</a></button>
+                    <form action="{{ route("stripe.checkout") }}" method="POST">
+                        @csrf
+                        @method("POST")
+                        <button class="btn btn-custom border-0 ff-pm fs-6">Go To Checkout</button>
+                    </form>
+
                 </div>
             </div>
         </div>
