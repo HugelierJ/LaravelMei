@@ -19,7 +19,7 @@ class AdminCategoriesController extends Controller
     public function index()
     {
         $categories = Category::withTrashed()->paginate(10);
-        return view('admin.categories.index', compact('categories'));
+        return view("admin.categories.index", compact("categories"));
     }
 
     /**
@@ -30,7 +30,7 @@ class AdminCategoriesController extends Controller
     public function create()
     {
         //
-        return view('admin.categories.create');
+        return view("admin.categories.create");
     }
 
     /**
@@ -43,10 +43,12 @@ class AdminCategoriesController extends Controller
     {
         //
         request()->validate([
-            'name'=> ['required','between:2,255'],
+            "name" => ["required", "between:2,255"],
         ]);
         Category::create($request->all());
-        return redirect()->route('categories.index')->with('status', 'Category added');
+        return redirect()
+            ->route("categories.index")
+            ->with("status", "Category added");
     }
 
     /**
@@ -98,9 +100,9 @@ class AdminCategoriesController extends Controller
      * @param Category $category
      * @return Application|Factory|View
      */
-    public function category(Category $category){
-        $sliderPosts = $category->posts()->with(['photo', 'categories'])->latest('created_at')->take(6)->get();
-        $posts = $category->posts()->with(['photo', 'categories'])->latest('created_at')->paginate(9);
-        return view('category', compact('category','posts','sliderPosts'));
-    }
+    //    public function category(Category $category){
+    //        $sliderPosts = $category->posts()->with(['photo', 'categories'])->latest('created_at')->take(6)->get();
+    //        $posts = $category->posts()->with(['photo', 'categories'])->latest('created_at')->paginate(9);
+    //        return view('category', compact('category','posts','sliderPosts'));
+    //    }
 }

@@ -33,6 +33,10 @@ class Product extends Model
     {
         return $this->belongsTo(Brand::class);
     }
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class)->withTimestamps();
+    }
     public function productcategories()
     {
         return $this->belongsToMany(

@@ -29,131 +29,53 @@
                         @csrf
                         @method("GET")
                         <div class="d-flex me-3">
-                            <input class="form-control me-2" type="text" name="search" placeholder="Search by product name">
+                            <input class="form-control me-2" type="text" name="search"
+                                   placeholder="Search by product name">
                             <button class="cstm-btn" type="submit">Search</button>
                         </div>
 
                     </form>
+                    @if(!Auth::user())
+                        <div class="me-2">
+                            <a href="{{ route('login') }}" type="button" class="btn icon-box"><span
+                                    class="rounded p-2 border-dark ff-pm">Login</span></a>
+                            <a class="btn icon-box" href="{{ route('register') }}"><span
+                                    class="rounded p-2 border-dark ff-pm">Register</span></a>
+                        </div>
+                    @else
+                        <div class="dropdown">
+                            <a class="btn btn-secondary me-2 dropdown-toggle" href="#" role="button"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+                                {{ Auth::user()->first_name }}
+                            </a>
 
-                    {{--                        @if(Auth::User())--}}
-                    {{--                            <div class="btn fs-5 icon-box d-flex align-items-baseline justify-content-between">--}}
-                    {{--                                    <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-bounding-box" viewBox="0 0 16 16">--}}
-                    {{--                                      <path d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1h-3zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5zM.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5z"/>--}}
-                    {{--                                      <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>--}}
-                    {{--                                    </svg></span><p class="ff-pr p-0">{{ Auth::User()->name }}</p>--}}
-                    {{--                            </div>--}}
-                    {{--                        @else--}}
-                    <div class="dropdown">
-                        <button type="button"
-                                class="btn fs-4 icon-box me-2 dropdown-toggle {{ Auth::User() == true ? "border-success" : "border-warning" }}"
-                                data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" fill="currentColor"
-                                 class="bi bi-person-workspace {{ Auth::User() == true ? "text-success" : "text-warning" }}"
-                                 viewBox="0 0 16 16">
-                                <path
-                                    d="M4 16s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H4Zm4-5.95a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
-                                <path
-                                    d="M2 1a2 2 0 0 0-2 2v9.5A1.5 1.5 0 0 0 1.5 14h.653a5.373 5.373 0 0 1 1.066-2H1V3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v9h-2.219c.554.654.89 1.373 1.066 2h.653a1.5 1.5 0 0 0 1.5-1.5V3a2 2 0 0 0-2-2H2Z"/>
-                            </svg>
-                        </button>
-                        @if(!Auth::User())
-{{--                            <form class="dropdown-menu p-2">--}}
-{{--                                <div class="mb-3">--}}
-{{--                                    <label for="userEmail" class="form-label">Email address</label>--}}
-{{--                                    <input type="email" class="form-control" id="userEmail"--}}
-{{--                                           placeholder="email@example.com">--}}
-{{--                                </div>--}}
-{{--                                <div class="mb-3">--}}
-{{--                                    <label for="userPassword" class="form-label">Password</label>--}}
-{{--                                    <input type="password" class="form-control" id="userPassword"--}}
-{{--                                           placeholder="Password">--}}
-{{--                                </div>--}}
-{{--                                <div class="d-flex justify-content-between">--}}
-{{--                                    <a type="button" class="cstm-btn p-1" href="{{ route('register') }}">Register</a>--}}
-{{--                                    <a type="button" class="cstm-btn p-1" href="{{ route('login') }}">Sign in</a>--}}
-{{--                                </div>--}}
-
-{{--                            </form>--}}
-                            <form class="dropdown-menu" method="POST" action="{{ route('login') }}">
-                                @csrf
-
-                                <div class="row mb-3">
-                                    <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
-
-                                    <div class="col-md-6">
-                                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required
-                                               autocomplete="email" autofocus>
-
-                                        @error('email')
-                                        <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                        @enderror
-                                    </div>
-                                </div>
-
-                                <div class="row mb-3">
-                                    <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                                    <div class="col-md-6">
-                                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required
-                                               autocomplete="current-password">
-
-                                        @error('password')
-                                        <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                        @enderror
-                                    </div>
-                                </div>
-
-                                <div class="row mb-3">
-                                    <div class="col-md-6 offset-md-4">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                            <label class="form-check-label" for="remember">
-                                                {{ __('Remember Me') }}
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row mb-0">
-                                    <div class="col-md-8 offset-md-4">
-                                        <button type="submit" class="btn btn-primary">
-                                            {{ __('Login') }}
-                                        </button>
-
-                                        @if (Route::has('password.request'))
-                                            <a class="btn btn-link" href="{{ route('password.request') }}">
-                                                {{ __('Forgot Your Password?') }}
-                                            </a>
-                                        @endif
-                                    </div>
-                                </div>
-                            </form>
-                        @else
-                            <div class="dropdown-menu p-2">
-                                <div class="d-flex align-items-center">
-                                    <img class="img-fluid" src="https://via.placeholder.com/40" alt="">
-                                    <p class="pt-3 ms-3">{{ Auth::User()->name }}</p>
-                                </div>
-                                <a type="button" class="btn btn-warning p-1 no-style no-deco"
-                                   href="{{ route('logout') }}">Logout</a>
-                            </div>
-                        @endif
-                    </div>
-                    {{--                        @endif--}}
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                       document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                </li>
+                                @if(Auth::user()->isAdmin())
+                                     <li><a class="dropdown-item" href="{{ route('home') }}">Backend</a></li>
+                                @endif
+                                {{--                                <li><a class="dropdown-item" href="#">Something else here</a></li>--}}
+                            </ul>
+                        </div>
+                    @endif
                     <div>
                         @if($basket)
-                        <a type="button" class="btn bi bi-basket icon-box fs-4 position-relative"
-                           href="{{ route("shop.cart") }}">
-                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            <a type="button" class="btn bi bi-basket icon-box fs-4 position-relative"
+                               href="{{ route("shop.cart") }}">
+                            <span
+                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                                 <span class="visually-hidden">basket amount</span>
                                    {{ Cart::count() }}
                             </span>
-                        </a>
+                            </a>
                         @endif
                     </div>
                 </div>

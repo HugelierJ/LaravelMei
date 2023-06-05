@@ -11,14 +11,14 @@
         <hr class="text-white d-block d-md-none">
         <div class="ff-pm fs-5">
             <div class="d-flex align-items-center justify-content-md-evenly">
-                <p class="ff-pm fs-6 m-0 me-auto d-block">
+                <p class="ff-pm fs-6 m-0 d-block">
                     Amount:
                 </p>
                 <input class="form-control w-50 me-md-1" type="number" wire:model="quantity" wire:input="updatePrice"/>
             </div>
         </div>
         <div class="ff-pm fs-5 w-10 d-flex justify-content-end">
-            <p class="fs-6 m-0">&euro; {{ $price }}
+            <p class="fs-6 m-0 me-4">&euro; {{ $price }}
             </p>
         </div>
         <div class="ff-pm fs-5">

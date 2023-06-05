@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Brand;
-use App\Models\CartItem;
 use App\Models\Category;
-use App\Models\Post;
 use App\Models\Product;
 use App\Models\User;
 use Gloudemans\Shoppingcart\Facades\Cart;
@@ -46,23 +44,6 @@ class HomeController extends Controller
     public function contact()
     {
         return view("about-us.contact");
-    }
-    public function shop()
-    {
-        $brands = Brand::all();
-        $products = Product::with([
-            "keywords",
-            "photo",
-            "brand",
-            "productcategories",
-        ])->paginate(10);
-        return view("shop.index", compact("products", "brands"));
-    }
-    public function cart()
-    {
-        $seeCartItems = Cart::content();
-
-        return view("shop.cart", compact("seeCartItems"));
     }
     public function checkout()
     {

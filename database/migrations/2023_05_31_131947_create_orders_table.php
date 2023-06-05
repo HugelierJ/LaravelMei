@@ -19,6 +19,24 @@ return new class extends Migration {
             $table->string("session_id");
             $table->timestamps();
         });
+
+        Schema::create("order_product", function (Blueprint $table) {
+            $table->id();
+            $table
+                ->foreignId("order_id")
+                ->constrained()
+                ->cascadeOnDelete();
+            $table
+                ->foreignId("product_id")
+                ->constrained()
+                ->cascadeOnDelete();
+            $table->decimal("price")->default(0);
+            $table->string("shoesize")->default(0);
+            $table->integer("quantity")->default(1);
+            $table->timestamps();
+
+            $table->unique(["order_id", "product_id"]);
+        });
     }
 
     /**

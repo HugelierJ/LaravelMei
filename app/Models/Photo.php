@@ -22,10 +22,6 @@ class Photo extends Model
     {
         return $this->belongsTo(User::class);
     }
-    public function post()
-    {
-        return $this->hasOne(Post::class);
-    }
     public function product()
     {
         return $this->hasOne(Product::class);

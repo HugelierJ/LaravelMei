@@ -42,16 +42,16 @@ Route::get("/contact", [HomeController::class, "contact"])->name(
     "about-us.contact"
 );
 //Frontend Shop index
-Route::get("/shop", [HomeController::class, "shop"])->name("shop.index");
+Route::get("/shop", [ShopControlller::class, "shop"])->name("shop.index");
 
-//Frontend Shop Filter
+//Frontend Global Filter
 Route::get("/products/filter", [
     ProductsController::class,
     "filterByName",
 ])->name("products.filter");
 
 //Frontend Shop Cart
-Route::get("/cart", [HomeController::class, "cart"])->name("shop.cart");
+Route::get("/cart", [ShopControlller::class, "cart"])->name("shop.cart");
 Route::post("/product/{product}", [CartController::class, "addToCart"])->name(
     "shop.add"
 );
@@ -59,22 +59,10 @@ Route::delete("/removeItem/{cartitem}", [
     CartController::class,
     "removeFromCart",
 ])->name("shop.remove");
-
-//Frontend Shop Checkout
-Route::get("/checkout", [HomeController::class, "checkout"])->name(
-    "shop.checkout"
-);
-// STRIPE ROUTES
-Route::post("/checkout-stripe", [ShopControlller::class, "checkout"])->name(
-    "stripe.checkout"
-);
-Route::get("/checkout-success", [ShopControlller::class, "success"])->name(
-    "stripe.success"
-);
-Route::get("/checkout-cancel", [ShopControlller::class, "cancel"])->name(
-    "stripe.cancel"
-);
-
+//Frontend Shop Billing Details
+//Route::get("/checkout", [HomeController::class, "checkout"])->name(
+//    "shop.checkout"
+//);
 //Frontend Shop DetailPage
 Route::get("/detail", [HomeController::class, "detailPage"])->name(
     "shop.detail"
@@ -82,7 +70,6 @@ Route::get("/detail", [HomeController::class, "detailPage"])->name(
 Route::get("/shop/{product:slug}", [ProductsController::class, "detail"])->name(
     "products.detail"
 );
-
 /* Old Routes */
 Route::get("contactformulier", [ContactController::class, "create"])->name(
     "contact.create"
@@ -90,45 +77,35 @@ Route::get("contactformulier", [ContactController::class, "create"])->name(
 Route::post("contactformulier", [ContactController::class, "store"])->name(
     "contact.store"
 );
-Route::get("/post/{post:slug}", [AdminPostsController::class, "post"])->name(
-    "frontend.post"
-);
 Route::get("/category/{category:slug}", [
     AdminCategoriesController::class,
     "category",
 ])->name("category.category");
-Route::get("/itunes", [ItunesController::class, "index"])->name("itunes.index");
 
+// Routes for authenticated users
+Route::group(["middleware" => ["auth"]], function () {
+    // STRIPE ROUTES
+    Route::post("/checkout-stripe", [ShopControlller::class, "checkout"])->name(
+        "stripe.checkout"
+    );
+    Route::get("/checkout-success/", [ShopControlller::class, "success"])->name(
+        "stripe.success"
+    );
+    Route::get("/checkout-cancel", [ShopControlller::class, "cancel"])->name(
+        "stripe.cancel"
+    );
+    Route::post("/webhook", [ShopControlller::class, "webhook"])->name(
+        "webhook"
+    );
+});
 /**Backend**/
 
 Route::group(
     ["prefix" => "admin", "middleware" => ["auth", "verified"]],
     function () {
         Route::get("/", [BackendController::class, "index"])->name("home");
-
-        //    Post routes
-        Route::resource("posts", AdminPostsController::class, [
-            "except" => ["show"],
-        ]);
-        Route::get("posts/{post:slug}", [
-            AdminPostsController::class,
-            "show",
-        ])->name("posts.show");
-        Route::get("authors/{author:name}", [
-            AdminPostsController::class,
-            "indexByAuthor",
-        ])->name("authors");
-        Route::post("posts/restore/{post}", [
-            AdminPostsController::class,
-            "postRestore",
-        ])->name("admin.postrestore");
-
         // Category routes
         Route::resource("categories", AdminCategoriesController::class);
-
-        // Comment routes
-        Route::resource("comments", CommentController::class);
-
         //Product Routes
         Route::resource("products", ProductsController::class);
         Route::get("products/brand/{id}", [

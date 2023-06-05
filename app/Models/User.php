@@ -8,12 +8,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Cashier\Billable;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
-    use SoftDeletes;
+    use SoftDeletes, Billable;
 
     /**
      * The attributes that are mass assignable.
@@ -21,10 +22,13 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array<int, string>
      */
     protected $fillable = [
-        "name",
+        "first_name",
+        "last_name",
+        "username",
         "is_active",
         "email",
         "photo_id",
+        "gender_id",
         "password",
     ];
 
@@ -52,13 +56,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->belongsTo(Photo::class);
     }
-    public function posts()
+    public function gender()
     {
-        return $this->hasMany(Post::class);
-    }
-    public function comments()
-    {
-        return $this->hasMany(Comment::class);
+        return $this->belongsTo(Gender::class);
     }
     /**
      * @return true|void

@@ -35,14 +35,13 @@ class CommonViewServiceProvider extends ServiceProvider
             ]);
         });
 
-        view()->composer(["home", "post", "category"], function ($view) {
-            $postsTickers = Post::latest("created_at")
-                ->take(6)
-                ->get();
-            $categories = Category::all();
-
-            $view->with("postsTickers", $postsTickers);
-            $view->with("categories", $categories);
-        });
+        //        view()->composer(["home", "post", "category"], function ($view) {
+        //            $postsTickers = Post::latest("created_at")
+        //                ->take(6)
+        //                ->get();
+        //            $categories = Category::all();
+        //            $view->with("postsTickers", $postsTickers);
+        //            $view->with("categories", $categories);
+        //        });
     }
 }
