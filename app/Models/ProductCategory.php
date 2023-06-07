@@ -4,11 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ProductCategory extends Model
 {
-    use HasFactory;
-    protected $fillable = ["name", "description"];
+    use HasFactory, SoftDeletes;
+    protected $fillable = ["name", "description", "gender_id"];
 
     public function products()
     {
@@ -18,5 +19,9 @@ class ProductCategory extends Model
             "productcategory_id",
             "product_id"
         );
+    }
+    public function gender()
+    {
+        return $this->belongsTo(Gender::class);
     }
 }

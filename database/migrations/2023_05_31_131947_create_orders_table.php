@@ -18,6 +18,7 @@ return new class extends Migration {
             $table->decimal("total_price", 6, 2);
             $table->string("session_id");
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create("order_product", function (Blueprint $table) {
@@ -34,6 +35,7 @@ return new class extends Migration {
             $table->string("shoesize")->default(0);
             $table->integer("quantity")->default(1);
             $table->timestamps();
+            $table->softDeletes();
 
             $table->unique(["order_id", "product_id"]);
         });

@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -13,22 +12,33 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('product_categories', function (Blueprint $table) {
+        Schema::create("product_categories", function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('description');
+            $table->string("name");
+            $table->string("description");
+            $table->foreignId("gender_id")->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
-        Schema::create('product_productcategory', function(Blueprint $table){
+        Schema::create("product_productcategory", function (Blueprint $table) {
             $table->id();
             // $table->bigInteger()->unsigned();
-            $table->unsignedBigInteger('product_id');
-            $table->unsignedBigInteger('productcategory_id');
+            $table->unsignedBigInteger("product_id");
+            $table->unsignedBigInteger("productcategory_id");
             $table->timestamps();
+            $table->softDeletes();
 
-            $table->unique(['product_id', 'productcategory_id']);
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-            $table->foreign('productcategory_id')->references('id')->on('product_categories')->onDelete('cascade');
+            $table->unique(["product_id", "productcategory_id"]);
+            $table
+                ->foreign("product_id")
+                ->references("id")
+                ->on("products")
+                ->onDelete("cascade");
+            $table
+                ->foreign("productcategory_id")
+                ->references("id")
+                ->on("product_categories")
+                ->onDelete("cascade");
         });
     }
 
@@ -39,6 +49,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_categories');
+        Schema::dropIfExists("product_categories");
     }
 };

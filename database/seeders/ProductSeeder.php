@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Brand;
 use App\Models\Color;
+use App\Models\Gender;
 use App\Models\Photo;
 use App\Models\Product;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -19,6 +20,7 @@ class ProductSeeder extends Seeder
     public function run()
     {
         //
+        $genders = Gender::all();
         $brands = Brand::all();
         $photos = Photo::all();
         $colors = Color::all();
@@ -28,6 +30,7 @@ class ProductSeeder extends Seeder
             $product->slug = $product->name;
             $product->body = fake()->paragraphs(3, true);
             $product->photo_id = $photos->random()->id;
+            $product->gender_id = $genders->random()->id;
             $product->brand_id = $brands->random()->id;
             $product->color_id = $colors->random()->id;
             $product->price = fake()->randomFloat(5, 2, 999);

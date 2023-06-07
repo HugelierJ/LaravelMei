@@ -25,16 +25,6 @@
                             <a class="nav-link fs-4 rounded ff-pr" href="{{ route('about-us.contact') }}">Contact</a>
                         </li>
                     </ul>
-                    <form action="{{ route('products.filter') }}" method="GET">
-                        @csrf
-                        @method("GET")
-                        <div class="d-flex me-3">
-                            <input class="form-control me-2" type="text" name="search"
-                                   placeholder="Search by product name">
-                            <button class="cstm-btn" type="submit">Search</button>
-                        </div>
-
-                    </form>
                     @if(!Auth::user())
                         <div class="me-2">
                             <a href="{{ route('login') }}" type="button" class="btn icon-box"><span

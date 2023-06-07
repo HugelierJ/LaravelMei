@@ -10,6 +10,12 @@ class CartController extends Controller
 {
     public function addToCart(Product $product)
     {
+        request()->validate(
+            [
+                "shoeSize" => ["required"],
+            ],
+            ["shoeSize.required" => "You must choose a Shoesize."]
+        );
         Cart::add(
             $product->id,
             $product->name,

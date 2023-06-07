@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Gender;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use Illuminate\Http\Request;
@@ -16,8 +17,11 @@ class ProductCategoryController extends Controller
     public function index()
     {
         //
-        $productcategories = ProductCategory::Paginate(10);
-        return view('admin.productcategories.index', compact('productcategories'));
+        $productcategories = ProductCategory::with("gender")->Paginate(10);
+        return view(
+            "admin.productcategories.index",
+            compact("productcategories")
+        );
     }
 
     /**
@@ -28,7 +32,7 @@ class ProductCategoryController extends Controller
     public function create()
     {
         //
-        return view('admin.productcategories.create');
+        return view("admin.productcategories.create");
     }
 
     /**
@@ -41,7 +45,7 @@ class ProductCategoryController extends Controller
     {
         //
         ProductCategory::create($request->all());
-        return redirect()->route('productcategories.index');
+        return redirect()->route("productcategories.index");
     }
 
     /**
@@ -64,8 +68,12 @@ class ProductCategoryController extends Controller
     public function edit($id)
     {
         //
+        $genders = Gender::all();
         $productcategory = ProductCategory::findOrFail($id);
-        return view('admin.productcategories.edit', compact('productcategory'));
+        return view(
+            "admin.productcategories.edit",
+            compact("productcategory", "genders")
+        );
     }
 
     /**
@@ -78,9 +86,14 @@ class ProductCategoryController extends Controller
     public function update(Request $request, $id)
     {
         //
+        request()->validate([
+            "name" => ["required", "max:255", "min:5"],
+            "description" => ["required"],
+            "gender_id" => ["required"],
+        ]);
         $productcategory = ProductCategory::findOrFail($id);
         $productcategory->update($request->all());
-        return redirect('admin/productcategories');
+        return redirect("admin/productcategories");
     }
 
     /**

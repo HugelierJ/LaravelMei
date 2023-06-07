@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Gender;
 use App\Models\ProductCategory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -25,10 +26,17 @@ class ProductCategorySeeder extends Seeder
             "Women's Heels",
             "Women's Pumps",
         ];
-        foreach ($productcategories as $productcategory) {
+
+        $genders = ["X", "Male", "Male", "Female", "Female", "Female"];
+
+        foreach ($productcategories as $index => $productcategory) {
+            $gender = isset($genders[$index]) ? $genders[$index] : "X";
+            $genderId = Gender::where("name", $gender)->value("id");
+
             ProductCategory::create([
                 "name" => $productcategory,
-                "description" => Str::words(20),
+                "description" => fake()->paragraph(2),
+                "gender_id" => $genderId,
             ]);
         }
     }

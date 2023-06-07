@@ -19,6 +19,7 @@
             <th>Id</th>
             <th>Name</th>
             <th>Description</th>
+            <th>Gender</th>
             <th>Created</th>
             <th>Updated</th>
             <th>Actions</th>
@@ -30,6 +31,7 @@
                 <td>{{$productcategory->id}}</td>
                 <td>{{$productcategory->name}}</td>
                 <td>{{Str::limit($productcategory->description,20)}}</td>
+                <td>{{ $productcategory->gender->name }}</td>
                 <td>{{$productcategory->created_at ? $productcategory->created_at->diffForHumans() : ''}}</td>
                 <td>{{$productcategory->updated_at ? $productcategory->updated_at->diffForHumans() : ''}}</td>
                 <td>

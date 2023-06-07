@@ -25,6 +25,11 @@ return new class extends Migration {
                 ->constrained()
                 ->cascadeOnDelete();
             $table
+                ->foreignId("gender_id")
+                ->unsigned()
+                ->constrained()
+                ->cascadeOnDelete();
+            $table
                 ->foreignId("color_id")
                 ->unsigned()
                 ->constrained()
@@ -35,6 +40,7 @@ return new class extends Migration {
             $table->decimal("price", 5, 2, true);
             $table->integer("stock")->unsigned();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

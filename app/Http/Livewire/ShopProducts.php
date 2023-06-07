@@ -7,11 +7,12 @@ use Livewire\Component;
 
 class ShopProducts extends Component
 {
-    protected $products;
+    //FILTER MOET IN PARENT COMPONENT GEBEUREN EN DE PRODUCT DIE WORDT DOORGEGEVEN MOET AANGEPAST WORDEN MET EEN QUERY
+
+    public $product;
 
     public function render()
     {
-        $this->products = Product::all();
-        return view("livewire.shop-products", ["products" => $this->products]);
+        return view("livewire.shop-products");
     }
 }

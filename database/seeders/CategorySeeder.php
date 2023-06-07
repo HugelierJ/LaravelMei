@@ -18,7 +18,7 @@ class CategorySeeder extends Seeder
     {
         //
         // Category::factory()->count(10)->create();
-        $categories = ["Men Shoes", "Women Shoes"];
+        $categories = ["Leather Shoes", "Formal Shoes"];
         foreach ($categories as $category) {
             $slug = Str::slug($category, "-");
             Category::create([

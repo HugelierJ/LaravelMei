@@ -47,6 +47,9 @@
                             <option class="ms-3 ff-pr" value="44">44</option>
                             <option class="ms-3 ff-pr" value="45">45</option>
                         </select>
+                        @error('shoeSize')
+                        <p class="text-danger fs-5">{{$message}}</p>
+                        @enderror
                         @if(!$product->stock == 0)
                             <div>
                                 <p class="pb-2 ff-pm fs-5 mt-5">&euro; <span id="price">{{ $product->price }}</span> / {{ $product->name }}</p>

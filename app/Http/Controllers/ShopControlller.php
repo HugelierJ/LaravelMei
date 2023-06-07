@@ -15,15 +15,16 @@ class ShopControlller extends Controller
 {
     public function shop()
     {
-        $brands = Brand::all();
-        return view("shop.index", compact("brands"));
+        return view("shop.index");
     }
+
     public function cart()
     {
         $seeCartItems = Cart::content();
 
         return view("shop.cart", compact("seeCartItems"));
     }
+
     public function checkout(Request $request)
     {
         $stripe = new \Stripe\StripeClient(env("STRIPE_SECRET"));
@@ -50,20 +51,24 @@ class ShopControlller extends Controller
             "cancel_url" =>
                 route("stripe.cancel") . "?session_id={CHECKOUT_SESSION_ID}",
         ]);
-        //        dd($stripe_request->id);
-
+        //Wegschrijven naar Order tabel.
         $order = new Order();
         $order->status = "unpaid";
         $order->total_price = $totalPrice;
         $order->session_id = $stripe_request->id;
         $order->save();
 
+        //CartItems wegschrijven naar tussentabel.
         foreach ($cartItems as $product) {
             $order->products()->attach($product->id, [
                 "price" => $product->price,
                 "shoesize" => $product->options["shoesize"],
                 "quantity" => $product->qty,
             ]);
+            //Stock per product verminderen.
+            $item = Product::findOrFail($product->id);
+            $item->stock -= $product->qty;
+            $item->save();
         }
 
         return redirect($stripe_request->url);
@@ -93,18 +98,28 @@ class ShopControlller extends Controller
         }
 
         return view("shop.checkout-success");
-
-        //        $newOrder = Order::where("session_id", $checkout_session->id)->first();
-        //        $newOrder->products()->attach([
-        //            "order_id" => $newOrder->id,
-        //            "product_id" => $product->id,
-        //            "price" => $product->price,
-        //            "shoesize" => $product->options["shoesize"],
-        //            "quantity" => $product->qty,
-        //        ]);
     }
-    public function cancel()
+    public function cancel(Request $request)
     {
+        //controleren of er een ingelogde user is.
+        if (Auth::User()) {
+            //de sessionId nemen vanuit de session van Stripe.
+            $checkoutSession = $request
+                ->user()
+                ->stripe()
+                ->checkout->sessions->retrieve($request->get("session_id"));
+            //controleren of deze gevuld is.
+            if ($checkoutSession) {
+                //order ophalen aan de hand van de sessionId en de status veranderen naar betaald.
+                $order = Order::where(
+                    "session_id",
+                    $checkoutSession->id
+                )->first();
+                $order->status = "cancelled";
+                $order->update();
+            }
+        }
+        Cart::destroy();
         return view("shop.checkout-cancel");
     }
 

@@ -23,6 +23,7 @@ return new class extends Migration {
             $table->string("type")->nullable();
             $table->boolean("is_billing_address")->default(false);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

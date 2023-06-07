@@ -10,6 +10,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ItunesController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ShopControlller;
@@ -50,15 +51,6 @@ Route::get("/products/filter", [
     "filterByName",
 ])->name("products.filter");
 
-//Frontend Shop Cart
-Route::get("/cart", [ShopControlller::class, "cart"])->name("shop.cart");
-Route::post("/product/{product}", [CartController::class, "addToCart"])->name(
-    "shop.add"
-);
-Route::delete("/removeItem/{cartitem}", [
-    CartController::class,
-    "removeFromCart",
-])->name("shop.remove");
 //Frontend Shop Billing Details
 //Route::get("/checkout", [HomeController::class, "checkout"])->name(
 //    "shop.checkout"
@@ -84,6 +76,16 @@ Route::get("/category/{category:slug}", [
 
 // Routes for authenticated users
 Route::group(["middleware" => ["auth"]], function () {
+    //Frontend Shop Cart
+    Route::get("/cart", [ShopControlller::class, "cart"])->name("shop.cart");
+    Route::post("/product/{product}", [
+        CartController::class,
+        "addToCart",
+    ])->name("shop.add");
+    Route::delete("/removeItem/{cartitem}", [
+        CartController::class,
+        "removeFromCart",
+    ])->name("shop.remove");
     // STRIPE ROUTES
     Route::post("/checkout-stripe", [ShopControlller::class, "checkout"])->name(
         "stripe.checkout"
@@ -104,6 +106,8 @@ Route::group(
     ["prefix" => "admin", "middleware" => ["auth", "verified"]],
     function () {
         Route::get("/", [BackendController::class, "index"])->name("home");
+        //Order Routes
+        Route::resource("orders", OrderController::class);
         // Category routes
         Route::resource("categories", AdminCategoriesController::class);
         //Product Routes

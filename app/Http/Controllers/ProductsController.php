@@ -8,7 +8,12 @@ use App\Models\Keyword;
 use App\Models\Photo;
 use App\Models\Product;
 use App\Models\ProductCategory;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
@@ -17,7 +22,7 @@ class ProductsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -33,28 +38,116 @@ class ProductsController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Display the specified resource.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @param int $id
+     * @return Response
      */
-    public function create()
+    public function show($id)
     {
         //
-        $keywords = Keyword::all();
-        $productcategories = ProductCategory::all();
+        $product = Product::findOrFail($id);
+        return view("admin.products.show", compact("product"));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param int $id
+     * @return Response
+     */
+    public function edit($id)
+    {
+        //
+        $product = Product::findOrFail($id);
         $brands = Brand::all();
         $colors = Color::all();
+        $productcategories = ProductCategory::all();
+        $keywords = Keyword::all();
         return view(
-            "admin.products.create",
-            compact("keywords", "productcategories", "brands", "colors")
+            "admin.products.edit",
+            compact(
+                "product",
+                "brands",
+                "colors",
+                "productcategories",
+                "keywords"
+            )
         );
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param Request $request
+     * @param int $id
+     * @return Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+        request()->validate(
+            [
+                "name" => ["required", "between:3,255"],
+                "keywords" => ["required", Rule::exists("keywords", "id")],
+                "body" => "required",
+                "price" => ["required", "numeric", "between:0.01,999.99"],
+                "stock" => ["required", "numeric", "between:0.01,999.99"],
+            ],
+            [
+                "name.required" => "Product name is required",
+                "title.between" =>
+                    "Product name between 3 and 255 characters required",
+                "body.required" => "Message is required",
+                "keywords.required" => "Please check minimum one keyword",
+                "price.required" => "Price field is required",
+                "price.numeric" => "Price can only contain numbers",
+                "price.between" => "Price has to be positive",
+                "stock.required" => "Stock field is required",
+                "stock.numeric" => "Stock can only contain numbers",
+                "stock.between" => "Stock has to be positive",
+            ]
+        );
+        $product = Product::findOrFail($id);
+        $input = $request->all();
+        //        $input["slug"] = Str::slug($request->name, "-");
+        // oude foto verwijderen
+        //we kijken eerst of er een foto bestaat
+        if ($request->hasFile("photo_id")) {
+            $oldPhoto = $product->photo; // de huidige foto van de gebruiker
+            $path = request()
+                ->file("photo_id")
+                ->store("products");
+            if ($oldPhoto) {
+                unlink(public_path($oldPhoto->file));
+                // $oldPhoto->delete();
+                $oldPhoto->update(["file" => $path]);
+                $input["photo_id"] = $oldPhoto->id;
+            } else {
+                $photo = Photo::create(["file" => $path]);
+                $input["photo_id"] = $photo->id;
+            }
+        }
+        $product->brand_id = $request->brand_id;
+        $product->color_id = $request->color_id;
+        $product->update($input);
+        $product->productcategories()->sync($request->productcategories, true);
+        $product->keywords()->sync($request->keywords);
+        return redirect()
+            ->route("products.index")
+            ->with([
+                "alert" => [
+                    "message" => "Product updated",
+                    "type" => "success",
+                ],
+            ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param Request $request
+     * @return RedirectResponse
      */
     public function store(Request $request)
     {
@@ -120,121 +213,34 @@ class ProductsController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Show the form for creating a new resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View
      */
-    public function show($id)
+    public function create()
     {
         //
-        $product = Product::findOrFail($id);
-        return view("admin.products.show", compact("product"));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-        $product = Product::findOrFail($id);
+        $keywords = Keyword::all();
+        $productcategories = ProductCategory::all();
         $brands = Brand::all();
         $colors = Color::all();
-        $productcategories = ProductCategory::all();
-        $keywords = Keyword::all();
         return view(
-            "admin.products.edit",
-            compact(
-                "product",
-                "brands",
-                "colors",
-                "productcategories",
-                "keywords"
-            )
+            "admin.products.create",
+            compact("keywords", "productcategories", "brands", "colors")
         );
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-        request()->validate(
-            [
-                "name" => ["required", "between:3,255"],
-                "keywords" => ["required", Rule::exists("keywords", "id")],
-                "body" => "required",
-                "price" => ["required", "numeric", "between:0.01,999.99"],
-                "stock" => ["required", "numeric", "between:0.01,999.99"],
-            ],
-            [
-                "name.required" => "Product name is required",
-                "title.between" =>
-                    "Product name between 3 and 255 characters required",
-                "body.required" => "Message is required",
-                "keywords.required" => "Please check minimum one keyword",
-                "price.required" => "Price field is required",
-                "price.numeric" => "Price can only contain numbers",
-                "price.between" => "Price has to be positive",
-                "stock.required" => "Stock field is required",
-                "stock.numeric" => "Stock can only contain numbers",
-                "stock.between" => "Stock has to be positive",
-            ]
-        );
-        $product = Product::findOrFail($id);
-        $input = $request->all();
-        //        $input["slug"] = Str::slug($request->name, "-");
-        // oude foto verwijderen
-        //we kijken eerst of er een foto bestaat
-        if ($request->hasFile("photo_id")) {
-            $oldPhoto = $product->photo; // de huidige foto van de gebruiker
-            $path = request()
-                ->file("photo_id")
-                ->store("products");
-            if ($oldPhoto) {
-                unlink(public_path($oldPhoto->file));
-                // $oldPhoto->delete();
-                $oldPhoto->update(["file" => $path]);
-                $input["photo_id"] = $oldPhoto->id;
-            } else {
-                $photo = Photo::create(["file" => $path]);
-                $input["photo_id"] = $photo->id;
-            }
-        }
-        $product->brand_id = $request->brand_id;
-        $product->color_id = $request->color_id;
-        $product->update($input);
-        $product->productcategories()->sync($request->productcategories, true);
-        $product->keywords()->sync($request->keywords);
-        return redirect()
-            ->route("products.index")
-            ->with([
-                "alert" => [
-                    "message" => "Product updated",
-                    "type" => "success",
-                ],
-            ]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Response
      */
     public function destroy($id)
     {
         //
     }
+
     public function productsPerBrand($id)
     {
         $brands = Brand::all();
@@ -247,34 +253,5 @@ class ProductsController extends Controller
     public function detail(Product $product)
     {
         return view("shop.detail", compact("product"));
-    }
-
-    public function filterByName(Request $request)
-    {
-        $searchTerm = $request->input("search");
-        $brands = Brand::all();
-
-        $products = Product::with("photo")
-            ->where(function ($query) use ($searchTerm) {
-                $query
-                    ->where("name", "like", "%{$searchTerm}%")
-                    ->orWhereHas("brand", function ($query) use ($searchTerm) {
-                        $query->where("name", "like", "%{$searchTerm}%");
-                    })
-                    //                    ->orWhereHas("category", function ($query) use (
-                    //                        $searchTerm
-                    //                    ) {
-                    //                        $query->where("name", "like", "%{$searchTerm}%");
-                    //                    })
-                    ->orWhereHas("productCategories", function ($query) use (
-                        $searchTerm
-                    ) {
-                        $query->where("name", "like", "%" . $searchTerm . "%");
-                    });
-            })
-            ->paginate(10);
-
-        // Return the filtered products or perform any other actions
-        return view("shop.index", compact("products", "brands"));
     }
 }
