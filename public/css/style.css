@@ -203,4 +203,7 @@
     border-radius: 8px;
     cursor: pointer;
 }
+.rotate-90 {
+    transform: rotate(90deg);
+}
 /* end css cart page */

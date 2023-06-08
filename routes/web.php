@@ -103,7 +103,7 @@ Route::group(["middleware" => ["auth"]], function () {
 /**Backend**/
 
 Route::group(
-    ["prefix" => "admin", "middleware" => ["auth", "verified"]],
+    ["prefix" => "admin", "middleware" => ["auth", "verified", "admin"]],
     function () {
         Route::get("/", [BackendController::class, "index"])->name("home");
         //Order Routes

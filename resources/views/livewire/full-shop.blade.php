@@ -130,12 +130,17 @@
                                 </h4>
                             </header>
                             <div class="my-3 w-75 mx-auto" data-role="rangeslider">
-                                <input wire:model="priceValue" type="range" class="form-range"  max="500" step="5" id="customRange2">
+                                <div class="py-3 d-flex">
+                                    <p class="pe-2 fs-5">Max Price Selected: </p>
+                                    <p class="ff-pm fs-5">@if($newValue) &euro; {{ $newValue }}@endif</p>
+                                </div>
+                                <input wire:input="tryChange" wire:model="priceValue" type="range" class="form-range" max="{{ $priceMax }}" step="10" id="customRange2">
                                 <div class="d-flex justify-content-between">
-                                    <p>{{ $minPrice }}</p>
-                                    <p>{{ $priceValue }}</p>
+                                    <p class="fs-6 ff-pm">{{ $minPrice }}</p>
+                                    <p>{{ $priceMax }}</p>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -143,7 +148,7 @@
 
                 <!-- Start Product Cards -->
                 <div class="col-lg-8">
-                    <div class="row row-cols-1 justify-content-center row-cols-md-2 row-cols-lg-4 row-cols-xxl-5 gap-4">
+                    <div class="row row-cols-1 justify-content-md-center row-cols-md-2 row-cols-lg-4 row-cols-xxl-5 gap-4">
                         @foreach ($products as $product)
                             <livewire:shop-products :product="$product" wire:key="$product.{{ $product->id }}"/>
                         @endforeach
