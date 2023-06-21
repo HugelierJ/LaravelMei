@@ -58,6 +58,19 @@
         </div>
     </li>
     <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAddresses"
+           aria-expanded="true" aria-controls="collapseAddresses">
+            <i class="fas fa-folder"></i>
+            <span>Addresses</span>
+        </a>
+        <div id="collapseAddresses" class="collapse" aria-labelledby="collapseAddresses" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Links:</h6>
+                <a class="collapse-item" href="{{route('address.index')}}">All Addresses</a>
+            </div>
+        </div>
+    </li>
+    <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCategories"
            aria-expanded="true" aria-controls="collapseCategories">
             <i class="fas fa-hashtag"></i>

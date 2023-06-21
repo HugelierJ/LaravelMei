@@ -14,16 +14,25 @@ return new class extends Migration {
     {
         Schema::create("addresses", function (Blueprint $table) {
             $table->id();
-            $table->foreignId("user_id")->constrained();
-            $table->string("home_address");
-            $table->string("secondary_address")->nullable();
+            $table->string("name");
             $table->string("city");
             $table->string("state");
             $table->string("zip_code");
-            $table->string("type")->nullable();
-            $table->boolean("is_billing_address")->default(false);
             $table->timestamps();
             $table->softDeletes();
+        });
+
+        Schema::create("address_user", function (Blueprint $table) {
+            $table->id();
+            $table
+                ->foreignId("address_id")
+                ->constrained()
+                ->cascadeOnDelete();
+            $table
+                ->foreignId("user_id")
+                ->constrained()
+                ->cascadeOnDelete();
+            $table->timestamps();
         });
     }
 

@@ -39,19 +39,21 @@
                                     <p class=" ff-pr fs-4">
                                         <u>Gender</u>
                                     </p>
-                                    <ul class="no-style p-0 border-0">
-                                        <li class="ms-3 ff-pr fs-5"><input class="me-2" type="checkbox">Male</li>
-                                        <li class="ms-3 ff-pr fs-5"><input class="me-2" type="checkbox">Female</li>
-                                        <li class="ms-3 ff-pr fs-5"><input class="me-2" type="checkbox">X</li>
-                                    </ul>
+                                    <select wire:model="genderValue" class="form-control w-80 mx-auto mb-3" id="genderValue" name="gender">
+                                        <option class="ms-3 ff-pr" value="" selected>All Genders</option>
+                                        @foreach($genders as $gender)
+                                            <option class="ms-3 ff-pr" value="{{ $gender->id }}">{{ $gender->name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div>
                                     <p class="ff-pr fs-4 mb-1 pt-3">
                                         <u>Brand</u>
                                     </p>
-                                    <select class="form-control w-80 mb-3" id="brandValueFilter" name="brand">
+                                    <select wire:model="brandValue" class="form-control w-80 mx-auto mb-3" id="brandValue" name="brand">
+                                        <option class="ms-3 ff-pr" value="" selected>All Brands</option>
                                         @foreach($brands as $brand)
-                                            <option class="ms-3 ff-pr" wire:key="brand.{{$brand->id}}" wire:model="merk" value="{{ $brand }}" >{{ $brand->name }}</option>
+                                            <option class="ms-3 ff-pr" value="{{ $brand->id }}">{{ $brand->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -61,7 +63,16 @@
                                             <u>Price Range</u>
                                         </h4>
                                     </header>
-                                    <div class="my-3 w-75 mx-auto" id="slider1">
+                                    <div class="my-3 w-75 mx-auto" data-role="rangeslider">
+                                        <div class="py-3 d-flex">
+                                            <p class="pe-2 fs-5">Max Price Selected: </p>
+                                            <p class="ff-pm fs-5">@if($newValue) &euro; {{ $newValue }}@endif</p>
+                                        </div>
+                                        <input wire:input="tryChange" wire:model="priceValue" type="range" class="form-range" max="{{ $priceMax }}" step="10" id="customRange2">
+                                        <div class="d-flex justify-content-between">
+                                            <p class="fs-6 ff-pm">{{ $minPrice }}</p>
+                                            <p>{{ $priceMax }}</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -70,19 +81,19 @@
                     <!--  End off-canvas Mobile filter  -->
 
                     <!-- start Sort button -->
-                    <div class="dropdown me-md-4 me-lg-4 me-xl-0">
-                        <button aria-expanded="false" class="btn back-third dropdown-toggle ff-pm"
-                                data-bs-toggle="dropdown"
-                                type="button">
-                            Sort By
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item ff-pm" href="#">Price (low - high)</a></li>
-                            <li><a class="dropdown-item ff-pm" href="#">Price (high - low)</a></li>
-                            <li>
-                                <button wire:click="tryListen('product_name')" class="dropdown-item ff-pm">A-Z</button>
-                            </li>
-                        </ul>
+                    <div class="d-flex align-items-baseline">
+                        <div>
+                            <select class="cstm-btn ff-pm" wire:model="sortBy" id="sort">
+                                <option class="ms-3 ff-pr" value="" selected >Sort By</option>
+                                <option class="ms-3 ff-pr" value="name">Name @if($sortDirection === "asc")(A-Z) @else() (Z-A) @endif</option>
+                                <option class="ms-3 ff-pr" value="price">Price @if($sortDirection === "asc")(Asc) @else() (Desc) @endif</option>
+                            </select>
+                        </div>
+                        <div class="back-primary p-2 rounded ms-3u" wire:click="changeSortDirection" style="cursor: pointer" class="ms-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-arrow-down-up" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z"/>
+                            </svg>
+                        </div>
                     </div>
                 </div>
                 <!-- End sort button -->

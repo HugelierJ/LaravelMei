@@ -13,6 +13,11 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ShopControlller extends Controller
 {
+    public function billing()
+    {
+        return view("shop.checkout");
+    }
+
     public function shop()
     {
         return view("shop.index");
@@ -38,7 +43,7 @@ class ShopControlller extends Controller
                     "currency" => env("CASHIER_CURRENCY"),
                     "product_data" => [
                         "name" => $product->name,
-                        "description" => Str::limit($product->model->body, 50),
+                        "description" => Str::limit($product->model->body),
                     ],
                     "unit_amount" => $product->price * 100,
                 ],

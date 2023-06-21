@@ -17,27 +17,25 @@ class AddressSeeder extends Seeder
     public function run()
     {
         //
-        $count = count(User::all());
+        $users = User::all();
 
-        for ($i = 1; $i < $count; $i++) {
-            $address = new Address();
-            $address->user_id = $i;
-            $address->home_address = fake()->address();
-            if ($i % 2 == 0) {
-                $address->secondary_address = fake()->address();
+        foreach ($users as $user) {
+            $numAddresses = fake()->numberBetween(1, 2);
+            $addresses = [];
+
+            for ($i = 0; $i < $numAddresses; $i++) {
+                $address = new Address();
+                $address->name =
+                    fake()->streetName . " " . fake()->buildingNumber;
+                $address->city = fake()->city;
+                $address->state = fake()->country;
+                $address->zip_code = fake()->postcode;
+                $address->created_at = now();
+                $address->updated_at = now();
+                $address->save();
+                $addresses[] = $address->id;
             }
-            $address->city = fake()->city();
-            $address->state = fake()->country();
-            $address->zip_code = fake()->postcode();
-            $address->type = fake()->word();
-            if ($i % 2 == 0) {
-                $address->is_billing_address = false;
-            } else {
-                $address->is_billing_address = true;
-            }
-            $address->created_at = now();
-            $address->updated_at = now();
-            $address->save();
+            $user->addresses()->attach($addresses);
         }
     }
 }

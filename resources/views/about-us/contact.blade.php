@@ -24,31 +24,27 @@
                 </header>
             </div>
             <div class="col-12 col-lg-6 offset-lg-3">
-                <form class="form-control back-primary d-flex flex-column align-items-center my-5">
-                    <div class="row">
+                <form action="{{ route("contact.store") }}" method="post" class="form-control back-primary d-flex flex-column align-items-center my-5">
+                    @csrf
+                    @method("POST")
                         <div class="col-md-10 col-8 offset-2 offset-md-1">
-                            <div class="gap-4 d-md-flex">
+                            <div class="gap-4 pt-3">
                                 <div class="mb-3 form-floating">
-                                    <input type="email" class="form-control" id="userFirstName" placeholder=" ">
-                                    <label for="userFirstName" class="form-label ff-pr">first name</label>
-                                </div>
-                                <div class="mb-3 form-floating">
-                                    <input type="password" class="form-control" id="userPassword" placeholder=" ">
-                                    <label for="userPassword" class="form-label ff-pr">name</label>
+                                    <input name="name" type="text" class="form-control" id="userFirstName" placeholder=" ">
+                                    <label for="userFirstName" class="form-label ff-pr">name</label>
                                 </div>
                             </div>
                             <div class="gap-4">
                                 <div class="mb-3 form-floating w-100">
-                                    <input type="email" class="form-control" id="userMail" placeholder=" ">
+                                    <input name="email" type="email" class="form-control" id="userMail" placeholder=" ">
                                     <label for="userMail" class="form-label ff-pr">Email address</label>
                                 </div>
                                 <div class="mb-3">
                                     <label for="userQuestion">Question.</label>
-                                    <textarea class="form-control ff-pr" placeholder="Leave a question here" id="userQuestion"></textarea>
+                                    <textarea name="message" class="form-control ff-pr" placeholder="Leave a question here" id="userQuestion"></textarea>
                                 </div>
                             </div>
                         </div>
-                    </div>
                     <button type="submit" class="cstm-btn ff-pr">Submit</button>
                 </form>
             </div>

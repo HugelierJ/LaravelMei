@@ -82,7 +82,7 @@ class RegisterController extends Controller
             "password" => Hash::make($data["password"]),
             "is_active" => 1,
         ]);
-        $user->roles()->attach($role->id); //sync can you ook gebruiken
+        $user->roles()->attach($role->id); //sync kan je ook gebruiken
         return $user;
     }
 }

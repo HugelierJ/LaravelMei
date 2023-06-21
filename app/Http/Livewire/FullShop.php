@@ -18,6 +18,8 @@ class FullShop extends Component
     public $productSearch;
     public $genderValue;
     public $brandValue;
+    public $sortBy = "";
+    public $sortDirection = "asc";
 
     public $minPrice = 0;
     public $priceValue;
@@ -35,6 +37,12 @@ class FullShop extends Component
         $expensiveProduct = Product::orderBy("price", "desc")->first();
         $this->priceMax = $expensiveProduct->price;
     }
+
+    public function changeSortDirection()
+    {
+        $this->sortDirection = $this->sortDirection === "asc" ? "desc" : "asc";
+    }
+
     public function render()
     {
         $query = Product::with(["photo", "brand"])->where(
@@ -49,9 +57,10 @@ class FullShop extends Component
             $query->where("brand_id", $this->brandValue);
         }
         if ($this->priceValue) {
-            $query
-                ->whereBetween("price", [$this->minPrice, $this->priceValue])
-                ->orderBy("price", "asc");
+            $query->whereBetween("price", [$this->minPrice, $this->priceValue]);
+        }
+        if ($this->sortBy) {
+            $query->orderBy($this->sortBy, $this->sortDirection);
         }
 
         $this->genders = Gender::all();

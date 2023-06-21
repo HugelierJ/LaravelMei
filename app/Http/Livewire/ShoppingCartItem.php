@@ -24,6 +24,7 @@ class ShoppingCartItem extends Component
         }
         $this->item->qty = $this->quantity;
         $this->price = $this->item->price * $this->quantity;
+        $this->price = number_format($this->price, 2, ",", ".");
         $this->emit("updateCartTotal");
     }
 
@@ -31,6 +32,7 @@ class ShoppingCartItem extends Component
     {
         $this->item = Cart::get($this->rowId);
         $this->price = $this->item->price * $this->item->qty;
+        $this->price = number_format($this->price, 2, ",", ".");
         $this->quantity = $this->item->qty;
     }
 

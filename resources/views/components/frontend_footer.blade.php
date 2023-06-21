@@ -41,10 +41,10 @@
                 </h3>
                 <hr class="w-100 ">
                 <div class="d-flex flex-column">
-                    <a class="no-deco ff-pm font-secondary fs-5" href="index.html">Home</a>
-                    <a class="no-deco ff-pm font-secondary fs-5" href="about.html">About Us</a>
-                    <a class="no-deco ff-pm font-secondary fs-5" href="shop.html">Shop Page</a>
-                    <a class="no-deco ff-pm font-secondary fs-5" href="contact.html">Contact Page</a>
+                    <a class="no-deco ff-pm font-secondary fs-5" href="{{ route("frontend.index") }}">Home</a>
+                    <a class="no-deco ff-pm font-secondary fs-5" href="{{ route("about-us.index") }}">About Us</a>
+                    <a class="no-deco ff-pm font-secondary fs-5" href="{{ route("shop.index") }}">Shop Page</a>
+                    <a class="no-deco ff-pm font-secondary fs-5" href="{{ route("about-us.contact") }}">Contact Page</a>
                 </div>
             </div>
         </div>
@@ -62,11 +62,6 @@
                         <li class="no-style mx-3"><a class="no-deco font-secondary fs-3" href="#"><i
                                     class="bi bi-linkedin"></i></a></li>
                     </ul>
-                </div>
-
-                <div class="d-flex">
-                    <input class="w-100 rounded" id="placeholderChange" placeholder="example@provider" type="email">
-                    <button class="ms-2 cstm-btn">Subscribe</button>
                 </div>
             </div>
         </div>

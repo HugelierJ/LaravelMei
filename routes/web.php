@@ -1,20 +1,17 @@
 <?php
 
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AdminCategoriesController;
-use App\Http\Controllers\AdminPostsController;
 use App\Http\Controllers\AdminUsersController;
 use App\Http\Controllers\BackendController;
 use App\Http\Controllers\BrandsController;
 use App\Http\Controllers\CartController;
-use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ItunesController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ShopControlller;
-use App\Models\Post;
 use App\Models\ProductCategory;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -56,17 +53,14 @@ Route::get("/products/filter", [
 //    "shop.checkout"
 //);
 //Frontend Shop DetailPage
-Route::get("/detail", [HomeController::class, "detailPage"])->name(
-    "shop.detail"
-);
 Route::get("/shop/{product:slug}", [ProductsController::class, "detail"])->name(
     "products.detail"
 );
 /* Old Routes */
-Route::get("contactformulier", [ContactController::class, "create"])->name(
+Route::get("/contactus", [ContactController::class, "create"])->name(
     "contact.create"
 );
-Route::post("contactformulier", [ContactController::class, "store"])->name(
+Route::post("/contactus", [ContactController::class, "store"])->name(
     "contact.store"
 );
 Route::get("/category/{category:slug}", [
@@ -86,8 +80,11 @@ Route::group(["middleware" => ["auth"]], function () {
         CartController::class,
         "removeFromCart",
     ])->name("shop.remove");
+    Route::get("/checkout", [ShopControlller::class, "billing"])->name(
+        "shop.billing"
+    );
     // STRIPE ROUTES
-    Route::post("/checkout-stripe", [ShopControlller::class, "checkout"])->name(
+    Route::get("/checkout-stripe", [ShopControlller::class, "checkout"])->name(
         "stripe.checkout"
     );
     Route::get("/checkout-success/", [ShopControlller::class, "success"])->name(
@@ -105,6 +102,10 @@ Route::group(["middleware" => ["auth"]], function () {
 Route::group(
     ["prefix" => "admin", "middleware" => ["auth", "verified", "admin"]],
     function () {
+        //Address Route
+        Route::get("/addresses", [AddressController::class, "index"])->name(
+            "address.index"
+        );
         Route::get("/", [BackendController::class, "index"])->name("home");
         //Order Routes
         Route::resource("orders", OrderController::class);

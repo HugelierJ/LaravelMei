@@ -54,6 +54,6 @@ class Product extends Model
             "product_productcategory",
             "product_id",
             "productcategory_id"
-        )->withPivot("price", "quantity", "shoesize");
+        );
     }
 }

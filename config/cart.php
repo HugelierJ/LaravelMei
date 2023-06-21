@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Gross price as base price
@@ -12,7 +11,8 @@ return [
     |
     */
 
-    'calculator' => \Gloudemans\Shoppingcart\Calculation\DefaultCalculator::class,
+    "calculator" =>
+        \Gloudemans\Shoppingcart\Calculation\DefaultCalculator::class,
 
     /*
     |--------------------------------------------------------------------------
@@ -24,7 +24,7 @@ return [
     |
     */
 
-    'tax' => 21,
+    "tax" => 21,
 
     /*
     |--------------------------------------------------------------------------
@@ -36,12 +36,10 @@ return [
     |
     */
 
-    'database' => [
+    "database" => [
+        "connection" => null,
 
-        'connection' => null,
-
-        'table' => 'shoppingcart',
-
+        "table" => "shoppingcart",
     ],
 
     /*
@@ -54,7 +52,7 @@ return [
     |
     */
 
-    'destroy_on_logout' => false,
+    "destroy_on_logout" => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -66,14 +64,11 @@ return [
     |
     */
 
-    'format' => [
+    "format" => [
+        "decimals" => 2,
 
-        'decimals' => 2,
+        "decimal_point" => ",",
 
-        'decimal_point' => '.',
-
-        'thousand_separator' => ',',
-
+        "thousand_separator" => ".",
     ],
-
 ];

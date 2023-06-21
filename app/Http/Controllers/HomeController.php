@@ -49,8 +49,4 @@ class HomeController extends Controller
     {
         return view("shop.checkout");
     }
-    public function detail()
-    {
-        return view("shop.detail");
-    }
 }

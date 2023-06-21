@@ -7,9 +7,7 @@ use Livewire\Component;
 
 class Shoppingcart extends Component
 {
-    protected $listeners = [
-        "updateCartTotal" => "updateTotal",
-    ];
+    protected $listeners = ["updateCartTotal" => "updateTotal"];
     public $cartitems;
     public $cartTotal;
     public $total;

@@ -45,12 +45,16 @@
                 <div class="d-flex justify-content-between">
                     <p class="ff-pm fs-6">Total Price</p>
                     <p class="ff-pm fs-6">&euro; {{ $total }}</p>
+                    <p class="ff-pm fs-6">&euro; {{ $total }}</p>
                 </div>
                 <div class="text-center mb-2">
-                    <form action="{{ route("stripe.checkout") }}" method="POST">
+                    <form action="{{ route("shop.billing") }}" method="GET">
                         @csrf
-                        @method("POST")
-                        <button class="btn btn-custom border-0 ff-pm fs-6">Go To Checkout</button>
+                        @method("GET")
+                        @if(count(Cart::content()) <= 0)
+                        <p class="ff-pm fs-6 text-danger">Make sure you have 1 item in your cart.</p>
+                        @endif
+                        <button class="btn btn-custom border-0 ff-pm fs-6 @if(count(Cart::content()) <= 0) disabled @endif ">Go To billing</button>
                     </form>
 
                 </div>

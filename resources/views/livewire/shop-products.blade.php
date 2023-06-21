@@ -3,7 +3,7 @@
         {{ $product->brand->name }}
     </div>
     <a href="{{ route('products.detail',$product->slug) }}"><img alt="{{ $product->name }}" class="card-img-top" src="{{ $product->photo ? $product->photo->file : "https://via.placeholder.com/200x250.png" }}"></a>
-    <div class="card-body">
+    <div class="card-body d-flex flex-column justify-content-between">
         <div>
             <a href=""><i class="bi bi-star text-warning"></i></a>
             <a href=""><i class="bi bi-star text-warning"></i></a>
@@ -15,7 +15,7 @@
         </div>
         <div class="d-flex justify-content-between align-items-baseline">
             <a class="btn btn-custom ff-pr " href="{{ route('products.detail',$product->slug) }}">More Info</a>
-            <p class="ff-psb ">&euro; {{ $product->price }}</p>
+            <p class="ff-psb ">&euro; {{ number_format($product->price) }}</p>
         </div>
     </div>
 </div>
