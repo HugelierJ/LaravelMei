@@ -45,7 +45,6 @@
                 <div class="d-flex justify-content-between">
                     <p class="ff-pm fs-6">Total Price</p>
                     <p class="ff-pm fs-6">&euro; {{ $total }}</p>
-                    <p class="ff-pm fs-6">&euro; {{ $total }}</p>
                 </div>
                 <div class="text-center mb-2">
                     <form action="{{ route("shop.billing") }}" method="GET">

@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Brand;
 use App\Models\Order;
 use App\Models\Product;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Illuminate\Support\Facades\Session;
 
 class ShopControlller extends Controller
 {
@@ -37,7 +36,7 @@ class ShopControlller extends Controller
         $totalPrice = 0;
         $cartItems = Cart::content();
         foreach ($cartItems as $product) {
-            $totalPrice += $product->price;
+            $totalPrice += $product->price * $product->qty;
             $lineItems[] = [
                 "price_data" => [
                     "currency" => env("CASHIER_CURRENCY"),
@@ -56,8 +55,24 @@ class ShopControlller extends Controller
             "cancel_url" =>
                 route("stripe.cancel") . "?session_id={CHECKOUT_SESSION_ID}",
         ]);
+
+        //Wegschrijven naar Billing tabel
+        $billingInfo = Session::get("billingData");
+        $billingDetails = new \App\Models\Billing();
+        $billingDetails->billing_name =
+            $billingInfo["first_name"] . " " . $billingInfo["last_name"];
+        $billingDetails->billing_address = $billingInfo["street"];
+        $billingDetails->billing_state = $billingInfo["state"];
+        $billingDetails->billing_city = $billingInfo["city"];
+        $billingDetails->billing_zip_code = $billingInfo["zip_code"];
+        $billingDetails->billing_phone_number = $billingInfo["phone_number"];
+        $billingDetails->billing_email = $billingInfo["email"];
+        $billingDetails->save();
+        Session::forget("billingData");
+
         //Wegschrijven naar Order tabel.
         $order = new Order();
+        $order->billing_id = $billingDetails->id;
         $order->status = "unpaid";
         $order->total_price = $totalPrice;
         $order->session_id = $stripe_request->id;

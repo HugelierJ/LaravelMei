@@ -22,9 +22,9 @@ class ShoppingCartItem extends Component
         } elseif ($this->quantity > $productStock) {
             $this->quantity = $productStock;
         }
+        $this->quantity = floor($this->quantity);
         $this->item->qty = $this->quantity;
         $this->price = $this->item->price * $this->quantity;
-        $this->price = number_format($this->price, 2, ",", ".");
         $this->emit("updateCartTotal");
     }
 

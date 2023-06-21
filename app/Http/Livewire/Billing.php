@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
 class Billing extends Component
@@ -14,7 +15,7 @@ class Billing extends Component
     public $zip_code;
     public $phone_number;
     public $email;
-    public $name;
+    public $street;
 
     public function mount()
     {
@@ -31,7 +32,7 @@ class Billing extends Component
             ->first()->zip_code;
         $this->phone_number = Auth::user()->phone_number;
         $this->email = Auth::user()->email;
-        $this->name = Auth::user()
+        $this->street = Auth::user()
             ->addresses()
             ->first()->name;
     }
@@ -39,33 +40,17 @@ class Billing extends Component
     {
         // Validate the form fields
         $validatedData = $this->validate([
-            "first_name" => ["required", "between:3,50"],
-            "last_name" => ["required", "between:3,50"],
-            "state" => ["required", "between:3,42"],
-            "city" => ["required", "between:3,85"],
-            "zip_code" => ["required", "between:3,20"],
-            "phone_number" => ["nullable", "between:3,20"],
-            "email" => ["required", "between:3,75"],
+            "first_name" => ["required", "between:1,50"],
+            "last_name" => ["required", "between:1,50"],
+            "state" => ["required", "between:1,42"],
+            "city" => ["required", "between:1,85"],
+            "zip_code" => ["required", "between:1,20"],
+            "phone_number" => ["nullable", "between:1,20"],
+            "email" => ["required", "between:1,75"],
+            "street" => ["required", "between:1,50"],
         ]);
-        Auth::user()
-            ->addresses()
-            ->first()->state = $this->state;
-        Auth::user()
-            ->addresses()
-            ->first()->city = $this->city;
-        Auth::user()
-            ->addresses()
-            ->first()->zip_code = $this->zip_code;
-        Auth::user()->email = $this->email;
-        if ($this->phone_number) {
-            Auth::user()->phone_number = $this->phone_number;
-        }
-        Auth::user()
-            ->addresses()
-            ->save();
-        Auth::user()->save();
-
         if ($validatedData) {
+            Session::put("billingData", $validatedData);
             return redirect()->route("stripe.checkout");
         }
         return back();

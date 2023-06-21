@@ -15,7 +15,7 @@
         </div>
         <div class="d-flex justify-content-between align-items-baseline">
             <a class="btn btn-custom ff-pr " href="{{ route('products.detail',$product->slug) }}">More Info</a>
-            <p class="ff-psb ">&euro; {{ number_format($product->price) }}</p>
+            <p class="ff-psb ">&euro; {{ $product->price }}</p>
         </div>
     </div>
 </div>

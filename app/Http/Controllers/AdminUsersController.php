@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\UsersSoftDelete;
 use App\Http\Requests\UsersRequest;
+use App\Models\Gender;
 use App\Models\Photo;
 use App\Models\Role;
 use App\Models\User;
@@ -57,8 +58,9 @@ class AdminUsersController extends Controller
     public function create()
     {
         //
+        $genders = Gender::all();
         $roles = Role::pluck("name", "id")->all();
-        return view("admin.users.create", compact("roles"));
+        return view("admin.users.create", compact("roles", "genders"));
     }
 
     /**
@@ -67,22 +69,27 @@ class AdminUsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UsersRequest $request)
+    public function store(Request $request)
     {
         $user = new User();
-        $user->name = $request->name;
+        $user->username = $request->username;
+        $user->first_name = $request->firstname;
+        $user->last_name = $request->lastname;
+        $user->is_active = $request->isactive;
         $user->email = $request->email;
-        $user->is_active = $request->is_active;
+        if (!empty($request->phone_number)) {
+            $user->phone_number = $request->phonenumber;
+        }
         $user->password = Hash::make($request->password);
-        if ($file = $request->file("photo_id")) {
+        if ($file = $request->file("photofile")) {
             $path = request()
-                ->file("photo_id")
+                ->file("photofile")
                 ->store("users");
             $photo = Photo::create(["file" => $path]);
             //update photo_id (FK in users table)
             $input["photo_id"] = $user->photo_id = $photo->id;
         }
-
+        $user->gender_id = $request->gender;
         $user->save();
         /*wegschrijven van meerder rollen in de tussentabel*/
         $user->roles()->sync($request->roles, false);

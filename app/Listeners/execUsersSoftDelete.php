@@ -27,7 +27,5 @@ class execUsersSoftDelete
     public function handle(UsersSoftDelete $event)
     {
         //
-        $userId = $event->user->id;
-        $event->user->posts()->where('user_id',$userId)->delete();
     }
 }

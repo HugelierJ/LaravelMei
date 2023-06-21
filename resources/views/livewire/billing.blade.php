@@ -49,8 +49,8 @@
                         <p class="ff-pr">
                             Street Name
                         </p>
-                        <input wire:model="name" id="billingstate" name="name" class="form-control mb-3 ff-pr" value="{{ Auth::user()->addresses->first()->name }}">
-                        @error('state')
+                        <input wire:model="street" id="billingstate" name="street" class="form-control mb-3 ff-pr" value="{{ Auth::user()->addresses->first()->name }}">
+                        @error('street')
                         <p class="text-danger fs-6">{{$message}}</p>
                         @enderror
                     </div>
