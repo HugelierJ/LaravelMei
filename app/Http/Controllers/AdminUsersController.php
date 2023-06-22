@@ -29,27 +29,15 @@ class AdminUsersController extends Controller
     public function index()
     {
         //
-        $fillableFields = ["first_name", "is_active", "email"];
         $users = User::with(["roles", "photo"])
             ->orderByDesc("id")
             ->withTrashed()
             ->paginate(20);
 
-        return view("admin.users.index", compact("users", "fillableFields"));
+        return view("admin.users.index", compact("users"));
         //of
         //return view('admin.users.index',compact('users'));
     }
-    public function index2()
-    {
-        //
-        $users = User::orderByDesc("id")
-            ->withTrashed()
-            ->paginate(20);
-        return view("admin.users.index2", ["users" => $users]);
-        //of
-        //return view('admin.users.index',compact('users'));
-    }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -59,7 +47,7 @@ class AdminUsersController extends Controller
     {
         //
         $genders = Gender::all();
-        $roles = Role::pluck("name", "id")->all();
+        $roles = Role::all();
         return view("admin.users.create", compact("roles", "genders"));
     }
 
@@ -71,19 +59,29 @@ class AdminUsersController extends Controller
      */
     public function store(Request $request)
     {
+        request()->validate([
+            "first_name" => ["string", "between:2,50", "regex:/^[A-Za-z]+$/"],
+            "last_name" => ["string", "between:2,50", "regex:/^[A-Za-z]+$/"],
+            "username" => ["string", "between:2,50", "regex:/^[A-Za-z0-9]+$/"],
+            "email" => ["email", "between:2,50", "unique:users"],
+            "phone_number" => ["numeric"],
+            "gender_id" => ["string"],
+            "photo_id" => ["file"],
+            "roles" => ["required", Rule::exists("roles", "id")],
+        ]);
         $user = new User();
         $user->username = $request->username;
-        $user->first_name = $request->firstname;
-        $user->last_name = $request->lastname;
-        $user->is_active = $request->isactive;
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
+        $user->is_active = $request->is_active;
         $user->email = $request->email;
-        if (!empty($request->phone_number)) {
-            $user->phone_number = $request->phonenumber;
+        if (isset($request->phone_number)) {
+            $user->phone_number = $request->phone_number;
         }
         $user->password = Hash::make($request->password);
-        if ($file = $request->file("photofile")) {
+        if ($file = $request->file("photo_id")) {
             $path = request()
-                ->file("photofile")
+                ->file("photo_id")
                 ->store("users");
             $photo = Photo::create(["file" => $path]);
             //update photo_id (FK in users table)
@@ -131,8 +129,9 @@ class AdminUsersController extends Controller
         //        }
 
         $user = User::findOrFail($id);
-        $roles = Role::pluck("name", "id")->all();
-        return view("admin.users.edit", compact("user", "roles"));
+        $genders = Gender::all();
+        $roles = Role::all();
+        return view("admin.users.edit", compact("user", "roles", "genders"));
     }
 
     /**
@@ -145,10 +144,14 @@ class AdminUsersController extends Controller
     public function update(Request $request, $id)
     {
         request()->validate([
-            "name" => ["required", "max:255", "min:5"],
-            "email" => ["required", "email"],
+            "first_name" => ["string", "between:2,50", "regex:/^[A-Za-z]+$/"],
+            "last_name" => ["string", "between:2,50", "regex:/^[A-Za-z]+$/"],
+            "username" => ["string", "between:2,50", "regex:/^[A-Za-z0-9]+$/"],
+            "email" => ["email", "between:2,50"],
+            "phone_number" => ["numeric"],
+            "gender_id" => ["string"],
+            "photo_id" => ["file"],
             "roles" => ["required", Rule::exists("roles", "id")],
-            "is_active" => "required",
         ]);
         $user = User::findOrFail($id);
         if (trim($request->password) == "") {
@@ -174,6 +177,7 @@ class AdminUsersController extends Controller
                 $input["photo_id"] = $photo->id;
             }
         }
+
         $user->update($input);
         $user->roles()->sync($request->roles, true);
         return redirect("/admin/users")->with("status", "User updated!");
@@ -191,27 +195,27 @@ class AdminUsersController extends Controller
         $user = User::findOrFail($id);
         UsersSoftDelete::dispatch($user);
         $user->delete();
-        return redirect()->route("users.index");
+        return redirect()
+            ->route("users.index")
+            ->with([
+                "alert" => [
+                    "message" => "User Deleted",
+                    "type" => "success",
+                ],
+            ]);
     }
     public function userRestore($id)
     {
         User::onlyTrashed()
             ->where("id", $id)
             ->restore();
-        // herstel ook alle posts van de gebruiker
-        $user = User::withTrashed()
-            ->where("id", $id)
-            ->first();
-        $user
-            ->posts()
-            ->onlyTrashed()
-            ->restore();
+
         return redirect()
             ->route("users.index")
             ->with([
                 "alert" => [
-                    "message" => "User deleted",
-                    "type" => "danger",
+                    "message" => "User Restored",
+                    "type" => "success",
                 ],
             ]);
     }

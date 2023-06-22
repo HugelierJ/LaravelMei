@@ -9,62 +9,82 @@
         <hr>
         <div class="row shadow-lg p-3 mb-5 bg-body-tertiary rounded">
             <div class="col-12 col-lg-6 ">
-
                 @include('includes.form_error')
-
-                {!! Form::open(['method'=>'PATCH', 'action'=>['App\Http\Controllers\AdminUsersController@update',$user->id],'files'=>true]) !!}
-                <div class="form-group">
-                    {!! Form::label('name','Name:') !!}
-                    {!! Form::text('name',$user->name,['class'=>'form-control','placeholder' => 'Name required...']) !!}
-                    @error('name')
-                    <p class="text-danger fs-6">{{$message}}</p>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    {!! Form::label('email','E-mail:') !!}
-                    {!! Form::text('email',$user->email,['class'=>'form-control','placeholder' => 'E-mail required...']) !!}
-                    @error('email')
-                    <p class="text-danger fs-6">{{$message}}</p>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    {!! Form::label('Select roles: (hou de ctrl toets ingedrukt om meerdere te selecteren') !!}
-                    {!! Form::select('roles[]',$roles,$user->roles,['class'=>'form-control','multiple'=>'multiple']) !!}
-                    @error('roles')
-                    <p class="text-danger fs-6">{{$message}}</p>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    {!! Form::label('is_active', 'Status:') !!}
-                    {!! Form::select('is_active',array(1=>'Active',0=>'Not Active'),$user->is_active,['class'=>'form-control']) !!}
-                    @error('is_active')
-                    <p class="text-danger fs-6">{{$message}}</p>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    {!! Form::label('password','Password:') !!}
-                    {!! Form::password('password',['class'=>'form-control','placeholder' => 'Password required...']) !!}
-                </div>
-                <div class="form-group">
-                    {!! Form::label('photo_id','Photo_id:') !!}
-                    {!! Form::file('photo_id',null,['class'=>'form-control']) !!}
-                </div>
-                <div class="d-flex justify-content-end">
-                    <div class="form-group mr-1">
-                        {!! Form::submit('Update',['class'=>'btn btn-primary rounded']) !!}
+                <form action="{{ route("users.update", $user->id) }}" enctype="multipart/form-data" method="POST">
+                    @csrf
+                    @method("PATCH")
+                    <div class="d-flex justify-content-evenly">
+                        <div class="form-group flex-fill">
+                            <label for="first_name">First Name</label>
+                            <input class="form-control" type="text" name="first_name" id="first_name" value="{{ $user->first_name }}">
+                        </div>
+                        <div class="form-group flex-fill ml-4">
+                            <label for="last_name">Last Name</label>
+                            <input class="form-control" type="text" name="last_name" id="last_name" value="{{ $user->last_name }}">
+                        </div>
                     </div>
-                    {!! Form::close() !!}
-                    {!! Form::open(['method'=>'DELETE', 'action'=>['\App\Http\Controllers\AdminUsersController@destroy', $user->id]]) !!}
-                    <div class="form-group mr-1">
-                        {!! Form::submit('Delete',['class'=>'btn btn-danger rounded']) !!}
+                    <div class="d-flex justify-content-evenly">
+                        <div class="form-group flex-fill">
+                            <label for="username">Username</label>
+                            <input class="form-control" type="text" name="username" id="username" value="{{ $user->username }}">
+                        </div>
+                        <div class="form-group flex-fill ml-4">
+                            <label for="email">Email</label>
+                            <input class="form-control" type="email" name="email" id="email" value="{{ $user->email }}">
+                        </div>
                     </div>
-                    {!! Form::close() !!}
-                </div>
-            </div>
+                    <div class="d-flex justify-content-evenly">
+                        <div class="form-group flex-fill">
+                            <label for="phone_number">Phone Number</label>
+                            <input class="form-control" type="tel" name="phone_number" id="phone_number" @if($user->phone_number)value="{{ $user->phone_number }}"@endif>
+                        </div>
+                        <div class="form-group flex-fill ml-4">
+                            <label for="gender_id">Gender</label>
+                            <select class="form-control" type="text" name="gender_id" id="gender_id">
+                                <option value="" selected disabled>Choose your gender</option>
+                                @foreach($genders as $gender)
+                                    <option @if($gender->id == $user->gender_id) selected @endif value="{{ $gender->id }}">{{ $gender->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-evenly">
+                        <div class="form-group flex-fill">
+                            <label for="password">Password</label>
+                            <input class="form-control" type="password" name="password" id="password" placeholder="Fill in your password...">
+                        </div>
+                        <div class="form-group flex-fill ml-4">
+                            <label for="is_active">Status</label>
+                            <select class="form-control" type="text" name="is_active" id="is_active">
+                                <option selected value="1">Active</option>
+                                <option value="0">Not-Active</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group flex-fill">
+                        <label for="roles">Roles</label>
+                        <select multiple class="form-control" type="text" name="roles[]" id="roles">
+                            @foreach($roles as $role)
+                                <option @if($user->roles->contains('id', $role->id)) selected @endif value="{{ $role->id }}">{{ $role->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="photo_id">Photo</label>
+                        <input class="form-control" type="file" name="photo_id" id="photo_id">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Update User</button>
+                </form>
+{{--                <div class="form-group">--}}
+{{--                    {!! Form::label('Select roles: (hou de ctrl toets ingedrukt om meerdere te selecteren') !!}--}}
+{{--                    {!! Form::select('roles[]',$roles,$user->roles,['class'=>'form-control','multiple'=>'multiple']) !!}--}}
+{{--                    @error('roles')--}}
+{{--                    <p class="text-danger fs-6">{{$message}}</p>--}}
+{{--                    @enderror--}}
+{{--                </div>--}}
+        </div>
             <div class="col-12 col-lg-6 d-flex justify-content-center align-items-center">
                 <img class="img-fluid img-thumbnail" src="{{$user->photo ? asset($user->photo->file) : 'http://via.placeholder.com/600'}}" alt="{{$user->name}}">
             </div>
-        </div>
-
     </div>
 @endsection

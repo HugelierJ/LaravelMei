@@ -35,7 +35,11 @@ class HomeController extends Controller
     //    }
     public function index()
     {
-        return view("index");
+        $featuredProducts = Product::with(["brand", "photo"])
+            ->latest("created_at")
+            ->take(3)
+            ->get();
+        return view("index", compact("featuredProducts"));
     }
     public function about()
     {

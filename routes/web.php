@@ -68,6 +68,11 @@ Route::get("/category/{category:slug}", [
     "category",
 ])->name("category.category");
 
+//Webhook moet buiten de Auth anders krijg je een redirect error 302 in de CLI.
+Route::post("/webhook", [ShopControlller::class, "webhook"])->name(
+    "stripe.webhook"
+);
+
 // Routes for authenticated users
 Route::group(["middleware" => ["auth"]], function () {
     //Frontend Shop Cart
@@ -93,9 +98,6 @@ Route::group(["middleware" => ["auth"]], function () {
     Route::get("/checkout-cancel", [ShopControlller::class, "cancel"])->name(
         "stripe.cancel"
     );
-    Route::post("/webhook", [ShopControlller::class, "webhook"])->name(
-        "webhook"
-    );
 });
 /**Backend**/
 
@@ -103,9 +105,8 @@ Route::group(
     ["prefix" => "admin", "middleware" => ["auth", "verified", "admin"]],
     function () {
         //Address Route
-        Route::get("/addresses", [AddressController::class, "index"])->name(
-            "address.index"
-        );
+        Route::resource("addresses", AddressController::class);
+        //Back-end Home Route
         Route::get("/", [BackendController::class, "index"])->name("home");
         //Order Routes
         Route::resource("orders", OrderController::class);
@@ -128,10 +129,6 @@ Route::group(
                 AdminUsersController::class,
                 "userRestore",
             ])->name("admin.userrestore");
-            Route::get("usersblade", [
-                AdminUsersController::class,
-                "index2",
-            ])->name("users.index2");
         });
     }
 );

@@ -20,22 +20,15 @@ class AddressSeeder extends Seeder
         $users = User::all();
 
         foreach ($users as $user) {
-            $numAddresses = fake()->numberBetween(1, 2);
-            $addresses = [];
-
-            for ($i = 0; $i < $numAddresses; $i++) {
-                $address = new Address();
-                $address->name =
-                    fake()->streetName . " " . fake()->buildingNumber;
-                $address->city = fake()->city;
-                $address->state = fake()->country;
-                $address->zip_code = fake()->postcode;
-                $address->created_at = now();
-                $address->updated_at = now();
-                $address->save();
-                $addresses[] = $address->id;
-            }
-            $user->addresses()->attach($addresses);
+            $address = new Address();
+            $address->user_id = $user->id;
+            $address->name = fake()->streetName . " " . fake()->buildingNumber;
+            $address->city = fake()->city;
+            $address->state = fake()->country;
+            $address->zip_code = fake()->postcode;
+            $address->created_at = now();
+            $address->updated_at = now();
+            $address->save();
         }
     }
 }

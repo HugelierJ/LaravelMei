@@ -12,8 +12,8 @@ class Address extends Model
 
     protected $fillable = ["address", "city", "state", "zip_code"];
 
-    public function users()
+    public function user()
     {
-        $this->belongsToMany(User::class);
+        return $this->belongsTo(User::class);
     }
 }

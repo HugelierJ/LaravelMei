@@ -14,6 +14,17 @@
     <!-- End Top Button -->
 
     <main>
-        <h1>You f'ed up.</h1>
+        <section id="cancelPage">
+            <div class="row bg-header">
+                <div class="col-lg-8 offset-lg-2 py-4">
+                    <h1 class="ff-pm text-white text-center py-5">Cancel Page.</h1>
+                </div>
+            </div>
+            <div class="col-lg-8 offset-lg-2 text-center py-5">
+                    <h2 class="ff-pm py-2">Something went wrong...</h2>
+                    <p class="ff-pm">You can click on the button below to go back to the shop.</p>
+                    <a class="cstm-btn" href="{{ route('shop.index') }}">Return to shop</a>
+            </div>
+        </section>
     </main>
 @endsection

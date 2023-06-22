@@ -44,7 +44,12 @@ class DataTables extends Component
                         "like",
                         "%" . $this->tablesearch . "%"
                     )
-                    ->orWhere("email", "like", "%" . $this->tablesearch . "%");
+                    ->orWhere("email", "like", "%" . $this->tablesearch . "%")
+                    ->orWhere(
+                        "username",
+                        "like",
+                        "%" . $this->tablesearch . "%"
+                    );
             })
                 ->where("is_active", $this->is_active)
                 ->with(["roles", "photo"])

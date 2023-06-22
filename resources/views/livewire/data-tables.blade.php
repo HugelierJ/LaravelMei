@@ -1,9 +1,14 @@
 <div>
-    <div class="d-flex justify-content-between align-items-baseline">
+    <div class="d-flex justify-content-evenly align-items-baseline">
         <input wire:model="tablesearch" type="search" name="tablesearch" class="form-control bg-white border-0 small w-50" placeholder="Search...">
-        <div class="form-check">
-            <input wire:model="is_active" id="is_active" name="is_active" type="checkbox" class="form-check-input">
-            <label for="is_active" class="form-check-label">Active?</label>
+        <div class="d-flex align-items-center">
+            <div class="form-check">
+                <input wire:model="is_active" id="is_active" name="is_active" type="checkbox" class="form-check-input">
+                <label for="is_active" class="form-check-label">Active?</label>
+            </div>
+            <div class="ml-3">
+                <a class="btn btn-primary" href="{{route('users.create')}}">Add user</a>
+            </div>
         </div>
     </div>
     <table class="table table-striped">
@@ -62,7 +67,6 @@
                 <td>{{$user->deleted_at}}</td>
                 <td>
                     <div class="nav-item no-arrow">
-                        <!-- Dropdown - User Information -->
                         <div class="shadow" aria-labelledby="userDropdown{{ $user->id }}">
                             <a class="dropdown-item" href="{{ route("users.edit",$user->id) }}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">

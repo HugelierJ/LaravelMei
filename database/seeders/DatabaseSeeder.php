@@ -33,7 +33,6 @@ class DatabaseSeeder extends Seeder
             AddressSeeder::class,
             ColorSeeder::class,
             CategorySeeder::class,
-            KeywordsTableSeeder::class,
             BrandSeeder::class,
             ProductSeeder::class,
             ProductCategorySeeder::class,

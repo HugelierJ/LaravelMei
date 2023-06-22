@@ -21,7 +21,6 @@ class CartController extends Controller
             $product->name,
             request()->quantity,
             $product->price,
-            0,
             ["shoesize" => request()->shoeSize]
         )->associate("App\Models\Product");
         return redirect()->route("shop.index");

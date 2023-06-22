@@ -36,7 +36,6 @@
             <th>Categories</th>
             <th>Brand</th>
             <th>Name</th>
-            <th>Keywords</th>
             <th>Body</th>
             <th>Price</th>
             <th>Stock</th>
@@ -60,13 +59,6 @@
                 </td>
                 <td>{{$product->brand->name}}</td>
                 <td>{{$product->name}}</td>
-                <td>
-                    @foreach($product->keywords as $keyword)
-                        <span class="badge badge-pill badge-info">
-                                {{$keyword->name}}
-                            </span>
-                    @endforeach
-                </td>
                 <td>{{Str::limit($product->body,20)}}</td>
                 <td>{{ $product->price ? "€ ".$product->price : "Not Available" }}</td>
                 <td>{{ $product->stock ?? "Not Available" }}</td>

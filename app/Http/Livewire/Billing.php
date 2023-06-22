@@ -21,20 +21,12 @@ class Billing extends Component
     {
         $this->first_name = Auth::user()->first_name;
         $this->last_name = Auth::user()->last_name;
-        $this->state = Auth::user()
-            ->addresses()
-            ->first()->state;
-        $this->city = Auth::user()
-            ->addresses()
-            ->first()->city;
-        $this->zip_code = Auth::user()
-            ->addresses()
-            ->first()->zip_code;
+        $this->state = Auth::user()->address()->state;
+        $this->city = Auth::user()->address()->city;
+        $this->zip_code = Auth::user()->address()->zip_code;
         $this->phone_number = Auth::user()->phone_number;
         $this->email = Auth::user()->email;
-        $this->street = Auth::user()
-            ->addresses()
-            ->first()->name;
+        $this->street = Auth::user()->address()->name;
     }
     public function submitForm()
     {

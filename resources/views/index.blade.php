@@ -48,24 +48,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="carousel-item" data-bs-interval="4000">
-                        <div class="row justify-content-center">
-                            <div class="col-lg-10 offset-lg-1 d-flex align-items-center justify-content-between">
-                                <div class="w-50 h-auto">
-                                    <header class="pe-lg-5">
-                                        <h2 class="ff-pm fs-1 my-lg-5"><u>Premium Children's Footwear</u></h2>
-                                        <p class="ff-pm fs-4 pt-3 d-none d-md-block">
-                                            Hop on the latest trend now, get your exclusive pair of premium shoes today!
-                                        </p>
-                                    </header>
-                                </div>
-                                <div class="w-50">
-                                    <img alt="..." class=" card-img-top img-fluid d-none d-md-block h-auto"
-                                         src="./images/kid_footwear.jpg">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <div class="carousel-indicators">
                     <button aria-current="true" aria-label="Slide 1" class="active"
@@ -126,33 +108,22 @@
         <div class="col-lg-10 offset-lg-1">
             <div class="d-lg-flex justify-content-evenly align-items-center pb-5 gap-4 gap-xl-0">
                 <div class="card bg-gone text-center mx-auto" style="width: 18rem;">
-                    <a class="mt-5" href="#">
+                    <a class="mt-5" href="{{ route("shop.index", "?genderValue=1") }}">
                         <img alt="..." class="card-img-top rounded-circle" src="./images/men_footwear.jpg"></a>
                     <div class="card-body shadowclass mt-5">
                         <p class="card-text font-secondary ff-pr fs-5">Men's footwear</p>
-                        <a href="#">
+                        <a href="{{ route("shop.index", "?genderValue=1") }}">
                             <button class="cstm-btn ff-pr fs-5">Visit Shop</button>
                         </a>
                     </div>
                 </div>
                 <div class="card bg-gone text-center mx-auto" style="width: 18rem;">
-                    <a class="mt-5" href="#">
-                        <img alt="..." class="card-img-top rounded-circle" src="./images/women_footwear.jpg">
+                    <a class="mt-5" href="{{ route("shop.index", "?genderValue=2") }}">
+                        <img alt="{{ route("shop.index", "?genderValue=2") }}" class="card-img-top rounded-circle" src="./images/women_footwear.jpg">
                     </a>
                     <div class="card-body shadowclass mt-5">
                         <p class="card-text font-secondary ff-pr fs-5">Women's footwear</p>
-                        <a href="#">
-                            <button class="cstm-btn ff-pr fs-5">Visit Shop</button>
-                        </a>
-                    </div>
-                </div>
-                <div class="card bg-gone text-center mx-auto" style="width: 18rem;">
-                    <a class="mt-5" href="#">
-                        <img alt="..." class="card-img-top rounded-circle" src="./images/kid_footwear.jpg">
-                    </a>
-                    <div class="card-body shadowclass mt-5">
-                        <p class="card-text font-secondary ff-pr fs-5">Kid's footwear</p>
-                        <a href="#">
+                        <a href="{{ route("shop.index", "?genderValue=2") }}">
                             <button class="cstm-btn ff-pr fs-5">Visit Shop</button>
                         </a>
                     </div>
@@ -176,57 +147,9 @@
         </div>
         <div class="col-lg-10 offset-lg-1 py-5">
             <div class="d-lg-flex justify-content-evenly align-items-center py-5">
-                <div class="card my-5 mx-auto" style="width: 18rem;">
-                    <a href=""><img alt="..." class="card-img-top" src="https://via.placeholder.com/200x250.png"></a>
-                    <div class="card-body">
-                        <a href=""><i class="bi bi-star text-warning"></i></a>
-                        <a href=""><i class="bi bi-star text-warning"></i></a>
-                        <a href=""><i class="bi bi-star text-warning"></i></a>
-                        <a href=""><i class="bi bi-star text-warning"></i></a>
-                        <a href=""><i class="bi bi-star text-warning"></i></a>
-                        <h5 class="card-title pt-2 ff-pm ">Name of product</h5>
-                        <p class="card-text ff-pr ">Lorem ipsum dolor sit amet, consectetur adipisicing elit. In,
-                            ipsum!</p>
-                        <div class="d-flex justify-content-between align-items-baseline">
-                            <a class="btn btn-custom ff-pr " href="#">Go somewhere</a>
-                            <p class="ff-psb ">Price: 999&euro;</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="card my-5 mx-auto" style="width: 18rem;">
-                    <a href=""><img alt="..." class="card-img-top" src="https://via.placeholder.com/200x250.png"></a>
-                    <div class="card-body">
-                        <a href=""><i class="bi bi-star text-warning"></i></a>
-                        <a href=""><i class="bi bi-star text-warning"></i></a>
-                        <a href=""><i class="bi bi-star text-warning"></i></a>
-                        <a href=""><i class="bi bi-star text-warning"></i></a>
-                        <a href=""><i class="bi bi-star text-warning"></i></a>
-                        <h5 class="card-title pt-2 ff-pm ">Name of product</h5>
-                        <p class="card-text ff-pr ">Lorem ipsum dolor sit amet, consectetur adipisicing elit. In,
-                            ipsum!</p>
-                        <div class="d-flex justify-content-between align-items-baseline">
-                            <a class="btn btn-custom ff-pr " href="#">Go somewhere</a>
-                            <p class="ff-psb ">Price: 999&euro;</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="card my-5 mx-auto" style="width: 18rem;">
-                    <a href="#"><img alt="..." class="card-img-top" src="https://via.placeholder.com/200x250.png"></a>
-                    <div class="card-body">
-                        <a href=""><i class="bi bi-star text-warning"></i></a>
-                        <a href=""><i class="bi bi-star text-warning"></i></a>
-                        <a href=""><i class="bi bi-star text-warning"></i></a>
-                        <a href=""><i class="bi bi-star text-warning"></i></a>
-                        <a href=""><i class="bi bi-star text-warning"></i></a>
-                        <h5 class="card-title pt-2 ff-pm ">Name of product</h5>
-                        <p class="card-text ff-pr ">Lorem ipsum dolor sit amet, consectetur adipisicing elit. In,
-                            ipsum!</p>
-                        <div class="d-flex justify-content-between align-items-baseline">
-                            <a class="btn btn-custom ff-pr " href="#">Go somewhere</a>
-                            <p class="ff-psb ">Price: 999&euro;</p>
-                        </div>
-                    </div>
-                </div>
+                @foreach($featuredProducts as $product)
+                    <livewire:shop-products :product="$product"/>
+                @endforeach
             </div>
         </div>
 

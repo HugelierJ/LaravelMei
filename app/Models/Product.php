@@ -20,11 +20,6 @@ class Product extends Model
         "price",
         "stock",
     ];
-
-    public function keywords()
-    {
-        return $this->morphToMany(Keyword::class, "keywordable");
-    }
     public function photo()
     {
         return $this->belongsTo(Photo::class);

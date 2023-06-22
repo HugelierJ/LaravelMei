@@ -45,20 +45,6 @@
                     @enderror
                 </div>
                 <div class="form-group mb3">
-                    <label>Keywords</label>
-                    @foreach($keywords as $keyword)
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="{{$keyword->id}}" id="keyword{{$keyword->id}}" @if($product->keywords->contains($keyword->id))
-                                checked
-                                   @endif name="keywords[]">
-                            <label class="form-check-label" for="keyword{{$keyword->id}}">{{$keyword->name}}</label>
-                        </div>
-                    @endforeach
-                    @error('keywords')
-                    <p class="text-danger fs-6">{{$message}}</p>
-                    @enderror
-                </div>
-                <div class="form-group mb3">
                     <label>Categorieën</label>
                     @foreach($productcategories as $productcategory)
                         <div class="form-check">

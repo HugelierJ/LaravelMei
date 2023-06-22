@@ -45,7 +45,7 @@
                                 </div>
                             </div>
                         </div>
-                    <button type="submit" class="cstm-btn ff-pr">Submit</button>
+                    <button type="submit" class="cstm-btn ff-pr">Ask Question.</button>
                 </form>
             </div>
             <div class="col-12 col-lg-6 offset-lg-3 mb-4">

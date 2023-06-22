@@ -21,6 +21,7 @@ return new class extends Migration {
             $table->string("status");
             $table->decimal("total_price", 6, 2);
             $table->string("session_id");
+            $table->string("payment_id")->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

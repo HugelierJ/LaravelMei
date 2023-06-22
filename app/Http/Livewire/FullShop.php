@@ -27,6 +27,8 @@ class FullShop extends Component
     public $newValue;
     protected $paginationTheme = "bootstrap";
 
+    protected $queryString = ["genderValue"];
+
     public function tryChange()
     {
         $this->newValue = $this->priceValue;
@@ -66,9 +68,6 @@ class FullShop extends Component
         $this->genders = Gender::all();
         $this->brands = Brand::all();
         $this->products = $query->get();
-        return view("livewire.full-shop", [
-            "brands" => $this->brands,
-            "products" => $this->products,
-        ]);
+        return view("livewire.full-shop");
     }
 }

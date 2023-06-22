@@ -19,7 +19,7 @@ class ContactController extends Controller
             [
                 "name" => ["required", "between:2,255"],
                 "email" => ["required", "email"],
-                "message" => ["required", 'regex:/^[^<>]*$/'],
+                "message" => ["required"],
             ],
             [
                 "name.required" => "Name is required",
@@ -29,6 +29,6 @@ class ContactController extends Controller
         );
         $data = $request->all();
         Mail::to("eindwerk@laravel.be")->send(new Contact($data));
-        return back()->with("status", "Form received, thank you!");
+        return back();
     }
 }

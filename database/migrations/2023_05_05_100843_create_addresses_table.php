@@ -14,25 +14,16 @@ return new class extends Migration {
     {
         Schema::create("addresses", function (Blueprint $table) {
             $table->id();
+            $table
+                ->foreignId("user_id")
+                ->constrained()
+                ->cascadeOnDelete();
             $table->string("name");
             $table->string("city");
             $table->string("state");
             $table->string("zip_code");
             $table->timestamps();
             $table->softDeletes();
-        });
-
-        Schema::create("address_user", function (Blueprint $table) {
-            $table->id();
-            $table
-                ->foreignId("address_id")
-                ->constrained()
-                ->cascadeOnDelete();
-            $table
-                ->foreignId("user_id")
-                ->constrained()
-                ->cascadeOnDelete();
-            $table->timestamps();
         });
     }
 

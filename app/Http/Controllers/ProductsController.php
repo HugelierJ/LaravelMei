@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Brand;
 use App\Models\Color;
-use App\Models\Keyword;
 use App\Models\Photo;
 use App\Models\Product;
 use App\Models\ProductCategory;
@@ -14,7 +13,6 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
 class ProductsController extends Controller
@@ -29,7 +27,6 @@ class ProductsController extends Controller
         //
         $brands = Brand::all();
         $products = Product::with([
-            "keywords",
             "photo",
             "brand",
             "productcategories",
@@ -63,16 +60,9 @@ class ProductsController extends Controller
         $brands = Brand::all();
         $colors = Color::all();
         $productcategories = ProductCategory::all();
-        $keywords = Keyword::all();
         return view(
             "admin.products.edit",
-            compact(
-                "product",
-                "brands",
-                "colors",
-                "productcategories",
-                "keywords"
-            )
+            compact("product", "brands", "colors", "productcategories")
         );
     }
 
@@ -89,7 +79,6 @@ class ProductsController extends Controller
         request()->validate(
             [
                 "name" => ["required", "between:3,255"],
-                "keywords" => ["required", Rule::exists("keywords", "id")],
                 "body" => "required",
                 "price" => ["required", "numeric", "between:0.01,999.99"],
                 "stock" => ["required", "numeric", "between:0.01,999.99"],
@@ -99,7 +88,6 @@ class ProductsController extends Controller
                 "title.between" =>
                     "Product name between 3 and 255 characters required",
                 "body.required" => "Message is required",
-                "keywords.required" => "Please check minimum one keyword",
                 "price.required" => "Price field is required",
                 "price.numeric" => "Price can only contain numbers",
                 "price.between" => "Price has to be positive",
@@ -132,7 +120,6 @@ class ProductsController extends Controller
         $product->color_id = $request->color_id;
         $product->update($input);
         $product->productcategories()->sync($request->productcategories, true);
-        $product->keywords()->sync($request->keywords);
         return redirect()
             ->route("products.index")
             ->with([
@@ -155,7 +142,6 @@ class ProductsController extends Controller
         request()->validate(
             [
                 "name" => ["required", "between:3,255"],
-                "keywords" => ["required", Rule::exists("keywords", "id")],
                 "body" => "required",
                 "price" => ["required", "numeric", "between:0.01,999.99"],
                 "stock" => ["required", "numeric", "between:0.01,999.99"],
@@ -165,7 +151,6 @@ class ProductsController extends Controller
                 "title.between" =>
                     "Product name between 3 and 255 characters required",
                 "body.required" => "Message is required",
-                "keywords.required" => "Please check minimum one keyword",
                 "price.required" => "Price field is required",
                 "price.numeric" => "Price can only contain numbers",
                 "price.between" => "Price has to be positive",
@@ -192,13 +177,8 @@ class ProductsController extends Controller
             $product->photo_id = $photo->id;
         }
         $product->save();
-        /*wegschrijven van meerder rollen in de tussentabel*/
-        foreach ($request->keywords as $keyword) {
-            $keywordfind = Keyword::findOrFail($keyword);
-            $product->keywords()->save($keywordfind);
-        }
-        /*wegschrijven van meerder productcategorieen in de tussentabel*/
 
+        /*wegschrijven van meerder productcategorieen in de tussentabel*/
         $product->productcategories()->sync($request->productcategories, true);
 
         return redirect()
@@ -220,13 +200,12 @@ class ProductsController extends Controller
     public function create()
     {
         //
-        $keywords = Keyword::all();
         $productcategories = ProductCategory::all();
         $brands = Brand::all();
         $colors = Color::all();
         return view(
             "admin.products.create",
-            compact("keywords", "productcategories", "brands", "colors")
+            compact("productcategories", "brands", "colors")
         );
     }
 
@@ -245,7 +224,7 @@ class ProductsController extends Controller
     {
         $brands = Brand::all();
         $products = Product::where("brand_id", $id)
-            ->with(["keywords", "photo", "brand", "productcategories"])
+            ->with(["photo", "brand", "productcategories"])
             ->paginate(10);
         return view("admin.products.index", compact("products", "brands"));
     }

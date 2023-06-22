@@ -8,7 +8,7 @@
             </div>
         </div>
         <div class="d-flex">
-            <a href="{{route('address.index')}}" class="btn btn-primary m-2 rounded-pill">All Products</a>
+            <a href="{{route('addresses.index')}}" class="btn btn-primary m-2 rounded-pill">All Addresses</a>
             {{--            <a href="{{ route('address.create') }}" class="btn btn-primary m-2 rounded-pill">Add Address</a>--}}
         </div>
 
@@ -23,6 +23,7 @@
         <thead>
         <tr>
             <th>Id</th>
+            <th>User</th>
             <th>Name</th>
             <th>City</th>
             <th>State</th>
@@ -36,6 +37,9 @@
         @foreach($addresses as $address)
             <tr>
                 <td>{{$address->id}}</td>
+                <td>
+                   {{ $address->user->first_name . " " . $address->user->last_name }}
+                </td>
                 <td>{{$address->name}}</td>
                 <td>{{$address->city}}</td>
                 <td>{{$address->state}}</td>

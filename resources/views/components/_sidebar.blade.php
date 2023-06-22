@@ -38,7 +38,6 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Links:</h6>
                 <a class="collapse-item" href="{{route('users.index')}}">All users</a>
-                <a class="collapse-item" href="{{route('users.index2')}}">All users blade</a>
                 <a class="collapse-item" href="{{route('users.create')}}">Add user</a>
             </div>
         </div>
@@ -66,7 +65,7 @@
         <div id="collapseAddresses" class="collapse" aria-labelledby="collapseAddresses" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Links:</h6>
-                <a class="collapse-item" href="{{route('address.index')}}">All Addresses</a>
+                <a class="collapse-item" href="{{route('addresses.index')}}">All Addresses</a>
             </div>
         </div>
     </li>
@@ -84,25 +83,12 @@
             </div>
         </div>
     </li>
-{{--    <li class="nav-item">--}}
-{{--        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseComments"--}}
-{{--           aria-expanded="true" aria-controls="collapseComments">--}}
-{{--            <i class="fas fa-comment"></i>--}}
-{{--            <span>Comments</span>--}}
-{{--        </a>--}}
-{{--        <div id="collapseComments" class="collapse" aria-labelledby="collapseComments" data-parent="#accordionSidebar">--}}
-{{--            <div class="bg-white py-2 collapse-inner rounded">--}}
-{{--                <h6 class="collapse-header">Links:</h6>--}}
-{{--                <a class="collapse-item" href="{{route('comments.index')}}">All Comments</a>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </li>--}}
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item active">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="#">
             <i class="fas fa-shopping-bag"></i>
             <span>E-COMMERCE</span></a>
     </li>

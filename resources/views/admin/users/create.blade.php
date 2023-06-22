@@ -12,31 +12,31 @@
         <div class="d-flex justify-content-evenly">
             <div class="form-group flex-fill">
                 <label for="first_name">First Name</label>
-                <input class="form-control" type="text" name="firstname" id="first_name" placeholder="Fill in your first name...">
+                <input class="form-control" type="text" name="first_name" id="first_name" placeholder="Fill in your first name...">
             </div>
             <div class="form-group flex-fill ml-4">
                 <label for="last_name">Last Name</label>
-                <input class="form-control" type="text" name="lastname" id="last_name" placeholder="Fill in your last name...">
+                <input class="form-control" type="text" name="last_name" id="last_name" placeholder="Fill in your last name...">
             </div>
         </div>
         <div class="d-flex justify-content-evenly">
             <div class="form-group flex-fill">
-                <label for="user_name">Username</label>
-                <input class="form-control" type="text" name="username" id="user_name" placeholder="Fill in your username...">
+                <label for="username">Username</label>
+                <input class="form-control" type="text" name="username" id="username" placeholder="Fill in your username...">
             </div>
             <div class="form-group flex-fill ml-4">
-                <label for="e-mail">Email</label>
-                <input class="form-control" type="email" name="email" id="e-mail" placeholder="Fill in your email...">
+                <label for="email">Email</label>
+                <input class="form-control" type="email" name="email" id="email" placeholder="Fill in your email...">
             </div>
         </div>
         <div class="d-flex justify-content-evenly">
             <div class="form-group flex-fill">
                 <label for="phone_number">Phone Number</label>
-                <input class="form-control" type="tel" name="phonenumber" id="phone_number" placeholder="Fill in your phone number...">
+                <input class="form-control" type="tel" name="phone_number" id="phone_number" placeholder="Fill in your phone number...">
             </div>
             <div class="form-group flex-fill ml-4">
-                <label for="genders">Gender</label>
-                <select class="form-control" type="text" name="gender" id="genders">
+                <label for="gender">Gender</label>
+                <select class="form-control" type="text" name="gender" id="gender">
                     <option value="" selected disabled>Choose your gender</option>
                     @foreach($genders as $gender)
                         <option value="{{ $gender->id }}">{{ $gender->name }}</option>
@@ -46,52 +46,30 @@
         </div>
         <div class="d-flex justify-content-evenly">
             <div class="form-group flex-fill">
-                <label for="passwords">Password</label>
-                <input class="form-control" type="password" name="password" id="passwords" placeholder="Fill in your password...">
+                <label for="password">Password</label>
+                <input class="form-control" type="password" name="password" id="password" placeholder="Fill in your password...">
             </div>
             <div class="form-group flex-fill ml-4">
                 <label for="is_active">Status</label>
-                <select class="form-control" type="password" name="isactive" id="is_active">
+                <select class="form-control" type="password" name="is_active" id="is_active">
                     <option selected value="1">Active</option>
                     <option value="0">Not-Active</option>
                 </select>
             </div>
         </div>
+        <div class="form-group flex-fill">
+            <label for="roles">Roles</label>
+            <select multiple class="form-control" type="text" name="roles[]" id="roles">
+                <option value="" selected disabled>Choose user roles...</option>
+                @foreach($roles as $role)
+                    <option value="{{ $role->id }}">{{ $role->name }}</option>
+                @endforeach
+            </select>
+        </div>
         <div class="form-group">
-            <label for="photo">Photo</label>
-            <input class="form-control" type="file" name="photofile" id="photo">
+            <label for="photo_id">Photo</label>
+            <input class="form-control" type="file" name="photo_id" id="photo_id">
         </div>
         <button type="submit" class="btn btn-primary">Create User</button>
     </form>
-{{--    {!! Form::open(['method'=>'POST', 'action'=>'App\Http\Controllers\AdminUsersController@store','files'=>true]) !!}--}}
-{{--    <div class="form-group">--}}
-{{--        {!! Form::label('name','Name:') !!}--}}
-{{--        {!! Form::text('name',null,['class'=>'form-control','placeholder' => 'Name required...']) !!}--}}
-{{--    </div>--}}
-{{--    <div class="form-group">--}}
-{{--        {!! Form::label('email','E-mail:') !!}--}}
-{{--        {!! Form::text('email',null,['class'=>'form-control','placeholder' => 'E-mail required...']) !!}--}}
-{{--    </div>--}}
-{{--    <div class="form-group">--}}
-{{--        {!! Form::label('Select roles: (hou de ctrl toets ingedrukt om meerdere te selecteren') !!}--}}
-{{--        {!! Form::select('roles[]',$roles,null,['class'=>'form-control','placeholder' => 'Pick a role...','multiple'=>'multiple']) !!}--}}
-{{--    </div>--}}
-{{--    <div class="form-group">--}}
-{{--        {!! Form::label('is_active', 'Status:') !!}--}}
-{{--        {!! Form::select('is_active',array(1=>'Active',0=>'Not Active'),0,['class'=>'form-control']) !!}--}}
-{{--    </div>--}}
-{{--    <div class="form-group">--}}
-{{--        {!! Form::label('password','Password:') !!}--}}
-{{--        {!! Form::password('password',['class'=>'form-control','placeholder' => 'Password required...']) !!}--}}
-{{--    </div>--}}
-{{--    <div class="form-group">--}}
-{{--        {!! Form::label('photo_id','Photo_id:') !!}--}}
-{{--        {!! Form::file('photo_id',null,['class'=>'form-control']) !!}--}}
-{{--    </div>--}}
-{{--    <div class="form-group">--}}
-{{--        {!! Form::submit('Create User',['class'=>'btn btn-primary']) !!}--}}
-{{--    </div>--}}
-
-{{--    {!! Form::close() !!}--}}
-
 @endsection
