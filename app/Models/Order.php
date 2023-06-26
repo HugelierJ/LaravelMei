@@ -21,6 +21,6 @@ class Order extends Model
 
     public function billing()
     {
-        return $this->hasOne(Billing::class);
+        return $this->belongsTo(Billing::class);
     }
 }

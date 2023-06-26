@@ -23,8 +23,8 @@ return new class extends Migration {
         Schema::create("product_productcategory", function (Blueprint $table) {
             $table->id();
             // $table->bigInteger()->unsigned();
-            $table->unsignedBigInteger("product_id");
-            $table->unsignedBigInteger("productcategory_id");
+            $table->foreignId("product_id");
+            $table->ForeignId("productcategory_id");
             $table->timestamps();
             $table->softDeletes();
 

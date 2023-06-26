@@ -11,6 +11,7 @@
             @csrf
             @method('PATCH')
             <div class="form-group mb-3">
+                <label for="name">Product name</label>
                 <input name="name" type="text" class="form-control" id="floatingInputValue" placeholder="Name" value="{{ $product->name }}">
                 @error('name')
                 <p class="text-danger fs-6">{{$message}}</p>
@@ -61,18 +62,21 @@
             </div>
 
             <div class="form-group mb-3">
+                <label for="body">Product description</label>
                 <textarea name="body" class="form-control" placeholder="Product description" id="floatingTextarea2" style="height: 100px">{{ $product->body }}</textarea>
                 @error('body')
                 <p class="text-danger fs-6">{{$message}}</p>
                 @enderror
             </div>
             <div class="form-group mb-3">
+                <label for="price">Product price</label>
                 <input type="number" step="0.01" name="price" class="form-control" value="{{ $product->price }}" placeholder="Put the price in:" id="price"></input>
                 @error('price')
                 <p class="text-danger fs-6">{{$message}}</p>
                 @enderror
             </div>
             <div class="form-group mb-3">
+                <label for="stock">Stock quantity</label>
                 <input type="number" name="stock" class="form-control" value="{{ $product->stock }}" placeholder="Put the Stock in:" id="stock"></input>
                 @error('stock')
                 <p class="text-danger fs-6">{{$message}}</p>

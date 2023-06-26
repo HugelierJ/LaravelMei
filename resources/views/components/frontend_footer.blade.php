@@ -30,9 +30,8 @@
                 </h3>
                 <hr class="w-100 ">
                 <div class="d-flex flex-column">
-                    <a class="no-deco ff-pm font-secondary fs-5" href="#">Men shoe&apos;s</a>
-                    <a class="no-deco ff-pm font-secondary fs-5" href="#">Women shoe&apos;s</a>
-                    <a class="no-deco ff-pm font-secondary fs-5" href="#">Children shoe&apos;s</a>
+                    <a class="no-deco ff-pm font-secondary fs-5" href="{{ route("shop.index", "?genderValue=1") }}">Men shoe&apos;s</a>
+                    <a class="no-deco ff-pm font-secondary fs-5" href="{{ route("shop.index", "?genderValue=2") }}">Women shoe&apos;s</a>
                 </div>
             </div>
             <div>

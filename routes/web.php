@@ -63,11 +63,6 @@ Route::get("/contactus", [ContactController::class, "create"])->name(
 Route::post("/contactus", [ContactController::class, "store"])->name(
     "contact.store"
 );
-Route::get("/category/{category:slug}", [
-    AdminCategoriesController::class,
-    "category",
-])->name("category.category");
-
 //Webhook moet buiten de Auth anders krijg je een redirect error 302 in de CLI.
 Route::post("/webhook", [ShopControlller::class, "webhook"])->name(
     "stripe.webhook"
@@ -110,8 +105,6 @@ Route::group(
         Route::get("/", [BackendController::class, "index"])->name("home");
         //Order Routes
         Route::resource("orders", OrderController::class);
-        // Category routes
-        Route::resource("categories", AdminCategoriesController::class);
         //Product Routes
         Route::resource("products", ProductsController::class);
         Route::get("products/brand/{id}", [

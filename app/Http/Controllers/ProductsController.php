@@ -102,7 +102,7 @@ class ProductsController extends Controller
         // oude foto verwijderen
         //we kijken eerst of er een foto bestaat
         if ($request->hasFile("photo_id")) {
-            $oldPhoto = $product->photo; // de huidige foto van de gebruiker
+            $oldPhoto = $product->photo;
             $path = request()
                 ->file("photo_id")
                 ->store("products");

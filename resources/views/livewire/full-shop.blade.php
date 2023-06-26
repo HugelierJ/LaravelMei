@@ -27,14 +27,14 @@
                                 data-bs-toggle="offcanvas" type="button">
                             Filter
                         </button>
-                        <div aria-labelledby="offcanvasExampleLabel" class="offcanvas offcanvas-start" id="offcanvasExample"
+                        <div aria-labelledby="offcanvasExampleLabel" wire:ignore.self class="offcanvas offcanvas-start" id="offcanvasExample"
                              tabindex="-1">
                             <div class="offcanvas-header">
                                 <h5 class="offcanvas-title ff-pm fs-3" id="offcanvasExampleLabel"><u>Filter</u></h5>
                                 <button aria-label="Close" class="btn-close" data-bs-dismiss="offcanvas"
                                         type="button"></button>
                             </div>
-                            <div class="offcanvas-body">
+                            <div  class="offcanvas-body">
                                 <div class="mt-3">
                                     <p class=" ff-pr fs-4">
                                         <u>Gender</u>

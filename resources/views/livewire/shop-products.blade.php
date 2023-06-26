@@ -5,11 +5,6 @@
     <a href="{{ route('products.detail',$product->slug) }}"><img alt="{{ $product->name }}" class="card-img-top" src="{{ $product->photo ? $product->photo->file : "https://via.placeholder.com/200x250.png" }}"></a>
     <div class="card-body d-flex flex-column justify-content-between">
         <div>
-            <a href=""><i class="bi bi-star text-warning"></i></a>
-            <a href=""><i class="bi bi-star text-warning"></i></a>
-            <a href=""><i class="bi bi-star text-warning"></i></a>
-            <a href=""><i class="bi bi-star text-warning"></i></a>
-            <a href=""><i class="bi bi-star text-warning"></i></a>
             <h5 class="card-title pt-2 ff-pm ">{{ $product->name }}</h5>
             <p class="card-text ff-pr ">{{ Str::limit($product->body,100) }}</p>
         </div>

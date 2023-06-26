@@ -10,17 +10,17 @@ class Billing extends Model
     use HasFactory;
 
     protected $fillable = [
-        "billing_name",
-        "billing_address",
-        "billing_state",
-        "billing_city",
-        "billing_zip_code",
-        "billing_phone_number",
-        "billing_email",
+        "name",
+        "address",
+        "state",
+        "city",
+        "zip_code",
+        "phone_number",
+        "email",
     ];
 
     public function order()
     {
-        return $this->belongsTo(Order::class);
+        return $this->HasOne(Order::class);
     }
 }

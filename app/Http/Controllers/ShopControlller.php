@@ -60,14 +60,14 @@ class ShopControlller extends Controller
         //Wegschrijven naar Billing tabel
         $billingInfo = Session::get("billingData");
         $billingDetails = new \App\Models\Billing();
-        $billingDetails->billing_name =
+        $billingDetails->name =
             $billingInfo["first_name"] . " " . $billingInfo["last_name"];
-        $billingDetails->billing_address = $billingInfo["street"];
-        $billingDetails->billing_state = $billingInfo["state"];
-        $billingDetails->billing_city = $billingInfo["city"];
-        $billingDetails->billing_zip_code = $billingInfo["zip_code"];
-        $billingDetails->billing_phone_number = $billingInfo["phone_number"];
-        $billingDetails->billing_email = $billingInfo["email"];
+        $billingDetails->address = $billingInfo["street"];
+        $billingDetails->state = $billingInfo["state"];
+        $billingDetails->city = $billingInfo["city"];
+        $billingDetails->zip_code = $billingInfo["zip_code"];
+        $billingDetails->phone_number = $billingInfo["phone_number"];
+        $billingDetails->email = $billingInfo["email"];
         $billingDetails->save();
         Session::forget("billingData");
 

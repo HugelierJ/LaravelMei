@@ -177,7 +177,9 @@ class AdminUsersController extends Controller
                 $input["photo_id"] = $photo->id;
             }
         }
-
+        if ($request->phone_number) {
+            $user->phone_number = $request->phone_number;
+        }
         $user->update($input);
         $user->roles()->sync($request->roles, true);
         return redirect("/admin/users")->with("status", "User updated!");

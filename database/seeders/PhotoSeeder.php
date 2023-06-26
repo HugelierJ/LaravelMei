@@ -17,7 +17,9 @@ class PhotoSeeder extends Seeder
     public function run()
     {
         //
-        Storage::disk('public')->deleteDirectory('posts');
-        Photo::factory()->count(10)->create();
+        Storage::disk("public")->deleteDirectory("products");
+        Photo::factory()
+            ->count(10)
+            ->create();
     }
 }

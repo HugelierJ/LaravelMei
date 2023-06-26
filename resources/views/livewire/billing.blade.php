@@ -40,7 +40,7 @@
                         <p class="ff-pr">
                             State
                         </p>
-                        <input wire:model="state" id="billingstate" name="state" class="form-control mb-3 ff-pr" value="{{ Auth::user()->addresses->first()->state }}">
+                        <input wire:model="state" id="billingstate" name="state" class="form-control mb-3 ff-pr" value="{{ Auth::user()->address->state }}">
                         @error('state')
                         <p class="text-danger fs-6">{{$message}}</p>
                         @enderror
@@ -49,7 +49,7 @@
                         <p class="ff-pr">
                             Street Name
                         </p>
-                        <input wire:model="street" id="billingstate" name="street" class="form-control mb-3 ff-pr" value="{{ Auth::user()->addresses->first()->name }}">
+                        <input wire:model="street" id="billingstate" name="street" class="form-control mb-3 ff-pr" value="{{ Auth::user()->address->name }}">
                         @error('street')
                         <p class="text-danger fs-6">{{$message}}</p>
                         @enderror
@@ -57,14 +57,14 @@
                     <div class="d-flex gap-3">
                         <div class="mb-3 w-50">
                             <label for="billingcity" class="form-label ff-pr">City</label>
-                            <input wire:model="city" name="city" type="text" class="form-control" value="{{ Auth::user()->addresses->first()->city }}" id="billingcity">
+                            <input wire:model="city" name="city" type="text" class="form-control" value="{{ Auth::user()->address->city }}" id="billingcity">
                             @error('city')
                             <p class="text-danger fs-6">{{$message}}</p>
                             @enderror
                         </div>
                         <div class="mb-3 w-50">
                             <label for="billingpostal" class="form-label ff-pr">Postcode / ZIP</label>
-                            <input wire:model="zip_code" name="zip_code" type="number" class="form-control" value="{{ Auth::user()->addresses->first()->zip_code }}" id="billingpostal">
+                            <input wire:model="zip_code" name="zip_code" type="number" class="form-control" value="{{ Auth::user()->address->zip_code }}" id="billingpostal">
                             @error('zip_code')
                             <p class="text-danger fs-6">{{$message}}</p>
                             @enderror
