@@ -1,13 +1,16 @@
-@extends('layouts.app')
+@extends('layouts.frontend')
 
 @section('content')
+    <!--  Start Navbar  -->
+    @include("components.frontend_navbar")
+    <!--  End Navbar  -->
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">{{ __('Reset Password') }}</div>
 
-                    <div class="card-body">
+                    <div class="card-body bg-header">
                         <form method="POST" action="{{ route('password.update') }}">
                             @csrf
 

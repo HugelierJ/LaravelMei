@@ -96,6 +96,7 @@ Route::group(["middleware" => ["auth"]], function () {
 });
 /**Backend**/
 
+//route for admins
 Route::group(
     ["prefix" => "admin", "middleware" => ["auth", "verified", "admin"]],
     function () {

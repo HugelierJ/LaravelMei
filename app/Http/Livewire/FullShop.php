@@ -37,7 +37,8 @@ class FullShop extends Component
     public function mount()
     {
         $expensiveProduct = Product::orderBy("price", "desc")->first();
-        $this->priceMax = $expensiveProduct->price;
+        $this->priceMax = $expensiveProduct->price + 10;
+        $this->priceMax = round($this->priceMax);
     }
 
     public function changeSortDirection()

@@ -25,48 +25,50 @@
                             <a class="nav-link fs-4 rounded ff-pr" href="{{ route('about-us.contact') }}">Contact</a>
                         </li>
                     </ul>
-                    @if(!Auth::user())
-                        <div class="me-2">
-                            <a href="{{ route('login') }}" type="button" class="btn icon-box"><span
-                                    class="rounded p-2 border-dark ff-pm">Login</span></a>
-                            <a class="btn icon-box" href="{{ route('register') }}"><span
-                                    class="rounded p-2 border-dark ff-pm">Register</span></a>
-                        </div>
-                    @else
-                        <div class="dropdown">
-                            <a class="btn btn-secondary me-2 dropdown-toggle" href="#" role="button"
-                               data-bs-toggle="dropdown" aria-expanded="false">
-                                {{ Auth::user()->first_name }}
-                            </a>
+                    <div class="d-flex">
+                        @if(!Auth::user())
+                            <div class="me-2">
+                                <a href="{{ route('login') }}" type="button" class="btn icon-box pr-3"><span
+                                        class="rounded p-2 border-dark ff-pm">Login</span></a>
+                                <a class="btn icon-box" href="{{ route('register') }}"><span
+                                        class="rounded p-2 border-dark ff-pm">Register</span></a>
+                            </div>
+                        @else
+                            <div class="dropdown">
+                                <a class="btn btn-secondary me-2 dropdown-toggle" href="#" role="button"
+                                   data-bs-toggle="dropdown" aria-expanded="false">
+                                    {{ Auth::user()->first_name }}
+                                </a>
 
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="{{ route('logout') }}"
+                                           onclick="event.preventDefault();
                                        document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </li>
-                                @if(Auth::user()->isAdmin())
-                                     <li><a class="dropdown-item" href="{{ route('home') }}">Backend</a></li>
-                                @endif
-                                {{--                                <li><a class="dropdown-item" href="#">Something else here</a></li>--}}
-                            </ul>
-                        </div>
-                    @endif
-                    <div>
-                        @if($basket)
-                            <a type="button" class="btn bi bi-basket icon-box fs-4 position-relative"
-                               href="{{ route("shop.cart") }}">
+                                            {{ __('Logout') }}
+                                        </a>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                            @csrf
+                                        </form>
+                                    </li>
+                                    @if(Auth::user()->isAdmin())
+                                        <li><a class="dropdown-item" href="{{ route('home') }}">Backend</a></li>
+                                    @endif
+                                    {{--                                <li><a class="dropdown-item" href="#">Something else here</a></li>--}}
+                                </ul>
+                            </div>
+                        @endif
+                        <div>
+                            @if($basket)
+                                <a type="button" class="btn bi bi-basket icon-box p-1 fs-5 position-relative"
+                                   href="{{ route("shop.cart") }}">
                             <span
-                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                class="position-absolute top-0 start-100 translate-middle badge rounded back-secondary">
                                 <span class="visually-hidden">basket amount</span>
                                    {{ Cart::count() }}
                             </span>
-                            </a>
-                        @endif
+                                </a>
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>

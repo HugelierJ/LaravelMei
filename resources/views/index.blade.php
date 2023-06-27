@@ -15,7 +15,7 @@
                     <div class="carousel-item active" data-bs-interval="4000">
                         <div class="row justify-content-center">
                             <div class="col-lg-10 offset-lg-1 d-flex align-items-center justify-content-between">
-                                <div class="w-50 h-auto">
+                                <div>
                                     <header class="pe-lg-5">
                                         <h2 class="ff-pm fs-1 my-lg-5"><u>Premium Men's Footwear</u></h2>
                                         <p class="ff-pm fs-4 pt-3 d-none d-md-block">
@@ -23,8 +23,8 @@
                                         </p>
                                     </header>
                                 </div>
-                                <div class="w-50">
-                                    <img alt="..." class=" card-img-top img-fluid d-none d-md-block h-auto"
+                                <div>
+                                    <img height="500px" width="500px" alt="..." class="d-none d-md-block"
                                          src="./images/men_footwear.jpg">
                                 </div>
                             </div>
@@ -33,7 +33,7 @@
                     <div class="carousel-item" data-bs-interval="4000">
                         <div class="row justify-content-center">
                             <div class="col-lg-10 offset-lg-1 d-flex align-items-center justify-content-between">
-                                <div class="w-50 h-auto">
+                                <div>
                                     <header class="pe-lg-5">
                                         <h2 class="ff-pm fs-1 my-lg-5"><u>Premium Women's Footwear</u></h2>
                                         <p class="ff-pm fs-4 pt-3 d-none d-md-block">
@@ -41,8 +41,8 @@
                                         </p>
                                     </header>
                                 </div>
-                                <div class="w-50">
-                                    <img alt="..." class=" card-img-top img-fluid d-none d-md-block h-auto"
+                                <div>
+                                    <img height="500px" width="500px" alt="..." class="d-none d-md-block"
                                          src="./images/women_footwear.jpg">
                                 </div>
                             </div>
@@ -53,8 +53,6 @@
                     <button aria-current="true" aria-label="Slide 1" class="active"
                             data-bs-slide-to="0" data-bs-target="#carouselExampleIndicators" type="button"></button>
                     <button aria-label="Slide 2" data-bs-slide-to="1" data-bs-target="#carouselExampleIndicators"
-                            type="button"></button>
-                    <button aria-label="Slide 3" data-bs-slide-to="2" data-bs-target="#carouselExampleIndicators"
                             type="button"></button>
                 </div>
                 <button class="carousel-control-prev" data-bs-slide="prev" data-bs-target="#carouselExampleIndicators"

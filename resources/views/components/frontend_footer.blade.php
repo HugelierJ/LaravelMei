@@ -48,22 +48,6 @@
             </div>
         </div>
         <hr class=" w-50 mx-auto my-3">
-        <div class="row">
-            <div class="col-lg-6 offset-lg-3 mt-3 mx-auto d-lg-flex align-items-baseline justify-content-evenly">
-                <div>
-                    <ul class="d-flex">
-                        <li class="no-style mx-3"><a class="no-deco font-secondary fs-3" href="#"><i
-                                    class="bi bi-facebook"></i></a></li>
-                        <li class="no-style mx-3"><a class="no-deco font-secondary fs-3" href="#"><i
-                                    class="bi bi-instagram"></i></a></li>
-                        <li class="no-style mx-3"><a class="no-deco font-secondary fs-3" href="#"><i
-                                    class="bi bi-twitter"></i></a></li>
-                        <li class="no-style mx-3"><a class="no-deco font-secondary fs-3" href="#"><i
-                                    class="bi bi-linkedin"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
     </section>
     <!--  End Footer  -->
 </footer>
