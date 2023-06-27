@@ -64,7 +64,7 @@ class AdminUsersController extends Controller
             "last_name" => ["string", "between:2,50", "regex:/^[A-Za-z]+$/"],
             "username" => ["string", "between:2,50", "regex:/^[A-Za-z0-9]+$/"],
             "email" => ["email", "between:2,50", "unique:users"],
-            "phone_number" => ["numeric"],
+            "phone_number" => ["string"],
             "gender_id" => ["string"],
             "photo_id" => ["file"],
             "roles" => ["required", Rule::exists("roles", "id")],
@@ -147,8 +147,8 @@ class AdminUsersController extends Controller
             "first_name" => ["string", "between:2,50", "regex:/^[A-Za-z]+$/"],
             "last_name" => ["string", "between:2,50", "regex:/^[A-Za-z]+$/"],
             "username" => ["string", "between:2,50", "regex:/^[A-Za-z0-9]+$/"],
+            "street" => ["string"],
             "email" => ["email", "between:2,50"],
-            "phone_number" => ["numeric"],
             "gender_id" => ["string"],
             "photo_id" => ["file"],
             "roles" => ["required", Rule::exists("roles", "id")],
@@ -181,6 +181,10 @@ class AdminUsersController extends Controller
             $user->phone_number = $request->phone_number;
         }
         $user->update($input);
+        if (isset($request->address)) {
+            $user->address->street = $request->address;
+            $user->address->update();
+        }
         $user->roles()->sync($request->roles, true);
         return redirect("/admin/users")->with("status", "User updated!");
     }
@@ -195,7 +199,6 @@ class AdminUsersController extends Controller
     {
         //
         $user = User::findOrFail($id);
-        UsersSoftDelete::dispatch($user);
         $user->delete();
         return redirect()
             ->route("users.index")

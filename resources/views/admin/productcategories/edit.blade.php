@@ -18,14 +18,16 @@
                 @csrf
                 @method('PATCH')
                 <div class="form-group mb-3">
-                    <input name="name" type="text" class="form-control" id="floatingInputValue" placeholder="Title"
+                    <label for="name">Name</label>
+                    <input name="name" type="text" class="form-control" id="name" placeholder="Title"
                            value="{{$productcategory->name}}">
                     @error('name')
                     <p class="text-danger fs-6">{{$message}}</p>
                     @enderror
                 </div>
                 <div class="form-group mb-3">
-                    <textarea name="description" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
+                    <label for="description">Description</label>
+                    <textarea name="description" class="form-control" placeholder="Leave a comment here" id="description"
                               style="height: 100px">{{($productcategory->description)}}
                     </textarea>
                     @error('description')
@@ -33,6 +35,7 @@
                     @enderror
                 </div>
                 <div class="form-group mb-3">
+                    <label for="gender_id">Product Gender</label>
                     <select type="text" name="gender_id" class="form-control" id="gender_id" >
                         <option selected value="{{$productcategory->gender->id}}">{{ $productcategory->gender->name }}</option>
                         @foreach($genders as $gender)

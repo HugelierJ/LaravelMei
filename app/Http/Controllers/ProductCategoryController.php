@@ -32,7 +32,8 @@ class ProductCategoryController extends Controller
     public function create()
     {
         //
-        return view("admin.productcategories.create");
+        $genders = Gender::all();
+        return view("admin.productcategories.create", compact("genders"));
     }
 
     /**

@@ -58,6 +58,66 @@
                             </div>
 
                             <div class="row mb-3">
+                                <label for="street" class="col-md-4 col-form-label text-md-end ff-pm fs-6">{{ __('Street & number') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="street" type="text" class="form-control @error('street') is-invalid @enderror" name="street" value="{{ old('street') }}" required
+                                           autocomplete="street">
+
+                                    @error('street')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="city" class="col-md-4 col-form-label text-md-end ff-pm fs-6">{{ __('City') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="city" type="text" class="form-control @error('city') is-invalid @enderror" name="city" value="{{ old('city') }}" required
+                                           autocomplete="city">
+
+                                    @error('city')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="country" class="col-md-4 col-form-label text-md-end ff-pm fs-6">{{ __('Country') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="country" type="text" class="form-control @error('country') is-invalid @enderror" name="country" value="{{ old('country') }}" required
+                                           autocomplete="country">
+
+                                    @error('country')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="zip_code" class="col-md-4 col-form-label text-md-end ff-pm fs-6">{{ __('Postal code') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="zip_code" type="text" class="form-control @error('zip_code') is-invalid @enderror" name="zip_code" value="{{ old('zip_code') }}" required
+                                           autocomplete="zip_code">
+
+                                    @error('zip_code')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
                                 <label for="email" class="col-md-4 col-form-label text-md-end ff-pm fs-6">{{ __('Email Address') }}</label>
 
                                 <div class="col-md-6">

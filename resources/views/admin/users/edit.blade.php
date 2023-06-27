@@ -62,6 +62,10 @@
                         </div>
                     </div>
                     <div class="form-group flex-fill">
+                        <label for="address">Address</label>
+                        <input class="form-control" type="text" name="address" id="address" value="{{ $user->address->street }}">
+                    </div>
+                    <div class="form-group flex-fill">
                         <label for="roles">Roles</label>
                         <select multiple class="form-control" type="text" name="roles[]" id="roles">
                             @foreach($roles as $role)
@@ -75,13 +79,6 @@
                     </div>
                     <button type="submit" class="btn btn-primary">Update User</button>
                 </form>
-{{--                <div class="form-group">--}}
-{{--                    {!! Form::label('Select roles: (hou de ctrl toets ingedrukt om meerdere te selecteren') !!}--}}
-{{--                    {!! Form::select('roles[]',$roles,$user->roles,['class'=>'form-control','multiple'=>'multiple']) !!}--}}
-{{--                    @error('roles')--}}
-{{--                    <p class="text-danger fs-6">{{$message}}</p>--}}
-{{--                    @enderror--}}
-{{--                </div>--}}
         </div>
             <div class="col-12 col-lg-6 d-flex justify-content-center align-items-center">
                 <img class="img-fluid img-thumbnail" src="{{$user->photo ? asset($user->photo->file) : 'http://via.placeholder.com/600'}}" alt="{{$user->name}}">

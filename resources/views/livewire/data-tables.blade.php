@@ -26,6 +26,7 @@
             </th>
             <th>Last Name</th>
             <th>Username</th>
+            <th>Address</th>
             <th>E-mail</th>
             <th>Roles</th>
             <th>Active</th>
@@ -53,6 +54,7 @@
                 <td><a href="{{route('users.edit',$user->id)}}">{{$user->first_name}}</a></td>
                 <td><a href="{{route('users.edit',$user->id)}}">{{$user->last_name}}</a></td>
                 <td><a href="{{route('users.edit',$user->id)}}">{{$user->username}}</a></td>
+                <td>{{ $user->address->street ?? "Not filled" }}</td>
                 <td>{{$user->email}}</td>
                 <td>
                     @foreach($user->roles as $role)

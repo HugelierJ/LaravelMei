@@ -12,6 +12,9 @@ class AddressController extends Controller
         $addresses = Address::with(["user"])->paginate(15);
         return view("admin.addresses.index", compact("addresses"));
     }
+    public function create()
+    {
+    }
     public function edit($id)
     {
         //
@@ -37,5 +40,11 @@ class AddressController extends Controller
                     "type" => "success",
                 ],
             ]);
+    }
+    public function store()
+    {
+    }
+    public function destroy()
+    {
     }
 }

@@ -61,6 +61,10 @@ class RegisterController extends Controller
                 "max:255",
                 "unique:users",
             ],
+            "street" => ["required", "string"],
+            "city" => ["required", "string"],
+            "country" => ["required", "string"],
+            "zip_code" => ["required", "string"],
             "password" => ["required", "string", "min:8", "confirmed"],
         ]);
     }
@@ -81,6 +85,13 @@ class RegisterController extends Controller
             "email" => $data["email"],
             "password" => Hash::make($data["password"]),
             "is_active" => 1,
+        ]);
+        $user->address()->create([
+            "user_id" => $user->id,
+            "street" => $data["street"],
+            "city" => $data["city"],
+            "country" => $data["country"],
+            "zip_code" => $data["zip_code"],
         ]);
         $user->roles()->attach($role->id); //sync kan je ook gebruiken
         return $user;

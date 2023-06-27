@@ -10,7 +10,7 @@ class Address extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ["address", "city", "state", "zip_code"];
+    protected $fillable = ["street", "city", "country", "zip_code"];
 
     public function user()
     {

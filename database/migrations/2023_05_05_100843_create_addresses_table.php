@@ -18,9 +18,9 @@ return new class extends Migration {
                 ->foreignId("user_id")
                 ->constrained()
                 ->cascadeOnDelete();
-            $table->string("name");
+            $table->string("street");
             $table->string("city");
-            $table->string("state");
+            $table->string("country");
             $table->string("zip_code");
             $table->timestamps();
             $table->softDeletes();

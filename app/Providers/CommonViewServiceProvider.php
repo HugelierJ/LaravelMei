@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Category;
+use App\Models\Order;
 use App\Models\Post;
 use App\Models\Product;
 use App\Models\User;
@@ -32,6 +33,7 @@ class CommonViewServiceProvider extends ServiceProvider
             $view->with([
                 "usersCount" => User::count(),
                 "productCount" => Product::count(),
+                "orderCount" => Order::count(),
             ]);
         });
     }

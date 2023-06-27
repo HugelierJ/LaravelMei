@@ -16,11 +16,12 @@ class CartController extends Controller
             ],
             ["shoeSize.required" => "You must choose a Shoesize."]
         );
-        Cart::add(
+        $cart = Cart::add(
             $product->id,
             $product->name,
             request()->quantity,
             $product->price,
+            0,
             ["shoesize" => request()->shoeSize]
         )->associate("App\Models\Product");
         return redirect()->route("shop.index");
