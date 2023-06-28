@@ -243,9 +243,9 @@ class ProductsController extends Controller
 
     public function productRestore($id)
     {
-        Product::onlyTrashed()
-            ->where("id", $id)
-            ->restore();
+        $product = Product::onlyTrashed()->findOrFail($id);
+        $product->restore();
+        $product->brand->restore();
         return back()->with([
             "alert" => [
                 "message" => "Product restored",

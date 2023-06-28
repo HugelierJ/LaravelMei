@@ -101,10 +101,7 @@ class BrandsController extends Controller
     {
         //
         $brand = Brand::findOrFail($id);
-        $products = Product::where("brand_id", $id)->get();
-        foreach ($products as $product) {
-            $product->delete();
-        }
+        Product::where("brand_id", $id)->delete();
         $brand->delete();
 
         return back()->with([
