@@ -42,6 +42,7 @@
             <th>Stock</th>
             <th>Created</th>
             <th>Updated</th>
+            <th>Deleted</th>
             <th>Actions</th>
         </tr>
         </thead>
@@ -59,13 +60,14 @@
                     @endforeach
                 </td>
                 <td>{{ $product->gender->name }}</td>
-                <td>{{$product->brand->name}}</td>
+                <td>{{$product->brand->name ?? "Deleted"}}</td>
                 <td>{{$product->name}}</td>
                 <td>{{Str::limit($product->body,20)}}</td>
                 <td>{{ $product->price ? "€ ".$product->price : "Not Available" }}</td>
                 <td>{{ $product->stock ?? "Not Available" }}</td>
                 <td>{{$product->created_at ? $product->created_at->diffForHumans() : ''}}</td>
                 <td>{{$product->updated_at ? $product->updated_at->diffForHumans() : ''}}</td>
+                <td>{{$product->deleted_at ?? "" }}</td>
                 <td>
                     <div class="nav-item dropdown no-arrow">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown{{ $product->id }}" role="button"

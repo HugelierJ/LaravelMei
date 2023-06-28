@@ -114,16 +114,18 @@ Route::group(
         ])->name("admin.productsPerBrand");
         //Brand Routes
         Route::resource("brands", BrandsController::class);
+        Route::post("brand/restore/{brand}", [
+            BrandsController::class,
+            "brandRestore",
+        ])->name("admin.brandrestore");
         //ProductCategory Routes
         Route::resource("productcategories", ProductCategoryController::class);
-        //Backend Admin Routes
-        Route::group(["middleware" => "admin"], function () {
-            Route::resource("users", AdminUsersController::class);
-            Route::post("users/restore/{user}", [
-                AdminUsersController::class,
-                "userRestore",
-            ])->name("admin.userrestore");
-        });
+        // User Routes
+        Route::resource("users", AdminUsersController::class);
+        Route::post("users/restore/{user}", [
+            AdminUsersController::class,
+            "userRestore",
+        ])->name("admin.userrestore");
     }
 );
 

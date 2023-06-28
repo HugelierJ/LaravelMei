@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Brand;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class BrandsController extends Controller
@@ -15,8 +16,8 @@ class BrandsController extends Controller
     public function index()
     {
         //
-        $brands=Brand::paginate(10);
-        return view('admin.brands.index', compact('brands'));
+        $brands = Brand::withTrashed()->paginate(10);
+        return view("admin.brands.index", compact("brands"));
     }
 
     /**
@@ -27,7 +28,7 @@ class BrandsController extends Controller
     public function create()
     {
         //
-        return view('admin.brands.create');
+        return view("admin.brands.create");
     }
 
     /**
@@ -39,16 +40,16 @@ class BrandsController extends Controller
     public function store(Request $request)
     {
         //
-//        Brand::create($request->all());
-//        return redirect()->route('brands.index');
+        //        Brand::create($request->all());
+        //        return redirect()->route('brands.index');
         $request->validate([
-            'name' => 'required',
-            'description' => 'required',
+            "name" => "required",
+            "description" => "required",
         ]);
 
         $brand = Brand::create($request->all());
 
-        return redirect()->route('brands.index');
+        return redirect()->route("brands.index");
     }
 
     /**
@@ -72,7 +73,7 @@ class BrandsController extends Controller
     {
         //
         $brand = Brand::findOrFail($id);
-        return view('admin.brands.edit', compact('brand'));
+        return view("admin.brands.edit", compact("brand"));
     }
 
     /**
@@ -87,7 +88,7 @@ class BrandsController extends Controller
         //
         $brand = Brand::findOrFail($id);
         $brand->update($request->all());
-        return redirect()->route('admin.brands');
+        return redirect()->route("admin.brands");
     }
 
     /**
@@ -99,5 +100,34 @@ class BrandsController extends Controller
     public function destroy($id)
     {
         //
+        $brand = Brand::findOrFail($id);
+        $products = Product::where("brand_id", $id)->get();
+        foreach ($products as $product) {
+            $product->delete();
+        }
+        $brand->delete();
+
+        return back()->with([
+            "alert" => [
+                "message" => "Brand Deleted",
+                "type" => "success",
+            ],
+        ]);
+    }
+
+    public function brandRestore($id)
+    {
+        Brand::onlyTrashed()
+            ->where("id", $id)
+            ->restore();
+        Product::onlyTrashed()
+            ->where("brand_id", $id)
+            ->restore();
+        return back()->with([
+            "alert" => [
+                "message" => "Brand restored",
+                "type" => "success",
+            ],
+        ]);
     }
 }
