@@ -112,6 +112,10 @@ Route::group(
             ProductsController::class,
             "productsPerBrand",
         ])->name("admin.productsPerBrand");
+        Route::post("product/restore/{product}", [
+            ProductsController::class,
+            "productRestore",
+        ])->name("admin.productrestore");
         //Brand Routes
         Route::resource("brands", BrandsController::class);
         Route::post("brand/restore/{brand}", [

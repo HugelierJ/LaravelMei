@@ -241,6 +241,19 @@ class ProductsController extends Controller
             ]);
     }
 
+    public function productRestore($id)
+    {
+        Product::onlyTrashed()
+            ->where("id", $id)
+            ->restore();
+        return back()->with([
+            "alert" => [
+                "message" => "Product restored",
+                "type" => "success",
+            ],
+        ]);
+    }
+
     public function productsPerBrand($id)
     {
         $brands = Brand::all();

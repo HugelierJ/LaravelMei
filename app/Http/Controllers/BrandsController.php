@@ -109,7 +109,8 @@ class BrandsController extends Controller
 
         return back()->with([
             "alert" => [
-                "message" => "Brand Deleted",
+                "message" =>
+                    "Brand Deleted, along with products containing the brand",
                 "type" => "success",
             ],
         ]);
@@ -125,7 +126,8 @@ class BrandsController extends Controller
             ->restore();
         return back()->with([
             "alert" => [
-                "message" => "Brand restored",
+                "message" =>
+                    "Brand restored, along with products containing the brand",
                 "type" => "success",
             ],
         ]);
