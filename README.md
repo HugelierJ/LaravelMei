@@ -16,3 +16,4 @@ Make sure composer and node.js are installed on your machine.
 12) gebruik het volgende commando php artisan storage:link
 13) hierna gebruik je php artisan migrate:fresh --seed
 14) het admin account is : hugelierjason@gmail.com met wachtwooord: 12345678
+15) hierna is het project klaar om te testen dit doe je als volgt: npm run dev, en: php artisan serve
