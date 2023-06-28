@@ -17,6 +17,17 @@
                 <p class="text-danger fs-6">{{$message}}</p>
                 @enderror
             </div>
+            <div class="form-group mb-3">
+                <label for="gender_id">Product Gender</label>
+                <select type="text" name="gender_id" class="form-control" id="gender_id" >
+                    <option selected value="{{$product->gender->id}}">{{ $product->gender->name }}</option>
+                    @foreach($genders as $gender)
+                        @if($gender->id != $product->gender->id)
+                            <option value="{{ $gender->id }}">{{$gender->name}}</option>
+                        @endif
+                    @endforeach
+                </select>
+            </div>
             <div class="d-flex justify-content-around border border-1 my-3 py-3 bg-white">
                 <div class="form-group mb-3 d-flex flex-column">
                     <label>Brands</label>
@@ -83,9 +94,10 @@
                 @enderror
             </div>
             <div class="form-group">
-                <input type="file" name="photo_id" id="ChooseFile">
+                <label for="photo_id">Photo</label>
+                <input class="form-control" type="file" name="photo_id" id="photo_id">
             </div>
-            <button type="submit" class="ml-auto btn btn-dark d-flex justify-content-end me-3">UPDATE PRODUCTS</button>
+            <button type="submit" class="ml-auto btn btn-dark d-flex justify-content-end me-3">UPDATE PRODUCT</button>
         </form>
         <div class="col-4">
             <img class="img-fluid img-thumbnail"

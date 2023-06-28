@@ -34,6 +34,7 @@
             <th>Id</th>
             <th>Photo</th>
             <th>Categories</th>
+            <th>Gender</th>
             <th>Brand</th>
             <th>Name</th>
             <th>Body</th>
@@ -57,6 +58,7 @@
                             </span>
                     @endforeach
                 </td>
+                <td>{{ $product->gender->name }}</td>
                 <td>{{$product->brand->name}}</td>
                 <td>{{$product->name}}</td>
                 <td>{{Str::limit($product->body,20)}}</td>

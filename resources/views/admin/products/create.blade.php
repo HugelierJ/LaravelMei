@@ -15,6 +15,15 @@
             <p class="text-danger fs-6">{{$message}}</p>
             @enderror
         </div>
+        <div class="form-group mb-3">
+            <label for="gender_id">Product Gender</label>
+            <select type="text" name="gender_id" class="form-control" id="gender_id" >
+                <option selected disabled value="">Select a gender</option>
+                @foreach($genders as $gender)
+                    <option value="{{ $gender->id }}">{{$gender->name}}</option>
+                @endforeach
+            </select>
+        </div>
         <div class="d-flex justify-content-around border border-1 my-3 py-3 bg-white">
             <div class="form-group mb-3 d-flex flex-column">
                 <label>Brands</label>

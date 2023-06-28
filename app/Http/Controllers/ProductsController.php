@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Brand;
 use App\Models\Color;
+use App\Models\Gender;
 use App\Models\Photo;
 use App\Models\Product;
 use App\Models\ProductCategory;
@@ -59,10 +60,17 @@ class ProductsController extends Controller
         $product = Product::findOrFail($id);
         $brands = Brand::all();
         $colors = Color::all();
+        $genders = Gender::all();
         $productcategories = ProductCategory::all();
         return view(
             "admin.products.edit",
-            compact("product", "brands", "colors", "productcategories")
+            compact(
+                "product",
+                "brands",
+                "colors",
+                "productcategories",
+                "genders"
+            )
         );
     }
 
@@ -82,6 +90,8 @@ class ProductsController extends Controller
                 "body" => "required",
                 "price" => ["required", "numeric", "between:0.01,999.99"],
                 "stock" => ["required", "numeric", "between:0.01,999.99"],
+                "gender_id" => ["required", "numeric"],
+                "photo_id" => "required",
             ],
             [
                 "name.required" => "Product name is required",
@@ -94,11 +104,13 @@ class ProductsController extends Controller
                 "stock.required" => "Stock field is required",
                 "stock.numeric" => "Stock can only contain numbers",
                 "stock.between" => "Stock has to be positive",
+                "gender_id.required" => "Gender should be filled in",
+                "photo_id.required" => "Choose a photo",
             ]
         );
         $product = Product::findOrFail($id);
         $input = $request->all();
-        //        $input["slug"] = Str::slug($request->name, "-");
+
         // oude foto verwijderen
         //we kijken eerst of er een foto bestaat
         if ($request->hasFile("photo_id")) {
@@ -113,11 +125,13 @@ class ProductsController extends Controller
                 $input["photo_id"] = $oldPhoto->id;
             } else {
                 $photo = Photo::create(["file" => $path]);
+                dd("3");
                 $input["photo_id"] = $photo->id;
             }
         }
         $product->brand_id = $request->brand_id;
         $product->color_id = $request->color_id;
+        $product->gender_id = $request->gender_id;
         $product->update($input);
         $product->productcategories()->sync($request->productcategories, true);
         return redirect()
@@ -161,6 +175,7 @@ class ProductsController extends Controller
         );
         $product = new Product();
         $product->name = $request->name;
+        $product->gender_id = $request->gender_id;
         $product->slug = $product->name;
         $product->brand_id = $request->brand_id;
         $product->body = $request->body;
@@ -173,11 +188,9 @@ class ProductsController extends Controller
                 ->store("products");
 
             $photo = Photo::create(["file" => $path]);
-            //update photo_id (FK in users table)
             $product->photo_id = $photo->id;
         }
         $product->save();
-
         /*wegschrijven van meerder productcategorieen in de tussentabel*/
         $product->productcategories()->sync($request->productcategories, true);
 
@@ -203,9 +216,10 @@ class ProductsController extends Controller
         $productcategories = ProductCategory::all();
         $brands = Brand::all();
         $colors = Color::all();
+        $genders = Gender::all();
         return view(
             "admin.products.create",
-            compact("productcategories", "brands", "colors")
+            compact("productcategories", "brands", "colors", "genders")
         );
     }
 
