@@ -125,7 +125,6 @@ class ProductsController extends Controller
                 $input["photo_id"] = $oldPhoto->id;
             } else {
                 $photo = Photo::create(["file" => $path]);
-                dd("3");
                 $input["photo_id"] = $photo->id;
             }
         }
