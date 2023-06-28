@@ -127,4 +127,9 @@ Route::group(
     }
 );
 
+//Bad request -> return fallback route ipv error
+Route::fallback(function () {
+    return redirect()->route("frontend.index");
+});
+
 Auth::routes(["verify" => true]);

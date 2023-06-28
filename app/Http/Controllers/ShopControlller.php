@@ -31,7 +31,6 @@ class ShopControlller extends Controller
 
     public function checkout(Request $request)
     {
-        $stripe = new \Stripe\StripeClient(env("STRIPE_SECRET"));
         $lineItems = [];
         $totalPrice = 0;
         $cartItems = Cart::content();
