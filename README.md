@@ -13,7 +13,7 @@ Make sure composer and node.js are installed on your machine.
 9) nu gebruik je het volgende commando: php artisan key:generate
 10) verwijder nu eerst de assets map onder de public folder
 11) kijk nu bij storage/app/ of er hier een public directory is, als er geen aanwezig maak hier manueel een public directory aan
-12) gebruik het volgende commando php artisan storage:link
+12) gebruik het volgende commando: php artisan storage:link
 13) hierna gebruik je php artisan migrate:fresh --seed
 14) het admin account is : hugelierjason@gmail.com met wachtwooord: 12345678
 15) hierna is het project klaar om te testen dit doe je als volgt: npm run dev, en: php artisan serve
