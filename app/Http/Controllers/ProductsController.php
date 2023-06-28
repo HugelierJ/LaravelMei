@@ -126,10 +126,16 @@ class ProductsController extends Controller
                 $input["photo_id"] = $photo->id;
             }
         }
+        $product->name = $request->name;
+        $product->slug = $product->name;
+        $product->body = $request->body;
+        $product->price = $request->price;
+        $product->stock = $request->stock;
         $product->brand_id = $request->brand_id;
         $product->color_id = $request->color_id;
         $product->gender_id = $request->gender_id;
-        $product->update($input);
+        $product->save();
+
         $product->productcategories()->sync($request->productcategories, true);
         return redirect()
             ->route("products.index")
