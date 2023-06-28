@@ -10,7 +10,7 @@ Make sure composer and node.js are installed on your machine.
 6) maak nu de velden STRIPE_SECRET= , STRIPE_KEY= , STRIPE_WEBHOOK_SECRET= , CASHIER_CURRENCY=eur
 7) vul nu alle velden in aan de hand van je eigen STRIPE account
 8) hierna gebruik je het commando : npm install , hierop volgt : composer install
-9) nu gebruik php artisan key:generate
+9) nu gebruik je het volgende commando: php artisan key:generate
 10) verwijder nu eerst de assets map onder de public folder
 11) kijk nu bij storage/app/ of er hier een public directory is, als er geen aanwezig maak hier manueel een public directory aan
 12) gebruik het volgende commando php artisan storage:link
